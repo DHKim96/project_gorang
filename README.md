@@ -12,7 +12,7 @@
 ### 주요 기능
 1. **나의 냉장고 기능**
    - 식품명, 분류, 소비기한을 입력하고 DB화
-   - 소비기한이 임박한 식품에 대한 알림
+   - 소비기한이 임박한 식품에 대한 알림(구현 예정)
    - 입력한 식품들로 만들 수 있는 요리 추천 기능
 
 2. **커뮤니티 기능**
@@ -47,15 +47,21 @@
 - **Collaborates:**
   [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/)
 
-- **API:**
+### 사용 라이브러리 및 API (수정중)
+- **라이브러리:**
+   - 로깅 라이브러리 Log4j, SLF4J
+   - GSON
+- **API**
   다음카카오 주소 API, Google/Kakao/Naver 로그인 API, Coolsms 핸드폰 문자인증 API, 스마트택배 배송조회 API, 공공데이터 식품 영양정보 API
 
 
 
-## 페이지 구성 및 기능
+## 페이지 구성 및 기능(수정중)
 ![고랭 메인페이지](https://github.com/DHKim96/project_gorang/assets/156169335/e70d828c-02a2-4ef4-8bd5-2b0edce9e94d)
 
-![회원가입]!(https://github.com/DHKim96/project_gorang/assets/156169335/588647c1-929b-48a7-b956-0e3b90c46db4)
+![회원가입](https://github.com/DHKim96/project_gorang/assets/156169335/588647c1-929b-48a7-b956-0e3b90c46db4)
+
+
 
 
 ## 팀 소개
