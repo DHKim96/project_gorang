@@ -37,12 +37,12 @@
 로고와 메인 페이지 이미지를 통해 프로젝트의 핵심 기능과 비전을 확인할 수 있습니다.
 
 ## 개발 환경
-- **IDE:** Visual Studio Code
+- **IDE:** Visual Studio Code, Eclipse
 - **Frontends:** HTML, CSS, JavaScript
-- **Backends:** Node.js, Express
-- **Database:** MongoDB
+- **Backends:** Java, Spring FRAMEWORK
+- **Database:** PostgreSQL
 - **Collaborates:** GitHub
-- **API:** Google, Kakao, Naver 로그인 API, Coolsms 핸드폰 문자인증 API, 공공데이터 식품 영양정보 API
+- **API:** 다음카카오 주소 API, Google, Kakao, Naver 로그인 API, Coolsms 핸드폰 문자인증 API, 스마트택배 배송조회 API , 공공데이터 식품 영양정보 API
 
 ## 팀원별 개발 내용
 - **김동현**
@@ -61,7 +61,6 @@
 
 - **이강산**
   - 게시판 메인, 게시판 상세, 게시판 글쓰기
-  - 주요 기능 시연 및 API 활용
 
 ## 개발 후기
 팀원들은 프로젝트를 진행하며 많은 것을 배웠고, 서로 협력하여 성공적으로 프로젝트를 마무리했습니다. 이번 경험을 통해 더 나은 개발자가 되기 위한 발판을 마련했습니다.
