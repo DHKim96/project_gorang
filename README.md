@@ -29,7 +29,7 @@
 - **Frontends:**
 <img src="https://img.shields.io/badge/html5-E34F26?style=flat-square&logo=html5&logoColor=white"/><img src="https://img.shields.io/badge/css3-1572B6?style=flat-square&logo=css3&logoColor=white"/><img src="https://img.shields.io/badge/javascript-F7DF1E?style=flat-square&logo=javascript&logoColor=white"/><img src="https://img.shields.io/badge/jquery-0769AD?style=flat-square&logo=jquery&logoColor=white"/>
 - **Backends:**
-<img src="https://img.shields.io/badge/Java-F7DF1E?style=flat-square&logo=Java&logoColor=white"/><img src="https://img.shields.io/badge/Spring-6DB33F?style=flat-square&logo=Spring&logoColor=white"/><img src="https://img.shields.io/badge/Mybatis-6DB33F?style=flat-square&logo=Mybatis&logoColor=white"/>
+<img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/Spring-6DB33F?style=flat-square&logo=Spring&logoColor=white"/><img src="https://img.shields.io/badge/Mybatis-6DB33F?style=flat-square&logo=Mybatis&logoColor=white"/>
 - **Database:** PostgreSQL
 - **Collaborates:** GitHub
 - **API:** 다음카카오 주소 API, Google, Kakao, Naver 로그인 API, Coolsms 핸드폰 문자인증 API, 스마트택배 배송조회 API , 공공데이터 식품 영양정보 API
