@@ -48,7 +48,7 @@
   [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/)
 
 - **API:**
-  다음카카오 주소 API, Google, Kakao, Naver 로그인 API, Coolsms 핸드폰 문자인증 API, 스마트택배 배송조회 API, 공공데이터 식품 영양정보 API
+  다음카카오 주소 API, Google/Kakao/Naver 로그인 API, Coolsms 핸드폰 문자인증 API, 스마트택배 배송조회 API, 공공데이터 식품 영양정보 API
 
 
 
