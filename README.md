@@ -57,7 +57,7 @@
 
 
 ## 페이지 구성 및 기능(수정중)
-![고랭 메인페이지](https://github.com/DHKim96/project_gorang/assets/156169335/3f16f571-a02c-4cad-8b0e-8f2298a9defb)
+![고랭 메인페이지](https://github.com/DHKim96/project_gorang/assets/156169335/15a215c9-9d5e-4f19-8d72-56937f344145)
 
 ![회원가입](https://github.com/DHKim96/project_gorang/assets/156169335/588647c1-929b-48a7-b956-0e3b90c46db4)
 
