@@ -23,19 +23,27 @@
    - 식품 항목에 대한 판매자와 소비자 중개 기능
    - 관리자 모드에서 상품 관리 가능
    - 사용자가 상품을 스크랩하고 장바구니에 담아 구매 가능
-
-### 페이지 구성 및 기능
-![고랭 메인페이지](https://github.com/DHKim96/project_gorang/assets/156169335/e70d828c-02a2-4ef4-8bd5-2b0edce9e94d)
-
-
-
-## 개발 환경
+  
+### 개발 환경
 - **IDE:** Visual Studio Code, Eclipse
 - **Frontends:** HTML, CSS, JavaScript
 - **Backends:** Java, Spring FRAMEWORK
 - **Database:** PostgreSQL
 - **Collaborates:** GitHub
 - **API:** 다음카카오 주소 API, Google, Kakao, Naver 로그인 API, Coolsms 핸드폰 문자인증 API, 스마트택배 배송조회 API , 공공데이터 식품 영양정보 API
+
+<a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> </a> 
+<a href="https://www.figma.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/figma/figma-icon.svg" alt="figma" width="40" height="40"/> </a>
+<a href="https://www.w3.org/html/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/> </a> 
+<a href="https://www.java.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="40" height="40"/> </a>
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a> <a href="https://www.postgresql.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original-wordmark.svg" alt="postgresql" width="40" height="40"/> </a> 
+<a href="https://spring.io/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/springio/springio-icon.svg" alt="spring" width="40" height="40"/> </a>
+
+## 페이지 구성 및 기능
+![고랭 메인페이지](https://github.com/DHKim96/project_gorang/assets/156169335/e70d828c-02a2-4ef4-8bd5-2b0edce9e94d)
+
+![회원가입]!(https://github.com/DHKim96/project_gorang/assets/156169335/588647c1-929b-48a7-b956-0e3b90c46db4)
+
 
 ## 팀 소개
 - **김동현** (조장)
