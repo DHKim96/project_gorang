@@ -1,6 +1,6 @@
 # 고랭(GORANG)
 
-![GORANG 로고](./images/logo.png)
+![GORANG 로고](https://github.com/DHKim96/project_gorang/assets/156169335/706a5ed5-34d3-44cf-9cb0-9682ccc209bc)
 
 ## 프로젝트 정보
 - **프로젝트 기간:** 2024년 4월 29일 ~ 2024년 6월 24일
