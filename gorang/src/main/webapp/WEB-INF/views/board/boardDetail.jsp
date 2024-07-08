@@ -12,7 +12,7 @@
             <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
             <link rel="stylesheet" href="${contextPath }/resources/css/board/boardDetail.css">
             <script src="https://kit.fontawesome.com/68309de260.js" crossorigin="anonymous"></script>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
             <script src="${contextPath}/resources/js/board/boardDetail.js"></script>
         </head>
 

@@ -127,5 +127,9 @@ public class ProductDao {
 		return sqlSession.update("productMapper.decreaseScrapCount", scrapBoardDTO);
 	}
 
+	public int selectMemberNoByRefQnaNo(SqlSessionTemplate sqlSession, int refQnaNo) {
+		return sqlSession.selectOne("productMapper.selectMemberNoByQnaNo", refQnaNo);
+	}
+
 
 }

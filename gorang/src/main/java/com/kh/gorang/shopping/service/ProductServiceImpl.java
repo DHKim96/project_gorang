@@ -109,9 +109,16 @@ public class ProductServiceImpl implements ProductService{
 		return 0;
 	}
 
+	@Transactional(rollbackFor = {Exception.class})
 	@Override
 	public int insertProductQna(QnA q) {
-		return productDao.insertProductQna(sqlSession, q);
+		int result = productDao.insertProductQna(sqlSession, q);
+		int memberNo = 0;
+		if(result > 0 && q.getRefQnaNo() != 0) {
+			// 답글 달린 문의글 번호로 해당 문의글 작성자 번호 조회
+			memberNo = productDao.selectMemberNoByRefQnaNo(sqlSession, q.getRefQnaNo());
+		}
+		return memberNo;
 	}
 
 

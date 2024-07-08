@@ -423,5 +423,11 @@
   	</update>
   	
   	
+  	<select id="selectMemberNoByQnaNo" resultType="_int">
+  		select member_no
+  		from QNA
+  		where qna_no = #{refQnaNo}
+  	</select>
+  	
   
   </mapper>

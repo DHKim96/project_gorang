@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -140,6 +141,18 @@ public class StoreController {
 		return new Gson().toJson(p);
 	}
 	
+	
+	// ajax 로 상품 옵션 가져오는 메소드
+	@ResponseBody
+	@GetMapping(value = "ajaxOpt.po", produces = "application/json; charset=utf-8")
+	public String ajaxSelectProductOpts(@RequestParam("pno") String pno) {
+		int productNo = Integer.parseInt(pno);
+		ArrayList<ProductDetailOption> opts = productService.selectProductOptsByPno(productNo);
+		return new Gson().toJson(opts);
+	}
+	
+//	===================================== 리뷰 관련 컨트롤러 ============================================
+	
 	// ajax로 상품 리뷰 가져오는 메소드
 	@ResponseBody
 	@GetMapping(value = "ajaxReview.po")
@@ -163,73 +176,6 @@ public class StoreController {
 		return result;
 	}
 	
-	//ajax로 상품 문의 가져오는 메소드
-	@ResponseBody
-	@GetMapping(value = "ajaxQnA.po")
-	public Map<String, Object> ajaxSelectProductQnAs(@RequestParam("pno") String pno, @RequestParam(value="cpage", defaultValue= "1") String cpage) {
-		int cp = Integer.parseInt(cpage);
-		
-		int productNo = Integer.parseInt(pno);
-		
-		int qnasCount = productService.selectQnasCount(productNo);
-		
-		PageInfo pi = Pagination.getPageInfo(qnasCount, cp, 10, 10);
-		
-		ArrayList<QnA> qnas = productService.selectProductQnAsByPno(productNo, pi);
-		
-		Map<String, Object> result = new HashMap<>();
-		
-		result.put("qnas", qnas);
-		result.put("pi", pi);
-		
-		return result;
-	}
-	
-	// ajax 로 상품 옵션 가져오는 메소드
-	@ResponseBody
-	@GetMapping(value = "ajaxOpt.po", produces = "application/json; charset=utf-8")
-	public String ajaxSelectProductOpts(@RequestParam("pno") String pno) {
-		int productNo = Integer.parseInt(pno);
-		ArrayList<ProductDetailOption> opts = productService.selectProductOptsByPno(productNo);
-		return new Gson().toJson(opts);
-	}
-	
-	
-	@RequestMapping("insertQna.po")
-	public String insertProductQna(@RequestParam int writerNo, @RequestParam int refProductNo,
-								   @RequestParam int refPdoptNo, @RequestParam MultipartFile qnaPhotoUpfile,
-								   @RequestParam String qnaContent, @RequestParam(value="refQnaNo", required=false) int refQnaNo, HttpSession session) {
-		QnA q = new QnA();
-		
-		
-		if(!qnaPhotoUpfile.getOriginalFilename().equals("")) {
-			String changeFileName = saveFile(qnaPhotoUpfile, session, "/qna/product-qna/");
-			q.setQnaPhoto(changeFileName);
-		}
-		
-		q.setQnaContent(qnaContent);
-		q.setWriterNo(writerNo);
-		q.setRefProductNo(refProductNo);
-		q.setRefPdoptNo(refPdoptNo);
-		
-		if(refQnaNo != 0) {
-			q.setRefQnaNo(refQnaNo);
-		}
-				
-		int result = productService.insertProductQna(q);
-		
-		String str = "redirect:/detail.po?pno=" + refProductNo;
-		
-		if(result > 0) {
-			session.setAttribute("alertMsg", "문의 등록 성공.");
-			return str;
-		} else {
-			session.setAttribute("alertMsg", "문의 등록 실패");
-			return str;
-		}
-	}
-	
-//	===================================== 리뷰 관련 컨트롤러 ============================================
 	
 	@RequestMapping("insertReview.po")
 	public String insertProductReview(@RequestParam int refMemberNo, @RequestParam int refProductNo,
@@ -264,6 +210,56 @@ public class StoreController {
 		}
 	}
 	
+	//======================================= qna 관련 컨트롤러 ==========================================
+	
+	//ajax로 상품 문의 가져오는 메소드
+	@ResponseBody
+	@GetMapping(value = "ajaxQnA.po")
+	public Map<String, Object> ajaxSelectProductQnAs(@RequestParam("pno") String pno, @RequestParam(value="cpage", defaultValue= "1") String cpage) {
+		int cp = Integer.parseInt(cpage);
+		
+		int productNo = Integer.parseInt(pno);
+		
+		int qnasCount = productService.selectQnasCount(productNo);
+		
+		PageInfo pi = Pagination.getPageInfo(qnasCount, cp, 10, 10);
+		
+		ArrayList<QnA> qnas = productService.selectProductQnAsByPno(productNo, pi);
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result.put("qnas", qnas);
+		result.put("pi", pi);
+		
+		return result;
+	}
+	
+	
+	@ResponseBody
+    @PostMapping("/insertQna.po")
+    public int insertQna( @RequestParam("writerNo") int writerNo,
+            @RequestParam("refProductNo") int refProductNo,
+            @RequestParam("refPdoptNo") int refPdoptNo,
+            @RequestParam("qnaContent") String qnaContent,
+            @RequestParam("refQnaNo") int refQnaNo,
+            @RequestParam(value = "qnaPhotoUpfile", required = false) MultipartFile qnaPhotoUpfile,
+            HttpSession session) {      
+        
+        QnA qna = new QnA();
+        
+        if (qnaPhotoUpfile != null && !qnaPhotoUpfile.getOriginalFilename().isEmpty()) {
+            String changeFileName = saveFile(qnaPhotoUpfile, session, "/qna/product-qna/");
+            qna.setQnaPhoto(changeFileName);
+        }
+
+        qna.setWriterNo(writerNo);
+        qna.setRefProductNo(refProductNo);
+        qna.setRefPdoptNo(refPdoptNo);
+        qna.setRefQnaNo(refQnaNo);
+        qna.setQnaContent(qnaContent);
+                        
+        return productService.insertProductQna(qna); 
+    }
 	
 	// ================================== 장바구니 관련 컨트롤러 =========================================
 	

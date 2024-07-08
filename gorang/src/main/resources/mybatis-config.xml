@@ -61,7 +61,8 @@
  		<typeAlias type="com.kh.gorang.member.model.dto.MyPageReviewDTO" alias="MyPageReviewDTO" />
  		<typeAlias type="com.kh.gorang.recipe.model.dto.RecipeListDto" alias="RecipeListDto" />
  		<typeAlias type="com.kh.gorang.member.model.vo.RefrigeratorInsertDTO" alias="RefrigeratorInsertDTO"/>
- 		
+ 		<typeAlias type="com.kh.gorang.member.model.dto.NotifyDto" alias="NotifyDto"/>
+ 	
 	</typeAliases>
 	
 	<!-- 

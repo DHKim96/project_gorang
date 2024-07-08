@@ -135,7 +135,6 @@
             }
 
             #header-bottom-right-login-bottom{
-                width: 100%;
                 height: 58px;
                 display: flex;
                 flex-direction: row;
@@ -154,6 +153,31 @@
                     justify-content: center;
                     cursor: pointer;
                 }
+                   
+                .btn-group{
+                    width: 40px;
+                    height: 40px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                .dropdown-menu{
+                    width: 250px;
+                    padding: 10px;
+                    transform: translate3d(-250px, 30px, 0px) !important;
+                }
+
+                .dropdown-menu-ul{
+                    margin: 0px;
+                    padding: 0px;
+                }
+
+                .dropdown-menu-ul-li{
+                    font-size: 13px;
+                }
+
                     .headerProfileImg{
                         width: 40px;
                         height: 40px;

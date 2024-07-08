@@ -593,7 +593,7 @@ function putProductReviewList(res, contextPath){
 }
 
 // ============================= QNA 관련 메소드 ====================================
-/** 문의 구축하는 메소드 */
+/** 문의하기 모달 구축하는 메소드 */
 function putProductQnAList(pno, res){
   const qnas = res.qnas;
 
@@ -650,6 +650,36 @@ function putProductQnAList(pno, res){
     updatePagination(qnaPaginationArea, res.pi);
   }
 }
+
+/** form submit 대신 ajax 로 데이터 보내는 메소드 */
+function sendQnaByAjax() {
+  const modalForm = document.querySelector("#modal-qna-content");
+  const formUrl = modalForm.getAttribute("action");
+  const formData = new FormData(modalForm);
+
+  $.ajax({
+    url: formUrl,
+    type: 'POST',
+    data: formData,
+    enctype: 'multipart/form-data',
+    processData: false,
+    contentType: false,
+    cache: false,
+    success: function(res) {
+      console.log("송신 성공", res);
+      alert('문의가 성공적으로 제출되었습니다.');
+      if(res > 0) {
+        sendNotifyByAjax(res);
+      }
+      location.reload();
+    },
+    error: function(res) {
+      console.log("송신 실패", res);
+      alert('문의 제출에 실패했습니다. 다시 시도해주세요.');
+    }
+  });
+}
+
 
 /** qna 객체마다 qna 구축해주는 메소드 */
 function setProductQna(qnaContentTbody,qnaStatus, qna, isAdmin){
@@ -750,4 +780,25 @@ function inquireQuestion(opts, refQnaNo){
 function scrollToDiv(div) {
   const divOffsetTop = document.querySelector(div).offsetTop;
   window.scrollTo(0, divOffsetTop - 225);
+}
+
+
+// ======================== 알림 관련 메소드 ===================================
+function sendNotifyByAjax(memberNo){
+  let notify = {refMemberNo: memberNo,
+                notifyType: 3,
+                content: "문의글에 답변이 달렸습니다.",
+                notifyUrl: "detail.po?pno=" + pno
+                }
+  $.ajax({
+    url: "insertNotifyByAjax.me",
+    data: notify,
+    type: 'post',
+    success: function(res){
+      console.log("송신성공", res);
+    },
+    error: function(){
+      console.log("송신실패");
+    }
+  })
 }

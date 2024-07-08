@@ -63,7 +63,7 @@
             <!-- 금주의 레시피 -->
             <div id="weekly-best-recipe-container"  class="weekly-best-list-container">
                 <div class="list-top">
-                    <span class="list-title">금주의 레시피</span>
+                    <span class="list-title">이번 주 핫한 레시피</span>
                     <span class="show-more-span"><a href="${pageContext.request.contextPath}/list.re">더보기</a></span>
                 </div>
     
@@ -114,7 +114,7 @@
             <!-- 금주의 베스트 상품 -->
             <div id="weekly-best-product-container" class="weekly-best-list-container">
                 <div class="list-top">
-                    <span class="list-title">금주의 베스트 상품</span>
+                    <span class="list-title">주간 인기 상품</span>
                     <span class="show-more-span"><a href="${pageContext.request.contextPath}/list.po">더보기</a></span>
                 </div>
 
@@ -201,7 +201,7 @@
             <!-- 금주의 노하우 -->
             <div id="weekly-best-board-container" class="weekly-best-list-container">
                 <div class="list-top">
-                    <span class="list-title">금주의 노하우</span>
+                    <span class="list-title">요리 꿀팁 총집합</span>
                     <span class="show-more-span"><a href="${pageContext.request.contextPath}/main.bo?category=노하우">더보기</a></span>
                 </div>
 

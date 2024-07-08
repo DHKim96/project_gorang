@@ -69,6 +69,18 @@
     <collection property="pdForCart" resultMap="productResult"/>
     <collection property="pdOptForCart" resultMap="productDetailOptionResult"/>
 </resultMap>
+
+
+  <!-- 알림 -->
+  <resultMap type="NotifyDto" id="NotifyResult">
+  	<result column="notify_no" property="no"/>
+  	<result column="notify_isread" property="isRead"/>
+  	<result column="notify_type" property="notifyType"/>
+  	<result column="notify_content" property="content"/>
+  	<result column="notify_create_at" property="createAt"/>
+  	<result column="notify_member_no" property="refMemberNo"/>
+  	<result column="notify_url" property="notifyUrl"/>
+  </resultMap>
   
   
   
@@ -228,6 +240,39 @@
 	          #{optNo}
 	      </foreach>
 	</delete>
+	
+	  <!-- 알람 관련 매퍼 -->
+  <insert id="insertNotification">
+  	insert into notify
+  	(
+  		notify_type,
+  		notify_content,
+  		notify_url,
+  		notify_member_no
+  	)
+  	values
+  	(
+		#{notifyType},
+		#{content},
+		#{notifyUrl},
+		#{refMemberNo}
+  	)
+  </insert>
+  
+  <select id="selectNotificationsByMemberNo" resultMap="NotifyResult">
+   select
+   	   notify_no,
+	   notify_isread,
+	   notify_type,
+	   notify_content,
+	   notify_url,
+	   notify_create_at,
+	   notify_member_no
+	from notify
+	where notify_member_no = #{memberNo}
+	  and notify_isread = false
+	order by notify_create_at ASC
+  </select>
 
   
 </mapper>

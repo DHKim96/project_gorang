@@ -278,6 +278,10 @@ buildNumber.properties
 .history
 .ionide
 
+### DB ###
+*.csv
+*sql
+
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db

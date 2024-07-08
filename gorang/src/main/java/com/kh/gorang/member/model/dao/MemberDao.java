@@ -8,6 +8,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.gorang.member.model.dto.NotifyDto;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.ProductCart;
 
@@ -66,5 +67,13 @@ public class MemberDao {
 
 	public int phoneCheck(SqlSessionTemplate sqlSession, String phone) {
 		return sqlSession.selectOne("memberMapper.phoneCheck", phone);
+	}
+
+	public int insertNotification(SqlSessionTemplate sqlSession, NotifyDto notificationData) {
+		return sqlSession.insert("memberMapper.insertNotification", notificationData);
+	}
+
+	public ArrayList<NotifyDto> selectNotificationsByMemberNo(SqlSessionTemplate sqlSession, int memberNo) {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectNotificationsByMemberNo", memberNo);
 	}
 }
