@@ -61,7 +61,18 @@
                             </div>
                         </div>
                         <div class="registerCheck">
-                            <input type="button" value="중복확인" id="idCheck" style="pointer-events: none;">
+                            <input type="button" value="본인인증" id="member-email-auth" style="pointer-events: none;">
+                        </div>
+                    </div>
+                    <div class="registerSection" id="emailAuthSection" style="justify-content: center; display: none;">
+                        <div class="registerSpan timer" id="email-auth-timer"><h4></h4></div>
+                        <div class="register-inputForm" id="register-input-email-authNo">
+                            <input type="text" class="register-input" name="email-authNo" placeholder="인증번호를 입력해주세요." required>
+                            <div class="regi-notice-wrapper">
+                            </div>
+                        </div>
+                        <div class="registerCheck">
+                            <input type="button" id="member-email-auth-btn" value="인증하기">
                         </div>
                     </div>
                     <div class="registerSection">

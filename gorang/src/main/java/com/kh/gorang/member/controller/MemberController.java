@@ -6,6 +6,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,9 +30,15 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
-	
+	// 암호화 객체
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	// 메일 전송 객체
+	@Autowired
+	private JavaMailSender sender;
+	
+	@Value("${gmail.address}")
+	private String adminEmail;
 	
 	@Value("${coolsms.clientId}")
 	private String apiKey;
@@ -76,14 +84,44 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping("idCheck.me")
 	public String idCheck(String checkId) {
-		return memberService.idCheck(checkId) > 0 ? "NNNNN" : "NNNNY";
+		return memberService.idCheck(checkId) > 0 ? "NNNNY" : "NNNNN";
 	}
 	
+	// 유저 이메일로 메시지 전송
+	@ResponseBody
+	@RequestMapping("authEmail.me")
+	public String authEmail(String id, String authNo) {
+		// 메시지 생성
+		SimpleMailMessage message = new SimpleMailMessage();
+		
+		message.setSubject("[고랭] 이메일 인증번호가 도착했습니다.");
+		message.setText("고랭GORANG 인증번호는 [" + authNo + "] 입니다.");
+		
+		// 받는 사람
+		message.setTo(id);
+		
+		// 보내는 사람
+	    message.setFrom(adminEmail);
+				
+		sender.send(message);
+		
+		String str = "";
+		
+		try {
+			sender.send(message);
+			str = "success";
+		} catch (Exception exception) {
+			 str = "fail";
+		} 
+		
+		return str;
+	}
+		
 	// 닉네임 중복 체크
 	@ResponseBody
 	@RequestMapping("nameCheck.me")
 	public String nameCheck(String checkName) {
-		return memberService.nameCheck(checkName) > 0 ? "NNNNN" : "NNNNY";
+		return memberService.nameCheck(checkName) > 0 ? "NNNNY" : "NNNNN";
 	}
 	
 
