@@ -51,13 +51,14 @@
 - **라이브러리:**
    - 로깅 라이브러리 Log4j, SLF4J
    - GSON
+   - SMTP(메일 전송 관련 라이브러리)
 - **API**
   다음카카오 주소 API, Google/Kakao/Naver 로그인 API, Coolsms 핸드폰 문자인증 API, 스마트택배 배송조회 API, 공공데이터 식품 영양정보 API
 
 
 
 ## 페이지 구성 및 기능(수정중)
-![고랭 메인페이지](https://github.com/DHKim96/project_gorang/assets/156169335/e70d828c-02a2-4ef4-8bd5-2b0edce9e94d)
+![고랭 메인페이지](https://github.com/DHKim96/project_gorang/assets/156169335/15a215c9-9d5e-4f19-8d72-56937f344145)
 
 ![회원가입](https://github.com/DHKim96/project_gorang/assets/156169335/588647c1-929b-48a7-b956-0e3b90c46db4)
 
@@ -74,7 +75,7 @@
 - **김동현**
   - 구매 페이지, 사이드바, 헤더, 푸터
   - 나의 냉장고, 구매내역, 쇼핑 상세, 로그인, 회원가입
-  - Google, Kakao, Naver 로그인 API, Coolsms 핸드폰 문자인증 API
+  - Google, Kakao, Naver 로그인 API, Coolsms 핸드폰 문자인증 API, 이메일 인증 SMTP
 
 - **이동건**
   - 마이페이지 모두보기, 나의 게시글, 댓글 및 후기, 문의, 정보수정
