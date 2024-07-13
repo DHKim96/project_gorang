@@ -119,7 +119,6 @@ public class StoreController {
 	    ScrapBoardDTO scrapBoardDTO = new ScrapBoardDTO(productNo, memberNo);
 	    
 	    int existScrapProduct = productService.existScrapProduct(scrapBoardDTO);
-	    log.info("existScrapProduct={}",existScrapProduct);
 	    model.addAttribute("existScrapProduct",existScrapProduct);
 	    
 	    if (p == null) {
@@ -127,7 +126,6 @@ public class StoreController {
 	        return "redirect:/list.po";
 	    } else {
 	        model.addAttribute("p", p);
-	        log.info("model={}",model);
 	        return "shopping/productDetailForm";
 	    }
 	}
@@ -289,8 +287,6 @@ public class StoreController {
 	 	// 묶은 결과를 model.addAttribute 해서 jsp 로 넘김
 	 	model.addAttribute("groupedCarts", groupedCarts);
 	 	
-	 	System.out.println(groupedCarts);
-	 	
 		return "shopping/shoppingCartForm";
 	}
 	
@@ -356,8 +352,6 @@ public class StoreController {
 		}
 		
 		m.addAttribute("groupedOpts", groupedOpts);
-		
-		System.out.println(groupedOpts);
 		    
 	    return "shopping/shoppingOrderForm";
 	}
@@ -366,8 +360,7 @@ public class StoreController {
 	// 주문 데이터 처리하는 컨트롤러
 	@PostMapping(value = "insertOrder.po")
 	public String insertProductOrder(@RequestParam("orderDataJson") String orderDataJson, HttpSession session) {
-		System.out.println("Order Info JSON: " + orderDataJson);
-		
+	
 		// Gson을 사용하여 JSON 데이터를 처리
 	    Gson gson = new Gson();
 	    
@@ -387,10 +380,6 @@ public class StoreController {
 	   Type orderOptsType = new TypeToken<List<OrderPdopt>>(){}.getType();
 	   List<OrderPdopt> orderOpts = gson.fromJson(gson.toJson(orderData.get("orderOpts")), orderOptsType);
 	    
-	    System.out.println(orderInfo);
-	    System.out.println(orderOpts);
-	    
-	    
 	    int result = orderService.insertOrder(orderInfo, orderOpts);
 	    
 	    if(result == 0) {
@@ -402,22 +391,20 @@ public class StoreController {
 		return "redirect:/list.po";
 	}
 	
-		//상품 스크랩
-		@PostMapping("scrap.po")
-		@ResponseBody
-		public String scrapProduct(
-				ScrapBoardDTO scrapBoardDTO) {
-			
-			log.info("scrapBoardDTO={}", scrapBoardDTO);
-			
-			int scrapProductResult = productService.insertScrapProduct(scrapBoardDTO);
-			
-			if(scrapProductResult == 1) {
-				return "cancle_scrap";
-			} else if (scrapProductResult == 2) {
-				return "do_scrap";
-			} else {
-				return "undone";
-			}
+	//상품 스크랩
+	@PostMapping("scrap.po")
+	@ResponseBody
+	public String scrapProduct(
+			ScrapBoardDTO scrapBoardDTO) {
+		
+		int scrapProductResult = productService.insertScrapProduct(scrapBoardDTO);
+		
+		if(scrapProductResult == 1) {
+			return "cancle_scrap";
+		} else if (scrapProductResult == 2) {
+			return "do_scrap";
+		} else {
+			return "undone";
 		}
 	}
+}

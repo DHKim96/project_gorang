@@ -114,7 +114,7 @@
 
     /* 내용 아래영역 설정 */
     .myPage-board-content-bottom{
-        margin-top: 25px;
+        margin-top: 10px;
         display: flex;
         justify-content: space-between;
         font-size: 13px;

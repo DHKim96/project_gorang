@@ -19,6 +19,7 @@
   <!-- 댓글 리스트 DTO -->
   <resultMap type="CommentListDTO" id="commentListDTOResult">
   	<result column="COMMENT_NO" property="commentNo"/>
+  	<result column="MEMBER_NO" property="writerNo"/>
   	<result column="MEMBER_NICKNAME" property="commentWriter"/>
   	<result column="MEMBER_PROFILE" property="commentWriterImg"/>
   	<result column="COMMENT_CONTENT" property="commentContent"/>
@@ -39,6 +40,7 @@
   <select id="selectCommentList" resultMap="commentListDTOResult" parameterType="int">
 		SELECT 
 			C.COMMENT_NO,
+			C.MEMBER_NO,
 			M.MEMBER_NICKNAME,
 			M.MEMBER_PROFILE,
 			C.COMMENT_CONTENT,
@@ -53,7 +55,7 @@
 </select>
 
   <!-- 게시글 댓글 추가 -->
- <insert id="insertComment" parameterType="Comment">
+ <insert id="insertComment">
     INSERT INTO COMMENTS (
         BOARD_NO,
         COMMENT_CONTENT,

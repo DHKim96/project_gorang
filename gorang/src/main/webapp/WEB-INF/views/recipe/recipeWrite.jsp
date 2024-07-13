@@ -32,8 +32,8 @@
                 <img id="thumnailImg-real" src="" alt="" >
                 <input type="hidden" name="recipeMainPhoto" id="recipeMainPhoto" value="">
                 <input type="file" id="recipeMainPhotoFile" onchange="changeThumnailImg(this)">
-                <div id="recipe-write-img-middle-text">Upload recipe photo</div>
-                <div id="recipe-write-img-bottom-text">Show others your finished dish</div>
+                <div id="recipe-write-img-middle-text">레시피 대표 사진을 업로드해주세요</div>
+                <div id="recipe-write-img-bottom-text">사람들에게 여러분의 맛있는 음식을 보여주세요</div>
             </div>
 
 

@@ -44,7 +44,7 @@ public interface BoardService{
 	ArrayList<Comment> selectCommentList(int boardNo, PageInfo pi);
     
     // 게시글에 댓글 추가
-    int insertComment(Comment comment);
+    int insertComment(InsertCommentDTO insertCommentDTO);
     
     // 댓글 삭제
     int deleteComment(int commentNo);
@@ -58,9 +58,7 @@ public interface BoardService{
 
 	ArrayList<BoardListDTO> getBoardList(PageInfo pi, Map<String, Object> map);
 
-	ArrayList<CommentListDTO> getCommentList(Integer boardNo);
-
-	int insertReReply(InsertCommentDTO insertCommentDTO);
+	ArrayList<CommentListDTO> getCommentList(int boardNo);
 
 	String getExBoardThumbnail(int boardNo);
 

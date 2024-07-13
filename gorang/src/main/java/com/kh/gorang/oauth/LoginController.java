@@ -91,10 +91,8 @@ public class LoginController {
 				JsonObject memberInfo = JsonParser.parseString(responseBody).getAsJsonObject();
 				JsonObject resObj = memberInfo.getAsJsonObject("response");
 				
-				System.out.println(resObj);
 				//받아온 email과 데이터베이스의 email을 비교하여 가입유무 확인 후
 				//가입되어있다면 로그인, 아니라면 회원가입창으로 정보를 가지고 이동
-				
 				
 				String email = resObj.get("email").getAsString();
 				
@@ -184,7 +182,6 @@ public class LoginController {
 				System.out.println(result);
 				
 				JsonObject totalObj = JsonParser.parseString(result).getAsJsonObject();
-//				System.out.println(totalObj.get("access_token"));
 				
 				String token = totalObj.get("access_token").getAsString(); //정보접근을 위한 토큰
 				String header = "Bearer " + token;
@@ -280,7 +277,6 @@ public class LoginController {
 				System.out.println(result);
 				
 				JsonObject totalObj = JsonParser.parseString(result).getAsJsonObject();
-	//			System.out.println(totalObj.get("access_token"));
 				
 				String token = totalObj.get("access_token").getAsString(); //정보접근을 위한 토큰
 				String header = "Bearer " + token;
@@ -309,8 +305,7 @@ public class LoginController {
 				if(loginUser == null) { // 기존 회원 아닐 시
 					request.setAttribute("alertMsg", "기존 회원이 아니므로 회원가입을 진행해야 합니다.");
 					// 네이버로부터 받아 온 정보를 회원가입 페이지에 넘김
-//					{"id":"clZCIAwJUXyNrAaoiCFdfR21zbADrawS_eXS8y_iIyY","nickname":"옐로우피자땡긴다","profile_image":"https://phinf.pstatic.net/contact/20220116_170/16423399742620U7zU_JPEG/c0d0d928380213c0f71cf7fa4d16b561.jpg","age":"20-29","gender":"M","email":"dkansk4801@naver.com","mobile":"010-5374-8549","mobile_e164":"+821053748549","name":"김동현","birthday":"02-07","birthyear":"1996"}
-					// JsonObject 중 email, mobile, birthyear, birthday, gender, profile_image 정보를 넘기기
+					// JsonObject 중 email, profile_image 정보를 넘기기
 					request.setAttribute("email", resObj.get("email").getAsString());
                     request.setAttribute("profile_image", profileInfo.get("profile_image_url").getAsString());
                     

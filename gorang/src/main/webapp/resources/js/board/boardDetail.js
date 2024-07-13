@@ -1,115 +1,46 @@
-// $(document).ready(function () {
-//     // 게시글 로딩 시 조회수 증가
-//     increaseViewCount();
+document.addEventListener('DOMContentLoaded', ()=>{
+    // 스크랩 버튼 클릭 이벤트
+    document.querySelector("#scrap-div").addEventListener('click', (ev) => toggleScrapBoard(ev));
+    // 좋아요 버튼 클릭 이벤트
+    document.querySelector("#contentLike").addEventListener('click', (ev) => toggleLikeBoard(ev));
+    // 신고하기 버튼 클릭 이벤트
+    document.querySelector("#contentReport").addEventListener('click', handleModalBtnClick);
+    // 신고하기 제출 버튼 클릭 이벤트
+    document.querySelector("#modal-reportBtn").addEventListener('click', (ev) => reportBoard(ev));
 
-//     function increaseViewCount() {
-//         var boardNo = '${board.boardNo}'; // 현재 게시글 번호
-//         var visitedBoards = JSON.parse(localStorage.getItem('visitedBoards')) || [];
+    // 댓글 작성 버튼 클릭 이벤트
+    document.querySelector("#board-reply-button").addEventListener('click', (ev) => ajaxAddReply(ev));
 
-//         // 이미 조회한 게시글인지 확인
-//         if (!visitedBoards.includes(boardNo)) {
-//             $.ajax({
-//                 url: '${contextPath}/board/increaseViewCount',
-//                 type: 'POST',
-//                 contentType: 'application/json',
-//                 data: JSON.stringify({ boardNo: boardNo }),
-//                 success: function (response) {
-//                     console.log("View count increased successfully")
-//                     // 조회한 게시글 번호를 로컬 스토리지에 추가
-//                     visitedBoards.push(boardNo);
-//                     localStorage.setItem('visitedBoards', JSON.stringify(visitedBoards));
-//                 },
-//                 error: function (error) {
-//                     console.log("Error increasing view count:", error);
-//                 }
-//             });
-//         } else {
-//             console.log("Already visited this board. Skipping view count increase.");
-//         }
-//     }
-// });
-// function writeComment() {
-//     var commentContent = document.getElementById("commentContent").value;
+    ajaxForGetReplyList();
 
-//     // AJAX를 이용하여 서버로 댓글 내용을 전송
-//     $.ajax({
-//         type: "POST",
-//         url: "insertComment.bo", // 서버의 컨트롤러 매핑 주소
-//         data: { commentContent: commentContent }, // 댓글 내용을 전달
-//         success: function(response) {
-//             // 서버로부터의 응답 처리
-//             // 여기서 필요한 작업을 수행 (예: 댓글 목록 갱신 등)
-//         },
-//         error: function(xhr, status, error) {
-//             // 오류 처리
-//             console.error(xhr.responseText);
-//         }
-//     });
-// }
+    // 게시글 삭제 버튼 클릭 이벤트
+    handleBoardDeleteBtnClick();
+})
 
-function applyReplyDiv(element) {
-    const replyTargetDiv = element.closest('.userReplyWrap');
-    const commentNo = replyTargetDiv.querySelector('.comment-no').value;
-    const boardNo = replyTargetDiv.querySelector('.board-no').value;
-    const replyArea = document.querySelector('#ReplyArea');
-    const existReplyDiv = replyArea.querySelector('.reply-input');
 
-    if (!existReplyDiv) {
-        drawReReply(replyTargetDiv, commentNo, boardNo);
-    } else {
-        existReplyDiv.remove();
-        drawReReply(replyTargetDiv, commentNo, boardNo);
-    }
+
+
+//========================================================================= 유틸리티 ========================================================================================
+
+// 게시글 객체의 기본키 추출
+function getBoardNo(){
+    return document.querySelector("#contentTitle").getAttribute('data-boardNo');
 }
 
-function drawReReply(replyTarget, commentNo, boardNo) {
-    const replyInputDiv = document.createElement('div');
-    replyInputDiv.classList.add('reply-input');
-    replyInputDiv.innerHTML = `
-            <textarea class="rereply-textarea" placeholder="댓글을 입력하세요" maxlength="500" oninput="autoExpand(this)"></textarea>
-            <button type="button" class="submit-reply" data-refNo="`+ commentNo + `" data-boardNo="` + boardNo + `" onclick="ajaxAddReply(this)" >등록</button>
-        `;
-
-    replyTarget.insertAdjacentElement('afterend', replyInputDiv);
+// contextPath 추출
+function getContextPath(){
+    return sessionStorage.getItem("contextpath");
 }
 
-function ajaxAddReply(element) {
-    const commentContent = element.closest('.reply-input');
 
-    const refCommentNo = element.getAttribute('data-refNo');
-    const boardNo = element.getAttribute('data-boardNo');
-    const commentContentValue = commentContent.querySelector('.rereply-textarea').value;
+//========================================================================= 게시글 ========================================================================================
 
-    if(commentContentValue.trim() === "") {
-        alert("댓글내용을 입력해주세요");
-        return;
-    }
-
-    $.ajax({
-        url: 'insert.re',
-        type: 'post',
-        data: {
-            commentContent: commentContentValue,
-            boardNo: boardNo,
-            refCommentNo: refCommentNo
-        },
-        success: function (res) {
-            if (res === "done") {
-                window.location.reload();
-            }
-        },
-        error: function () {
-            console.log("댓글 달기 api 호출 실패");
-        }
-    })
-}
-
+/** 게시글 삭제 관련 메소드 */
 function deleteBoard(element) {
-
     const result = confirm("게시글을 삭제하시겠습니까?");
 
     if (result) {
-        const boardNo = element.getAttribute('data-boardNo');
+        const boardNo = getBoardNo();
 
         $.ajax({
             url: 'delete.bo',
@@ -131,117 +62,291 @@ function deleteBoard(element) {
             }
         })
     }
-
-
 }
 
-function removeReply(element) {
-    const commentNo = element.getAttribute('data-commentNo');
+/** 게시글 삭제하기 버튼 유효성 체크 후 클릭 이벤트 부여 */
+function handleBoardDeleteBtnClick(){
+    const boardDeleteBtn = document.querySelector("#board-delete-btn");
+    if(boardDeleteBtn){
+        boardDeleteBtn.removeEventListener('click', (ev) => deleteBoard(ev));
+        boardDeleteBtn.addEventListener('click', (ev) => deleteBoard(ev));
+    };
+}
 
+//========================================================================= 댓글 ========================================================================================
+
+
+/** 댓글 작성 ajax */
+function ajaxAddReply(ev) {
+    const replyInputDiv = ev.target.closest('.board-reply-input');
+    let refCommentNo = ev.target.getAttribute('data-refNo');
+    const boardNo = getBoardNo();
+    // 대댓글 작성 버튼으로 발생한 이벤트가 아닐시
+    if(!refCommentNo){
+        refCommentNo = 0;
+    }
+    const commentContentValue = replyInputDiv.querySelector('.reply-textarea').value;
+    
+    if(commentContentValue.trim() === "") {
+        alert("댓글내용을 입력해주세요");
+        return;
+    }
+    const comment = {
+        commentContent: commentContentValue,
+        boardNo: boardNo,
+        refCommentNo: refCommentNo
+    }
+
+    ajaxForInsertReply(comment);
+}
+
+/** 댓글 insert 하기 위한 ajax */
+function ajaxForInsertReply(data){
+    document.querySelector("#commentContent").value = "";
+
+    $.ajax({
+        url: 'insert.co',
+        type: 'post',
+        data,
+        success: (res) => {
+            if (res === "NNNNY") {
+                console.log("댓글 저장 성공");
+                ajaxForGetReplyList();
+            };
+        },
+        error: () => {console.log("댓글 달기 api 호출 실패");}
+    })
+}
+
+/** 댓글 select 해서 가져오는 ajax */
+function ajaxForGetReplyList(){
+    const boardNo = parseInt(getBoardNo());
+    $.ajax({
+        url: 'selectList.co',
+        data: { boradNo: boardNo },
+        success: (res) => {
+            // 댓글 영역 초기화
+            const replyArea = document.querySelector("#ReplyArea");
+            replyArea.innerHTML = "";
+            // 최초 실행 시 refNo 없음, level 0
+            drawReply(res, 0, 0);
+            // 대댓글 댓글 달기 버튼 클릭 이벤트
+            handleAddReplyBtnClick();
+            // 댓글 삭제 버튼 클릭 이벤트
+            handleReplyDeleteBtnClick();
+        },
+        error: () => {console.log("댓글 호출 실패");}
+    })
+}
+
+function drawReply(replyList, refNo, level){
+    // 댓글 div
+    const replyArea = document.querySelector("#ReplyArea");
+    // 댓글 객체 반복문
+    for(let reply of replyList){
+        // 현재 참조하고자 하는 부모 댓글에 해당하지 않으면 스킵. 따라서 무한 루프에서 벗어남
+        if(reply.refCommentNo != refNo){
+            continue;
+        }
+        const userReplyWrapDiv = document.createElement('div');
+        replyArea.appendChild(userReplyWrapDiv);
+        userReplyWrapDiv.setAttribute('class', 'userReplyWrap');
+        // 댓글 요소 생성 후 추가
+        // 대댓글일시 공백 생성
+        for(let i = 0; i < Math.min(level, 5); i++ ){
+            userReplyWrapDiv.appendChild(blank());
+        }
+        userReplyWrapDiv.appendChild(setReplyDiv(reply, level));
+        // 재귀함수 실시
+        drawReply(replyList, reply.commentNo, level + 1);
+    }
+}
+
+/** 대댓글일 시 댓글 앞에 공백 늘려주는 메소드 */
+function blank(){
+    const div = document.createElement('div');
+    div.setAttribute('class', 'comment-level');
+    return div;
+}
+
+/** 댓글 요소 생성해주는 메소드 */
+function setReplyDiv(reply, level){
+    const contextPath = getContextPath();
+    // 유저 정보
+    const loginUserNo = parseInt(document.querySelector("#scrap-div").getAttribute('data-userNo'));
+
+    // 댓글 작성자 정보, 내용 담은 div
+    const userReplyWriterInfoDiv = document.createElement('div');
+    userReplyWriterInfoDiv.setAttribute('class', 'userReplyWriterInfo');
+    // 댓글 작성자 프로필 사진 div
+    const userReplyWriterImgWrapDiv = document.createElement('div');
+    userReplyWriterInfoDiv.appendChild(userReplyWriterImgWrapDiv);
+    userReplyWriterImgWrapDiv.setAttribute('class', 'userReplyWriterImgWrap');
+    userReplyWriterImgWrapDiv.innerHTML = `<img src="${contextPath}/resources/uploadfile/memberProfile/${reply.commentWriterImg}">`;
+    // 댓글 내용 div
+    const userReplyContentWrapDiv = document.createElement('div');
+    userReplyWriterInfoDiv.appendChild(userReplyContentWrapDiv);
+    userReplyContentWrapDiv.setAttribute('class', 'userReplyContentWrap');
+    // 댓글 작성자 닉네임, 작성일, 대댓글 달기, 댓글 삭제 담은 div
+    const userReplyWriterDetailDiv = document.createElement('div');
+    userReplyContentWrapDiv.appendChild(userReplyWriterDetailDiv);
+    userReplyWriterDetailDiv.setAttribute('class', 'userReplyWriterDetail');
+    userReplyWriterDetailDiv.setAttribute('data-replyNo', reply.commentNo);
+    userReplyWriterDetailDiv.innerHTML = `<div class="userReplyWriterDetailId">${reply.commentWriter}</div>
+                                          <div class="userReplyWriterDetailDate"><span>${reply.commentDate}</span></div>`;
+    // 로그인했을시만 댓글 달기 활성화
+    if(loginUserNo != null){
+        userReplyWriterDetailDiv.innerHTML += `<div class="add-reply-btn hover-curser" id="ref-reply-btn" data-level=${level}>댓글 달기</div>`;
+        // 작성자일 경우에만 댓글 삭제 활성화
+        if(loginUserNo == reply.writerNo){
+            userReplyWriterDetailDiv.innerHTML += `<div data-commentNo="${reply.commentNo}" class="delete-reply-btn hover-curser">댓글 삭제</div>`;
+        }
+    }
+    // 댓글 내용
+    userReplyContentWrapDiv.innerHTML += `<div class="userReplyContent">
+                                                <div>${reply.commentContent}</div>
+                                            </div>`;
+    return userReplyWriterInfoDiv;
+}
+
+/** 모든 대댓글 댓글 달기 버튼에 이벤트 부여하는 메소드 */
+function handleAddReplyBtnClick(){
+    document.querySelectorAll('.add-reply-btn').forEach(replyBtn => {
+        const level = parseInt(replyBtn.getAttribute('data-level'));
+        replyBtn.removeEventListener('click', (ev) => applyReplyDiv(ev, level));
+        replyBtn.addEventListener('click', (ev) => applyReplyDiv(ev, level));
+    })
+}
+
+/** 대댓글 작성 공간 생성하는 메소드 */
+function applyReplyDiv(ev, level) {
+    const replyTargetDiv = ev.target.closest('.userReplyWrap');
+    const commentNo = replyTargetDiv.querySelector('.userReplyWriterDetail').getAttribute('data-replyNo');
+    const existReply = document.querySelector('.reply-input');
+    if(existReply){
+        existReply.remove();
+    }
+    const replyInputDiv = drawReReply(replyTargetDiv, commentNo, level);
+    // 대댓글 작성 div 의 등록 버튼 클릭 이벤트
+    replyInputDiv.querySelector(".submit-reply").addEventListener('click', (ev) => ajaxAddReply(ev));
+}
+
+/** 대댓글 input창 생성 메소드 */
+function drawReReply(replyTarget, commentNo, level) {
+    const replyInputDiv = document.createElement('div');
+
+    for (let i = 0; i < Math.min(level, 5) + 2; i++) {
+        replyInputDiv.appendChild(blank());
+    }
+
+    replyInputDiv.classList.add('reply-input');
+    replyInputDiv.classList.add('board-reply-input');
+
+    const textarea = document.createElement('textarea');
+    textarea.classList.add('rereply-textarea', 'reply-textarea');
+    textarea.setAttribute('placeholder', '댓글을 입력하세요');
+    textarea.setAttribute('maxlength', '500');
+    replyInputDiv.appendChild(textarea);
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.classList.add('submit-reply');
+    button.setAttribute('data-refNo', commentNo);
+    button.textContent = '등록';
+    replyInputDiv.appendChild(button);
+
+    replyTarget.insertAdjacentElement('afterend', replyInputDiv);
+    // 화면 다른 곳 클릭 시 대댓글 input 사라지게 하는 이벤트 핸들러
+    document.addEventListener('click', (ev) => {
+        // 클릭한 곳이 댓글 영역 이외의 곳이라면 삭제
+        if (!ev.target.closest('#ReplyArea')) {
+            document.querySelectorAll('.reply-input').forEach(input => {
+                input.remove();
+            });
+        }
+    });
+
+    return replyInputDiv;
+}
+
+
+
+/** 댓글 삭제 관련 메소드 */
+function removeReply(ev) {
+    const commentNo = ev.target.getAttribute('data-commentNo');
     $.ajax({
         url: 'delete.co',
         type: 'post',
-        data: {
-            commentNo: commentNo
-        },
-        success: function (res) {
+        data: {commentNo: commentNo},
+        success: (res) => {
             if (res === 'done') {
                 alert('댓글을 삭제하였습니다.');
                 window.location.reload();
             }
         },
-        error: function () {
-            console.log("댓글 삭제 api 호출 실패");
-        }
-
-
+        error: () => {console.log("댓글 삭제 api 호출 실패");}
     })
 }
 
-function toggleLikeBoard(element) {
-    const loginUserNo = element.getAttribute('data-userNo');
-    const boardNo = element.getAttribute('data-boardNo');
 
-    if (loginUserNo) {
-        $.ajax({
-            url: 'like.bo',
-            type: 'post',
-            data: {
-                boardNo: boardNo
-            },
-            success: function (res) {
-                if (res === 'cancle_like') {
-                    alert("좋아요 취소하셨습니다.");
-                } else if (res === 'do_like') {
-                    alert("좋아요를 누르셨습니다.")
-                } else {
-                    alert("좋아요를 실패하였습니다.");
-                }
-
-                window.location.reload();
-            },
-            error: function () {
-                console.log('좋아요 기능 api 호출 실패');
-            }
-
-
+/** 댓글 삭제 버튼 유효성 체크 후 클릭 이벤트 부여 */
+function handleReplyDeleteBtnClick(){
+    const replyDeleteBtns = document.querySelectorAll(".delete-reply-btn");
+    if(replyDeleteBtns){
+        replyDeleteBtns.forEach(replyDeleteBtn => {
+            if(replyDeleteBtn){
+                replyDeleteBtn.addEventListener('click', (ev) => removeReply(ev));
+            };
         })
-    } else {
-        alert("로그인이 필요한 기능입니다.");
-    }
-
+    };
 }
 
-function toggleScrapBoard(element) {
-    const loginUserNo = element.getAttribute('data-userNo');
-    const boardNo = element.getAttribute('data-boardNo');
+//========================================================================= 신고하기 ========================================================================================
 
-    if(loginUserNo) {
-        $.ajax({
-            url:'scrap.bo',
-            type: 'post',
-            data: {
-                boardNo: boardNo
-            },
-            success: function (res) {
-                if (res === 'cancle_scrap') {
-                    alert("스크랩을 취소하셨습니다.");
-                } else if (res === 'do_scrap') {
-                    alert("스크랩을 완료하였습니다.")
-                } else {
-                    alert("스크랩을 실패하였습니다.");
-                }
-
-                window.location.reload();
-            
-            
-            }, 
-            error: function() {
-                console.log('상품 스크랩 api 호출 실패');
-            }
-
-
-        })
-    } else {
-        alert("로그인이 필요한 기능입니다.");
-    }
-}
-
+/** 신고하기 모달 내 체크박스 관련 메소드 */
 function checkSelectedOneOption(event) {
     const checkBoxes = document.querySelectorAll('.reason');
-
     checkBoxes.forEach(function (checkBox) {
         checkBox.checked = false;
     })
-
     event.target.checked = true;
 }
 
-function reportBoard(element) {
-    const boardNo = element.getAttribute('data-boardNo');
+/** 신고하기 모달 관련 메소드 */
+function handleModalBtnClick(){
+    const modal = document.getElementById("myModal");
+    const modalBtn = document.getElementById("contentReport");
 
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    modalBtn.addEventListener('click', () => {
+        modal.style.display = "block";
+        const boardTitle = document.querySelector('#board-title').innerText;
+        const reportBoardTitle = document.querySelector('#report-board-title');
+        reportBoardTitle.value=boardTitle;
+    })
+
+    handleModalSpanClick(modal);
+}
+
+/** 신고하기 모달 내 close 버튼 클릭 시 모달 닫는 메소드 */
+function handleModalSpanClick(modal){
+    const modalSpan = document.getElementsByClassName("close")[0];
+    modalSpan.addEventListener('click', ()=>{
+        modal.style.display = "none";
+    })
+}
+
+
+/** 신고 관련 내용 ajax 통해 백으로 보내는 함수 */
+function reportBoard(element) {
     const checkedReasonDiv = document.querySelector('.reason:checked');
     const reportContentDiv = document.querySelector('#report-content');
+    const boardNo = getBoardNo();
     
     if(!checkedReasonDiv) {
         alert("신고사유를 골라주세요.");
@@ -275,21 +380,68 @@ function reportBoard(element) {
     
 }
 
-function validateComment() {
-    const commentContent = document.querySelector('#commentContent').value.trim();
-    console.log(commentContent);
-    console.log(commentContent.length);
+//========================================================================= 스크랩 / 좋아요 ========================================================================================
 
-    if(commentContent === "") {
-        alert("댓글 내용이 없습니다. 댓글 내용을 입력해주세요");
-        return false;
+/** 좋아요 후 ajax로 백에 보내는 함수 */
+function toggleLikeBoard(ev) {
+    ev.preventDefault();
+    const loginUserNo = ev.target.getAttribute('data-userNo');
+    const boardNo = getBoardNo();
+
+    if (loginUserNo) {
+        $.ajax({
+            url: 'like.bo',
+            type: 'post',
+            data: {
+                boardNo: boardNo
+            },
+            success: function (res) {
+                if (res === 'cancle_like') {
+                    alert("좋아요 취소하셨습니다.");
+                } else if (res === 'do_like') {
+                    alert("좋아요를 누르셨습니다.")
+                } else {
+                    alert("좋아요를 실패하였습니다.");
+                }
+                window.location.reload();
+            },
+            error: function () {
+                console.log('좋아요 기능 api 호출 실패');
+            }
+        })
+    } else {
+        alert("로그인이 필요한 기능입니다.");
     }
 
-    return true;
 }
 
-function autoExpand(element) {
-    console.log(element);
-    element.style.height = 'auto'; // 높이를 자동으로 설정하여 초기화
-    element.style.height = (element.scrollHeight) + 'px'; // 스크롤 높이에 따라 높이를 재설정
+/** 스크랩 후 ajax 로 back 에 보내는 함수 */
+function toggleScrapBoard(element) {
+    const loginUserNo = element.getAttribute('data-userNo');
+    const boardNo = getBoardNo();
+
+    if(loginUserNo) {
+        $.ajax({
+            url:'scrap.bo',
+            type: 'post',
+            data: {
+                boardNo: boardNo
+            },
+            success: function (res) {
+                if (res === 'cancle_scrap') {
+                    alert("스크랩을 취소하셨습니다.");
+                } else if (res === 'do_scrap') {
+                    alert("스크랩을 완료하였습니다.")
+                } else {
+                    alert("스크랩을 실패하였습니다.");
+                }
+                window.location.reload();
+            }, 
+            error: function() {
+                console.log('상품 스크랩 api 호출 실패');
+            }
+        })
+    } else {
+        alert("로그인이 필요한 기능입니다.");
+    }
 }

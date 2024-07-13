@@ -30,10 +30,7 @@ function moveLocation(path){
 
 function search(value) {
     // alert(value);
-    if(value.trim()=== "") {
-        return;
-    }
-
+    if(value.trim()=== "") return;
     window.location.href = "search.re?content=" + value;
 }
 

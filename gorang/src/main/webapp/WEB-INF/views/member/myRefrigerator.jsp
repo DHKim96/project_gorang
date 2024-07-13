@@ -169,7 +169,7 @@
                             <table>
                                 <thead>
                                     <tr class="modal-thead-tr">
-                                        <th style="width: 40px;"><input type="checkbox" id="modal-recipe-allCheckBox"></th>
+                                        <th style="width: 40px; text-align: center;"><input type="checkbox" id="modal-recipe-allCheckBox"></th>
                                         <th style="width: 200px;">식품명</th>
                                         <th style="width: 160px;">소비기한</th>
                                         <th style="width: 160px;">입고일</th>
@@ -292,7 +292,7 @@
                             <table id="overflow-table">
                                 <thead>
                                     <tr id="list-title2" class="modal-thead-tr">
-                                        <th style="width: 40px; height: 100%;"><input type="checkbox"
+                                        <th style="width: 40px; height: 100%; text-align: center;"><input type="checkbox"
                                                 id="modal-ingre-checkBox"></th>
                                         <th id="add-list-title1" style="width: 60px;">번호</th>
                                         <th id="add-list-title2" style="width: 200px;">식품명</th>
@@ -322,7 +322,7 @@
                 <!-- 영양성분표 모달 -->
                 <div class="modal fade nutrition-modal" id="nutritionModal" tabindex="-1" role="dialog"
                     aria-labelledby="nutritionModalLabel" aria-hidden="true">
-                    <div class="modal-dialog nutrition-modal-container" role="document">
+                    <div class="modal-dialog nutrition-modal-container" role="document" style="position: absolute;">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="nutritionModalLabel">영양정보</h5>

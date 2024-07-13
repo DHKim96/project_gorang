@@ -1,5 +1,9 @@
 @charset "UTF-8";
 /* 유저 프로필 정보 영역 */
+a{
+    color: inherit;
+}
+
 #user-info {
     height: 360px;
     margin-bottom: 60px;
@@ -8,10 +12,6 @@
 /* 유저 좌측 메뉴바 영역 */
 #user-menu {
     height: 613px;
-}
-
-#left-body-area ul{
-    
 }
 
 
@@ -142,13 +142,6 @@
     font-weight: bold;
 }
 
-/* 나의 게시글 간격 설정 */
-/* #myboard-list {
-    margin-top: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-} */
 
 /* 나의 게시글 내부 li태그 글씨 설정*/
 .myboard-list-in {

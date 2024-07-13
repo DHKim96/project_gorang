@@ -414,11 +414,10 @@ public class MyPageServiceImpl implements MyPageService{
 			refriListforDelete.add(refri);
 		}
 		
-		System.out.println(refriListforDelete);
-		
 		return myPageDao.deleteRefrigerator(sqlSession, refriListforDelete);
 	}
-
+	
+	@Transactional(readOnly = true)
 	@Override
 	public ArrayList<RecipeListDto> selectRecipeListByRecipeNo(String recipeNums) {
 		

@@ -529,7 +529,9 @@ function sendIngreByAjax() {
                         }
             
                         // 식품명
-                        const refName = modalIngrediTr.querySelector(".fixed-width2").innerHTML;
+                        const refNameOrigin = modalIngrediTr.querySelector(".fixed-width2").innerHTML;
+                        // '_'이후의 문자열만 추출
+                        const refName = refNameOrigin.substring(refNameOrigin.indexOf('_')+1);
 
                         //대분류코드
                         let refKindNo = modalIngrediTr.querySelector(".fixed-width5").getAttribute("data-value");

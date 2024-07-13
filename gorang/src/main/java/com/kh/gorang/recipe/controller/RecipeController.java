@@ -137,16 +137,14 @@ public class RecipeController {
 	
 	@RequestMapping("insertRecipe.re")
 	public String insertRecipe(Recipe rcp, RecipeInsertDTO recipeInsertDTO ,HttpSession session, Model model){
-		System.out.println("\n Recipe:" +  rcp +"\n");
-		System.out.println("\n"+recipeInsertDTO+"\n");
-		
+
 		//비디오 주소 처리
 		if(rcp.getRecipeVideo() != null) {
 			System.out.println("영상 테스트:"+extractYouTubeId(rcp.getRecipeVideo()));
 			rcp.setRecipeVideo(extractYouTubeId(rcp.getRecipeVideo()));
 		}
-		int result =recipeService.insertRecipeInsertDTO(rcp, recipeInsertDTO, session);
-		System.out.println(result);
+		int result = recipeService.insertRecipeInsertDTO(rcp, recipeInsertDTO, session);
+
 		if(result>0) {	
 			model.addAttribute("alertMsg","성공적으로 작성되었습니다.");
 			return "redirect:/list.re";

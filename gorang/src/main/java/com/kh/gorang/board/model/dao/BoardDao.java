@@ -69,8 +69,8 @@ public class BoardDao{
         return (ArrayList) sqlSession.selectList("commentMapper.selectCommentList", boardNo, rowBounds);
     }
 
-    public int insertComment(SqlSessionTemplate sqlSession, Comment comment) {
-        return sqlSession.insert("commentMapper.insertComment", comment);
+    public int insertComment(SqlSessionTemplate sqlSession, InsertCommentDTO InsertCommentDTO) {
+        return sqlSession.insert("commentMapper.insertComment", InsertCommentDTO);
     }
 
     public int deleteComment(SqlSessionTemplate sqlSession, int commentNo) {
@@ -91,13 +91,12 @@ public class BoardDao{
 	}
 
 	// 댓글 조회
-	public ArrayList<CommentListDTO> getCommentList(SqlSessionTemplate sqlSession, Integer boardNo) {
+	public ArrayList<CommentListDTO> getCommentList(SqlSessionTemplate sqlSession, int boardNo) {
 		return (ArrayList)sqlSession.selectList("commentMapper.selectCommentList", boardNo);
 	}
 
 	
 	public int insertReReply(SqlSessionTemplate sqlSession, InsertCommentDTO insertCommentDTO) {
-		// TODO Auto-generated method stub
 		return sqlSession.insert("commentMapper.insertReReply", insertCommentDTO);
 	}
 

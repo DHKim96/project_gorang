@@ -64,13 +64,10 @@ public class MemberServiceImpl implements MemberService{
 		for(ProductCart productCart : pdCarts) {
 		// 2. 쪼갠 장바구니 객체를 유저가 기존 장바구니에 저장돼 있는지 조회 통해 저장 여부 확인
 			ProductCart productCartRes = memberDao.selectProductCart(sqlSession, productCart);
-			System.out.println("@@@@@@@@@@@@ 장바구니 서비스단  productCartRes: " + productCartRes);
 		// 3. 만약 조회 결과가 없다면 insert, 조회 결과가 있다면 update(선택한 수량을 더해줌)
 			if(productCartRes == null) {
-				System.out.println("@@@@@@@@@@@@@@@@ 조회결과 없음");
 				result *= memberDao.insertProductCart(sqlSession, productCart);
 			} else {
-				System.out.println("@@@@@@@@@@@@@@@@@@ 조회결과 존재");
 				result *= memberDao.updateProductCart(sqlSession, productCart);
 			}
 		}

@@ -30,15 +30,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const isValidTotalAddress = validateTotalAddress();
     const isValidTerm = validateTerm();
 
-    console.log(isValidEmail)
-    console.log(isValidPwd)
-    console.log(isValidPwdConfirm)
-    console.log(isValidNickname)
-    console.log(isValidPhoneNumber)
-    console.log(isValidBirthdate)
-    console.log(isValidTotalAddress)
-    console.log(isValidTerm)
-
     if (isValidEmail && isValidPwd && isValidPwdConfirm && isValidNickname && isValidPhoneNumber && isValidBirthdate && isValidTotalAddress && isValidTerm) {
         document.querySelector("#register-form").submit();
     }
@@ -107,7 +98,6 @@ class EmailAuthentication{
         this.authBtn = $('#member-email-auth-btn'); // 인증번호 체크 버튼
 
         this.sendBtn.on('click',()=>{
-            console.log("클릭");
             this.sendAuthNum();
         });
 
@@ -123,7 +113,7 @@ class EmailAuthentication{
     sendAuthNum = async function(){
         const email = $("input[name='memberEmail']").val();
         
-        // 핸드폰 번호 본인인증 클릭 시 db 에서 체크하도록
+        // 이메일 본인인증 클릭 시 db 에서 체크하도록
         const isEmailRegistered = await new Promise((resolve) => {
             checkEmailAjax({checkId: email}, res => {
                 if(res === "NNNNY"){
@@ -136,11 +126,10 @@ class EmailAuthentication{
             });
         });
 
-        if (isEmailRegistered) {
-            return;  // 이미 가입한 이메일인 경우 이후 코드 실행 중단
-        }
-
-
+        if (isEmailRegistered) { // 이미 가입한 이메일인 경우 이후 코드 실행 중단
+            return;
+        } 
+    
         if(this.isSend){
             const result = confirm('재전송 하시겠습니까?');
             if(!result){ // 재전송 거절 시
@@ -158,18 +147,8 @@ class EmailAuthentication{
         sendEmailAuthNoAjax({authNo: this.authNo, id: email}, res => {
             if(res === "success"){
                 alert("인증번호가 발송되었습니다.")
-                console.log("인증번호 : " + this.authNo);
-                console.log("전송한 이메일 : " + email);
-
-                this.timer.css("color", "red");
-                this.authBtn.prop('disabled', false);
-                this.input.prop('readonly', false).val('').focus();
-
-                this.isSend = true;
                 this.startTimer(181); // 3분 타이머 시작
             } else {
-                console.log("전송한 이메일 : " + email);
-                console.log(res);
                 this.authNo = '';
             }
         });
@@ -206,6 +185,12 @@ class EmailAuthentication{
     };
 
     startTimer(duration){
+        this.timer.css("color", "red");
+        this.authBtn.prop('disabled', false);
+        this.input.prop('readonly', false).val('').focus();
+
+        this.isSend = true;
+
         let timeLeft = duration;
         this.timerId =  setInterval(() => {
             if(timeLeft <= 0){
@@ -364,7 +349,6 @@ class PhoneAuthentication{
 
     sendAuthNum = async function(){
         const phone = $("input[name='memberPhone']").val();
-        
         // 핸드폰 번호 본인인증 클릭 시 db 에서 체크하도록
         const isPhoneRegistered = await new Promise((resolve) => {
             checkPhoneNumberAjax({phone: phone}, res => {
@@ -378,10 +362,7 @@ class PhoneAuthentication{
             });
         });
 
-        if (isPhoneRegistered) {
-            return;  // 이미 가입한 전화번호인 경우 이후 코드 실행 중단
-        }
-
+        if (isPhoneRegistered) return;  // 이미 가입한 전화번호인 경우 이후 코드 실행 중단
 
         if(this.isSend){
             const result = confirm('재전송 하시겠습니까?');
@@ -400,23 +381,16 @@ class PhoneAuthentication{
         sendPhoneAuthNoAjax({authNo: this.authNo, phone: phone}, res => {
             if(res === "success"){
                 alert("인증번호가 발송되었습니다.")
-                console.log("인증번호 : " + this.authNo);
-                console.log("전송한 휴대폰 번호 : " + phone);
-
-                this.timer.css("color", "red");
-                this.authBtn.prop('disabled', false);
-                this.input.prop('readonly', false).val('').focus();
-
-                this.isSend = true;
                 this.startTimer(181); // 3분 타이머 시작
             } else {
-                console.log("전송한 휴대폰 번호 : " + phone);
                 alert('전송 실패');
                 this.authNo = '';
             }
         });
 
     };
+
+    
 
     checkAuthNum(){
         const inputCode = this.input.val();
@@ -446,6 +420,10 @@ class PhoneAuthentication{
     };
 
     startTimer(duration){
+        this.timer.css("color", "red");
+        this.authBtn.prop('disabled', false);
+        this.input.prop('readonly', false).val('').focus();
+        this.isSend = true;
         let timeLeft = duration;
         this.timerId =  setInterval(() => {
             if(timeLeft <= 0){

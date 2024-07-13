@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.gorang.board.model.dao.BoardDao;
 import com.kh.gorang.board.model.dto.BoardListDTO;
@@ -82,10 +83,17 @@ public class BoardServiceImpl implements BoardService {
     public ArrayList<Comment> selectCommentList(int boardNo, PageInfo pi) {
         return boardDao.selectCommentList(sqlSession, boardNo, pi);
     }
-
+    
+    @Transactional(rollbackFor = {Exception.class})
     @Override
-    public int insertComment(Comment comment) {
-        return boardDao.insertComment(sqlSession, comment);
+    public int insertComment(InsertCommentDTO insertCommentDTO) {
+    	int result = 0;
+    	if(insertCommentDTO.getRefCommentNo() == 0) { // 그냥 원댓글 전용
+    		result = boardDao.insertComment(sqlSession, insertCommentDTO);
+    	} else { // 대댓글 insert 전용
+    		result = boardDao.insertReReply(sqlSession, insertCommentDTO);
+    	} 
+    	return result;
     }
 
     @Override
@@ -105,13 +113,8 @@ public class BoardServiceImpl implements BoardService {
 
 	// 댓글 리스트 조회
 	@Override
-	public ArrayList<CommentListDTO> getCommentList(Integer boardNo) {
+	public ArrayList<CommentListDTO> getCommentList(int boardNo) {
 		return boardDao.getCommentList(sqlSession, boardNo);
-	}
-
-	@Override
-	public int insertReReply(InsertCommentDTO insertCommentDTO) {
-		return boardDao.insertReReply(sqlSession, insertCommentDTO);
 	}
 
 	@Override

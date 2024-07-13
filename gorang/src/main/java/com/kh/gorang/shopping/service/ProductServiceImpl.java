@@ -155,8 +155,6 @@ public class ProductServiceImpl implements ProductService{
 		
 		int existScrapProduct = productDao.existScrapProduct(sqlSession, scrapBoardDTO);
 		
-		log.info("existScrapProduct={}", existScrapProduct);
-		
 		if(existScrapProduct == 0) {
 			int insertScrapProduct = productDao.insertScrapProduct(sqlSession, scrapBoardDTO);
 			
@@ -189,12 +187,7 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public int existScrapProduct(ScrapBoardDTO scrapBoardDTO) {
-		
-		int result = productDao.existScrapProduct(sqlSession, scrapBoardDTO);
-		log.info("scrapBoardDTO={}", scrapBoardDTO);
-		log.info("result={}", result);
-		
-		return result;
+		return productDao.existScrapProduct(sqlSession, scrapBoardDTO);
 	}
 
 

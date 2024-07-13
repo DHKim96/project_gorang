@@ -17,7 +17,6 @@ table{
 /* body전체 영역 */
 #body-area {
     justify-content: center;
-    align-items: center;
     margin: 80px 0;
     display: flex;
     width: 100%;
@@ -250,6 +249,7 @@ tbody td:not(:first-child ) {
 #modal-recipe-selectedIngre div{
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 8px;
 }
 

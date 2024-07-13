@@ -86,8 +86,10 @@ public class BoardController {
 
 	    Board board = boardService.selectBoard(boardNo);
 	    
-	    if(session.getAttribute("loginUser") != null) {
-	    	int memberNo = ((Member)session.getAttribute("loginUser")).getMemberNo();
+	    Member m = (Member) session.getAttribute("loginUser");
+	    
+	    if(m != null) {
+	    	int memberNo = m.getMemberNo();
 		    Map<String, Object> map = new HashMap<String, Object>();
 			map.put("memberNo", memberNo);
 			map.put("boardNo", boardNo);
@@ -150,22 +152,19 @@ public class BoardController {
 		}
 
 	}
-	//댓글 쓰기
-	@PostMapping("insert.co")
-	public String insertComment(
-			Comment comment,
-			Model model){
-		
-		
-	    int result = boardService.insertComment(comment);
-	    if (result > 0) {
-	        return "redirect:/detail.bo?boardNo=" + comment.getBoardNo();
-	    } else {
-	        model.addAttribute("errorMsg", "댓글 작성 실패");
-	        return "redirect:/detail.bo?boardNo=" + comment.getBoardNo();
-	    }
-	    
-	}
+//	//댓글 쓰기
+//	@ResponseBody
+//	@RequestMapping("insert.co")
+//	public String insertComment(Comment comment,Model model){
+//	    int result = boardService.insertComment(comment);
+//	    if (result > 0) {
+//	        return "redirect:/detail.bo?boardNo=" + comment.getBoardNo();
+//	    } else {
+//	        model.addAttribute("errorMsg", "댓글 작성 실패");
+//	        return "redirect:/detail.bo?boardNo=" + comment.getBoardNo();
+//	    }
+//	    
+//	}
 	
 	@PostMapping("content.bo")
 	@ResponseBody
@@ -179,24 +178,28 @@ public class BoardController {
 		return new Gson().toJson(changeNameList);
 	}
 	
-	@PostMapping("insert.re")
 	@ResponseBody
-	public String insertReReply(
-			HttpSession session,
-			InsertCommentDTO insertCommentDTO) {
+	@RequestMapping("insert.co")
+	public String insertReReply( HttpSession session, InsertCommentDTO insertCommentDTO) {
+		int result = 0;
 		
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		insertCommentDTO.setMemberNo(loginUser.getMemberNo());		
+		Member m = (Member)session.getAttribute("loginUser");
+		insertCommentDTO.setMemberNo(m.getMemberNo());
 		
-		int result = boardService.insertReReply(insertCommentDTO);
-		
+		result = boardService.insertComment(insertCommentDTO);
 		
 		if(result > 0) {
-			return "done";
+			return "NNNNY";
 		} else {
-			return "undone";
+			return "NNNNN";
 		}
 		
+	}
+	
+	@ResponseBody
+	@RequestMapping("selectList.co")
+	public ArrayList<CommentListDTO> getCommentListByAjax(int boradNo){
+		return boardService.getCommentList(boradNo);
 	}
 	
 	@GetMapping("update-form.bo") 

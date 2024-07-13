@@ -11,24 +11,21 @@ window.onload = function(){
     //네이버로그인설정
     const naverLoginBtn = document.getElementById('naver-login');
     naverLoginBtn.addEventListener("click", function(ev){
-        console.log("Test");
         naverLogin(ev);
     })
     
    const googleLoginBtn = document.getElementById('google-login');
    googleLoginBtn.addEventListener("click", function(ev){
-        console.log("Test");
         googleLogin(ev);
    })
 
    const kakaoLoginBtn = document.getElementById('kakao-login');
    kakaoLoginBtn.addEventListener("click", function(ev){
-        console.log("Test");
         kakaoLogin(ev);
    })
 }
-const ctx = sessionStorage.getItem("contextpath");
 
+const ctx = sessionStorage.getItem("contextpath");
 
 const state = Math.random().toString(36).substring(2);
 
