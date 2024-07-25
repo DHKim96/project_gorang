@@ -56,6 +56,7 @@
   다음카카오 주소 API, Google/Kakao/Naver 로그인 API, Coolsms 핸드폰 문자인증 API, 스마트택배 배송조회 API, 공공데이터 식품 영양정보 API
 
 ## UI 구성 및 기능
+
 ### 로그인 및 회원가입
 **로그인**
 ![로그인](https://github.com/user-attachments/assets/c6a848a4-217b-49c1-ba90-c449bb1c061e)
@@ -63,9 +64,11 @@
 ![구글 로그인](https://github.com/user-attachments/assets/cfb47ae3-9d57-4bd2-bf22-84362add708f)
 **회원가입**
 ![회원가입](https://github.com/DHKim96/project_gorang/assets/156169335/588647c1-929b-48a7-b956-0e3b90c46db4)
+
 ### 메인
 **메인 UI**
 ![고랭 메인페이지](https://github.com/DHKim96/project_gorang/assets/156169335/15a215c9-9d5e-4f19-8d72-56937f344145)
+
 ### 커뮤니티
 **커뮤니티 메인**
 ![고랭_레시피_메인](https://github.com/user-attachments/assets/7417c35f-c3a8-4d4c-a6d4-1e452bd2f1e4)
@@ -132,8 +135,6 @@
 **배송 조회**
 ![고랭_구매내역_배송조회](https://github.com/user-attachments/assets/94b89fbf-b957-45a4-9072-e65e1ca0962d)
 
-**스크랩**
-**좋아요**
 **정보 수정**
 ![고랭_마이페이지_회원정보수정](https://github.com/user-attachments/assets/3aa0bafc-1882-40e4-b199-aeaea0f12e72)
 
