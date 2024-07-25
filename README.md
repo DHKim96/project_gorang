@@ -169,7 +169,7 @@
 ![고랭_사이드바](https://github.com/user-attachments/assets/54881bb6-8b2a-4f07-999d-63d0ac8f0e67)
 
 **알림**
-![고랭_알림](https://github.com/user-attachments/assets/b41dc736-f18e-4f02-b67c-4f97ac81c914)
+![고랭_알림](https://github.com/user-attachments/assets/8432fa03-64e0-49b5-84c0-855105d0f5bd)
 
 
 ## 팀 소개
