@@ -55,14 +55,120 @@
 - **API**
   다음카카오 주소 API, Google/Kakao/Naver 로그인 API, Coolsms 핸드폰 문자인증 API, 스마트택배 배송조회 API, 공공데이터 식품 영양정보 API
 
-
-
-## 페이지 구성 및 기능(수정중)
-![고랭 메인페이지](https://github.com/DHKim96/project_gorang/assets/156169335/15a215c9-9d5e-4f19-8d72-56937f344145)
-
+## UI 구성 및 기능
+### 로그인 및 회원가입
+**로그인**
+![로그인](https://github.com/user-attachments/assets/c6a848a4-217b-49c1-ba90-c449bb1c061e)
+**소셜 로그인(EX.구글)**
+![구글 로그인](https://github.com/user-attachments/assets/cfb47ae3-9d57-4bd2-bf22-84362add708f)
+**회원가입**
 ![회원가입](https://github.com/DHKim96/project_gorang/assets/156169335/588647c1-929b-48a7-b956-0e3b90c46db4)
+### 메인
+**메인 UI**
+![고랭 메인페이지](https://github.com/DHKim96/project_gorang/assets/156169335/15a215c9-9d5e-4f19-8d72-56937f344145)
+### 커뮤니티
+**커뮤니티 메인**
+![고랭_레시피_메인](https://github.com/user-attachments/assets/7417c35f-c3a8-4d4c-a6d4-1e452bd2f1e4)
 
+**레시피 게시글 목록**
+![고랭_레시피_목록](https://github.com/user-attachments/assets/64aea99b-4d86-4af6-9fe0-7761a1aaca52)
 
+**레시피 게시글 상세**
+![고랭_레시피_상세](https://github.com/user-attachments/assets/95078fad-b1ab-4ec6-8df9-9438dbea3c9c)
+
+**레시피 게시글 작성**
+![고랭_레시피_작성](https://github.com/user-attachments/assets/689b36f7-a7df-4655-bb74-adb599a9ade9)
+
+**일반 게시글 목록**
+![고랭_게시글_목록](https://github.com/user-attachments/assets/e7908b95-69f0-4583-89a6-e9340f3eb500)
+
+**일반 게시글 상세**
+![고랭_게시글_상세](https://github.com/user-attachments/assets/096e4cc8-5e5b-4d01-b35a-5fb1f88620a3)
+
+**일반 게시글 작성**
+![고랭_게시글_작성](https://github.com/user-attachments/assets/ab550293-de0e-44df-9728-b8f8d6bbd3e2)
+
+**일반 게시글 신고하기**
+![고랭_게시글_신고](https://github.com/user-attachments/assets/32d785f9-a70a-4cc6-823c-5a3d64fd322a)
+
+### 커머스
+**커머스 메인**
+![고랭_상품_메인](https://github.com/user-attachments/assets/b880f027-279d-4de3-b7da-9ced5c045ee9)
+
+**상품 목록**
+![고랭_상품_목록](https://github.com/user-attachments/assets/3757ac68-26a6-418b-8791-c996ce55829e)
+
+**상품 상세**
+![고랭_상품_상세](https://github.com/user-attachments/assets/09e23ca3-043e-4411-882e-7a2287fda896)
+
+**상품 문의**
+![고랭_상품_상세_문의](https://github.com/user-attachments/assets/c3e95256-4c5c-4a26-8aa7-8e64449f1ab7)
+
+**상품 주문**
+![고랭_주문](https://github.com/user-attachments/assets/17fed2f6-1920-445f-be9e-8990ec3bed1c)
+
+**장바구니**
+![고랭_장바구니](https://github.com/user-attachments/assets/5c0856ee-0e73-4a29-a7d5-c70847e634a5)
+
+### 마이페이지
+**모두 보기(마이페이지 메인)**
+![고랭_마이페이지_메인](https://github.com/user-attachments/assets/2c8576fc-b98a-4884-b7ab-f87af733ab98)
+
+**나의 게시글**
+![고랭_마이페이지_나의게시글](https://github.com/user-attachments/assets/3d5174eb-9515-4902-b2d9-4c5201a6a50e)
+
+**댓글 & 후기**
+![고랭_마이페이지_댓글_후기](https://github.com/user-attachments/assets/b78a376b-460f-4996-a50b-7076f4c8ef81)
+
+**문의**
+![고랭_마이페이지_문의](https://github.com/user-attachments/assets/2b4efc0b-2ff3-45d7-86cd-e2cbdc5c12a2)
+
+**구매내역**
+![고랭_마이페이지_구매내역](https://github.com/user-attachments/assets/3890d8f6-374a-4f43-a385-b8e2e7d77f05)
+
+**후기 작성**
+![고랭_마이페이지_구매내역_후기](https://github.com/user-attachments/assets/6abe1177-529e-43b7-b20b-a71d87db9174)
+
+**배송 조회**
+![고랭_구매내역_배송조회](https://github.com/user-attachments/assets/94b89fbf-b957-45a4-9072-e65e1ca0962d)
+
+**스크랩**
+**좋아요**
+**정보 수정**
+![고랭_마이페이지_회원정보수정](https://github.com/user-attachments/assets/3aa0bafc-1882-40e4-b199-aeaea0f12e72)
+
+**회원 탈퇴 전 본인확인**
+![고랭_마이페이지_회원탈퇴전확인](https://github.com/user-attachments/assets/1e2146a7-bf2b-44a8-a6f6-0f3dcd688bd5)
+
+### 나의 냉장고
+**나의 냉장고 메인**
+![고랭_마이페이지_나의냉장고_메인](https://github.com/user-attachments/assets/aab46002-4a6c-49e5-b3f4-794ec41461ca)
+
+**식재료 추가하기**
+![고랭_마이페이지_나의냉장고_식재료_추가하기](https://github.com/user-attachments/assets/c841c198-0631-4157-87e9-225b4e68cf37)
+
+**식재료 영양성분 확인**
+![고랭_마이페이지_나의냉장고_식재료_영양성분조회](https://github.com/user-attachments/assets/8af8cfe0-bf56-4b54-abdc-a326d9048e04)
+
+**레시피 추천받기**
+![고랭_마이페이지_나의냉장고_레시피추천받기](https://github.com/user-attachments/assets/df6e9171-42da-473a-ab54-2e1623a84353)
+
+### 관리자 페이지
+**상품 등록(관리자 페이지 메인)**
+![고랭_관리자페이지_메인_상품등록](https://github.com/user-attachments/assets/dcc71779-85e5-4d9e-8c39-ea287326cc4c)
+
+**상품 관리**
+![고랭_관리자페이지_상품관리](https://github.com/user-attachments/assets/24434a4a-55e4-4ee4-84ca-b9653d17bd38)
+
+**회원 관리**
+![고랭_관리자페이지_회원관리](https://github.com/user-attachments/assets/baf8a1e3-09ce-4e02-876e-ed6b9dd1e488)
+
+### 기타 UI
+**최근 본 목록**
+![고랭_사이드바](https://github.com/user-attachments/assets/54881bb6-8b2a-4f07-999d-63d0ac8f0e67)
+
+**알림**
+![고랭_알림](https://github.com/user-attachments/assets/b41dc736-f18e-4f02-b67c-4f97ac81c914)
 
 
 ## 팀 소개
