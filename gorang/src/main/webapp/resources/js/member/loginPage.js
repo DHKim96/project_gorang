@@ -4,7 +4,7 @@ window.onload = function(){
         location.href = (ctx);
     })
 
-    document.querySelector("button[name='register']").addEventListener('click', () => {
+    document.querySelector("#login-register").addEventListener('click', () => {
         location.href = ctx + "/register.me";
     })
 
@@ -23,9 +23,10 @@ window.onload = function(){
    kakaoLoginBtn.addEventListener("click", function(ev){
         kakaoLogin(ev);
    })
+
 }
 
-const ctx = sessionStorage.getItem("contextpath");
+const ctx = document.querySelector('body').getAttribute('data-context-path');
 
 const state = Math.random().toString(36).substring(2);
 
@@ -59,3 +60,8 @@ function kakaoLogin(ev){
     
     location.href= kakaoApiURL;
 }
+
+/**아이디 찾기 */
+
+/**비밀번호 찾기 */
+

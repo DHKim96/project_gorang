@@ -74,10 +74,8 @@ public class LoginController {
 			if (responseCode == 200) {
 				//정상적으로 정보를 받아왔을 때 result에 정보를 저장
 				String result = res.toString();
-	//			System.out.println(result);
 				
 				JsonObject totalObj = JsonParser.parseString(result).getAsJsonObject();
-	//			System.out.println(totalObj.get("access_token"));
 				
 				String token = totalObj.get("access_token").getAsString(); //정보접근을 위한 토큰
 				String header = "Bearer " + token;
@@ -189,20 +187,13 @@ public class LoginController {
 				apiURL = "https://oauth2.googleapis.com/tokeninfo";
 				Map<String, String> requestHeaders = new HashMap<String, String>();
 				requestHeaders.put("Authorization", header);
-				
-				System.out.println(requestHeaders);
-				
+								
 				String responseBody = OauthTemplate.get(apiURL, requestHeaders);
 				
-				System.out.println(responseBody);
-	
 				JsonObject resObj = JsonParser.parseString(responseBody).getAsJsonObject();
 				
-				System.out.println(resObj);
 				//받아온 email과 데이터베이스의 email을 비교하여 가입유무 확인 후
 				//가입되어있다면 로그인, 아니라면 회원가입창으로 정보를 가지고 이동
-				
-				
 				String email = resObj.get("email").getAsString();
 				
 				Member loginUser = memberService.selectMemberByEmail(email);

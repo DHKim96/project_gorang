@@ -99,8 +99,6 @@ public class TimMyPageController {
 		
 		List<RefrigeratorInsertDTO> refriIngres = myPageService.selectListRefrigeratorsByMemberNo(userNo, pi);
 		
-		System.out.println(refriIngres);
-		
 		// 현재 날짜 계산
 		LocalDate currentDate = LocalDate.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -188,9 +186,6 @@ public class TimMyPageController {
 	@ResponseBody
 	@RequestMapping("deleteRefriIngre.me")
 	public String deleteRefrigerator(String refriNums, HttpSession session) {
-		
-		
-		
 		Member m = (Member)session.getAttribute("loginUser");
 		
 		return myPageService.deleteRefrigerator(m.getMemberNo(), refriNums) > 0 ? "success" : "fail";
@@ -200,9 +195,6 @@ public class TimMyPageController {
 	@ResponseBody
 	@RequestMapping("selectRecipeListByRecipeNo.me")
 	public ArrayList<RecipeListDto> selectRecipeListByRecipeNo(String recipeNums){
-		
-		System.out.println(recipeNums);
-		
 		return myPageService.selectRecipeListByRecipeNo(recipeNums);
 	}
 }

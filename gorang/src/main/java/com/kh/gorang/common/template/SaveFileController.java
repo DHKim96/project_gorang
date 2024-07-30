@@ -32,13 +32,10 @@ public class SaveFileController {
 		try {
 			upfile.transferTo(new File(savePath + changeName));
 		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		return changeName;
 	}
 	

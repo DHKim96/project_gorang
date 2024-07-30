@@ -339,9 +339,10 @@
 		FROM QNA q
 		JOIN MEMBER USING (MEMBER_NO)
 		LEFT JOIN QNA a ON q.qna_no = a.ref_qna_no
-		LEFT JOIN OPTION_NAME ON q.pdopt_no = options_name_no
+		JOIN OPTION_NAME ON q.pdopt_no = options_name_no
 		WHERE q.product_no = #{productNo} and
 				q.qna_type = 1 and
+				q.qna_answer_type = 1 and
 				q.status = 'Y'
 		ORDER BY qna_create_date ASC
     </select>

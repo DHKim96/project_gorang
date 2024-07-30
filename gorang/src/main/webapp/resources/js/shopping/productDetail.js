@@ -444,11 +444,6 @@ document.addEventListener("DOMContentLoaded", function(){
 
       selectedOptsForCart.push(productCart);
     });
-
-    //Json 문자열로 변환
-
-    console.log(selectedOptsForCart);
-
     ajaxPutPdoptInCart(selectedOptsForCart);
 
   })
@@ -656,7 +651,6 @@ function sendQnaByAjax() {
   const modalForm = document.querySelector("#modal-qna-content");
   const formUrl = modalForm.getAttribute("action");
   const formData = new FormData(modalForm);
-
   $.ajax({
     url: formUrl,
     type: 'POST',
@@ -666,15 +660,13 @@ function sendQnaByAjax() {
     contentType: false,
     cache: false,
     success: function(res) {
-      console.log("송신 성공", res);
       alert('문의가 성공적으로 제출되었습니다.');
-      if(res > 0) {
+      if(res > 1) {
         sendNotifyByAjax(res);
       }
       location.reload();
     },
     error: function(res) {
-      console.log("송신 실패", res);
       alert('문의 제출에 실패했습니다. 다시 시도해주세요.');
     }
   });
@@ -715,7 +707,7 @@ function setProductQna(qnaContentTbody,qnaStatus, qna, isAdmin){
   //qna 내용 생성
   const qnaQuestionTr = document.createElement('tr');
   qnaQuestionTr.setAttribute("class", "qna_content_tr_display_none");
-  qnaQuestionTr.setAttribute("style", "border: none");
+  qnaQuestionTr.setAttribute("style", "border-top: none;");
   qnaContentTbody.appendChild(qnaQuestionTr);
 
   // 질문 상세

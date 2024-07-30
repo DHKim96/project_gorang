@@ -97,20 +97,16 @@ class EmailAuthentication{
         this.sendBtn = $('#member-email-auth'); // 인증번호 전송 버튼
         this.authBtn = $('#member-email-auth-btn'); // 인증번호 체크 버튼
 
-        this.sendBtn.on('click',()=>{
-            this.sendAuthNum();
-        });
-
-        this.authBtn.on('click', ()=>{
-            this.checkAuthNum();
-        });
+        // 버튼 클릭 이벤트 핸들러 등록
+        this.sendBtn.on('click', this.sendAuthNum.bind(this));
+        this.authBtn.on('click', this.checkAuthNum.bind(this));
     }
 
-    showNotice(element, message, className) {
+    showNotice = (element, message, className) => {
         element.innerHTML = `<span class="regi-notice ${className}">${message}</span>`;
     }
 
-    sendAuthNum = async function(){
+    sendAuthNum = async () => {
         const email = $("input[name='memberEmail']").val();
         
         // 이메일 본인인증 클릭 시 db 에서 체크하도록
@@ -155,7 +151,7 @@ class EmailAuthentication{
 
     };
 
-    checkAuthNum(){
+    checkAuthNum = () => {
         const inputCode = this.input.val();
         const authNumNotice = document.querySelector("#register-input-email-authNo > .regi-notice-wrapper");
         if(this.authNo.trim() !== inputCode.trim()){
@@ -184,7 +180,7 @@ class EmailAuthentication{
         };
     };
 
-    startTimer(duration){
+    startTimer = (duration) => {
         this.timer.css("color", "red");
         this.authBtn.prop('disabled', false);
         this.input.prop('readonly', false).val('').focus();
@@ -343,7 +339,7 @@ class PhoneAuthentication{
         });
     }
 
-    showNotice(element, message, className) {
+    showNotice = (element, message, className) => {
         element.innerHTML = `<span class="regi-notice ${className}">${message}</span>`;
     }
 

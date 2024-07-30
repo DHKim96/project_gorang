@@ -1,5 +1,13 @@
 document.addEventListener('DOMContentLoaded', ()=>{
-    const loginUserMemberNo = parseInt(document.querySelector("#header-profile-img").getAttribute('data-value'));
+    const headerProfileImg = document.querySelector("#header-profile-img");
+    if(headerProfileImg){
+        const loginUserMemberNo = parseInt(headerProfileImg.getAttribute('data-value'));
+
+        document.querySelector("#header-notify-bell").addEventListener('click', () => {
+        getNotificationsByAjax(loginUserMemberNo, res => setNotifyDropdown(res));
+    })
+    }
+    
 
     let searchInput = document.querySelector('#search-input');
     searchInput.addEventListener("keypress", function(event) {
@@ -7,11 +15,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
             event.preventDefault();
             search(searchInput.value);
         }
-    });
-
-    document.querySelector("#header-notify-bell").addEventListener('click', () => {
-        getNotificationsByAjax(loginUserMemberNo, res => setNotifyDropdown(res));
-    })
+    });    
 })
 
 

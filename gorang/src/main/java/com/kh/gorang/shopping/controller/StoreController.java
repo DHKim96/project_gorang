@@ -179,15 +179,12 @@ public class StoreController {
 	public String insertProductReview(@RequestParam int refMemberNo, @RequestParam int refProductNo,
 								   @RequestParam int refPdoptNo, @RequestParam int rating, @RequestParam MultipartFile reviewPhotoUpfile,
 								   @RequestParam String reviewContent, HttpSession session) {
-		
-		
 		Review re = new Review();
 		
 		if(!reviewPhotoUpfile.getOriginalFilename().equals("")) {
 			String changeFileName = saveFile(reviewPhotoUpfile, session, "/review/product-review/");
 			re.setReviewPhoto(changeFileName);
 		}
-		
 		
 		re.setRefMemberNo(refMemberNo);
 		re.setRefProductNo(refProductNo);
@@ -235,13 +232,10 @@ public class StoreController {
 	
 	@ResponseBody
     @PostMapping("/insertQna.po")
-    public int insertQna( @RequestParam("writerNo") int writerNo,
-            @RequestParam("refProductNo") int refProductNo,
-            @RequestParam("refPdoptNo") int refPdoptNo,
-            @RequestParam("qnaContent") String qnaContent,
-            @RequestParam("refQnaNo") int refQnaNo,
-            @RequestParam(value = "qnaPhotoUpfile", required = false) MultipartFile qnaPhotoUpfile,
-            HttpSession session) {      
+    public int insertQna( @RequestParam("writerNo") int writerNo, @RequestParam("refProductNo") int refProductNo,
+				            @RequestParam("refPdoptNo") int refPdoptNo,@RequestParam("qnaContent") String qnaContent,
+				            @RequestParam("refQnaNo") int refQnaNo, @RequestParam(value = "qnaPhotoUpfile", required = false) MultipartFile qnaPhotoUpfile,
+				            HttpSession session) {      
         
         QnA qna = new QnA();
         
@@ -267,10 +261,8 @@ public class StoreController {
 	 	Member m =  (Member)session.getAttribute("loginUser");
 	 	
 	 	ArrayList<ProductCart> carts = memberService.selectProductCartList(m);
-		
 	 	// 조회 결과 받아온 장바구니 품목들을 pdForCart 속성을 중심으로 묶음
 	 	Map<Product, List<ProductCart>> groupedCarts = new HashMap<>();
-	 	
 	 	
 	 	for(ProductCart cart : carts) {
 	 		//pdForCart값 추출
@@ -283,7 +275,6 @@ public class StoreController {
 	 		//해당하는 키값이 있다면 cart 변수 바로 add
 	 		groupedCarts.get(product).add(cart);
 	 	}
-	 	
 	 	// 묶은 결과를 model.addAttribute 해서 jsp 로 넘김
 	 	model.addAttribute("groupedCarts", groupedCarts);
 	 	
@@ -294,18 +285,14 @@ public class StoreController {
 	// 장바구니 저장하기 위한 메소드
 	@ResponseBody
 	@PostMapping(value = "ajaxInsertCart.po", produces = "application/json; charset=utf-8")
-	public String ajaxInsertCart(@RequestBody List<ProductCart> pdCarts, HttpSession session) {
-	    System.out.println(pdCarts);
-		
+	public String ajaxInsertCart(@RequestBody List<ProductCart> pdCarts, HttpSession session) {		
 		Member m = (Member) session.getAttribute("loginUser");
 		
 		int memberNo = m.getMemberNo();
-	    
-	    // 각 ProductCart 객체에 memberNo를 설정합니다.
+	    // 각 ProductCart 객체에 memberNo를 설정
 	    for (ProductCart cart : pdCarts) {
 	        cart.setMemberNo(memberNo);
 	    }
-	    
 	    return new Gson().toJson(memberService.insertProductCart(pdCarts) > 0 ? "success" : "fail");
 	}
 	
@@ -324,7 +311,6 @@ public class StoreController {
 	
 	// ========================================== 주문 관련 컨트롤러 ========================================
 	
-	// 상품 상세 페이지에서 바로 구매할 경우 사용하는 컨트롤러
 	@RequestMapping("order.po")
 	public String productOrderForm(String selectedOptList,  Model m) {
 		System.out.println(selectedOptList);

@@ -145,7 +145,6 @@ function setupFileInput(modalElement) {
     // 모달창 사라질 때 이벤트 핸들러 제거(이벤트 핸들러 중첩 방지)
     $('.modal').on('hidden.bs.modal', function () {
         // 모달이 숨겨질 때 수행할 작업을 여기에 작성
-        console.log('모달이 숨겨짐');
         // 예시: 모달 내용 초기화
         addPicBtn.removeEventListener("click", handleFileInputClick);
         fileInput.removeEventListener("change", handleFileInputChange);

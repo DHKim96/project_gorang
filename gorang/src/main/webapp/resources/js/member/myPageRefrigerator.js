@@ -690,11 +690,19 @@ function handlerIbtnClick(ev){
 }
 
 /** 선택한 식재료 칸 새로 구축해주는 함수 */
-function setSelectedIngreDiv(tempForModalRecipeselectedIngre){
+function setSelectedIngreDiv(tempForModalRecipeselectedIngre) {
     const selectedIngreContainer = recipeModal.querySelector("#modal-recipe-selectedIngre");
-    selectedIngreContainer.innerHTML = ""; // 기존 내용을 비움
 
-     for (let ingre of tempForModalRecipeselectedIngre) {
+    for (let ingre of tempForModalRecipeselectedIngre) {
+        // 동일한 식재료가 이미 있는지 확인
+        const exists = Array.from(selectedIngreContainer.querySelectorAll('.modal-recipe-ingre-name'))
+            .some(span => span.textContent === ingre);
+        // Array.prototype.some() 메서드는 배열 내 요소 중 적어도 하나의 주어진 조건을 만족할 경우 true 반환
+
+        // 동일한 식재료가 있으면 건너뜀
+        if (exists) continue;
+
+        // 새로운 식재료 추가
         const div = document.createElement('div');
         div.className = 'modal-recipe-ingre';
         div.innerHTML = `<span class="modal-recipe-ingre-name">${ingre}</span><i class="fa-solid fa-delete-left"></i>|`;
@@ -706,6 +714,7 @@ function setSelectedIngreDiv(tempForModalRecipeselectedIngre){
         ibtn.addEventListener('click', handlerIbtnClick);
     });
 }
+
 
 /** 추천 레시피 모달창 구축하고 띄우는 메소드 */
 function viewRecipeRecommendModal(){

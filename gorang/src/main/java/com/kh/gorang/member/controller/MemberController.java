@@ -96,24 +96,18 @@ public class MemberController {
 		
 		message.setSubject("[고랭] 이메일 인증번호가 도착했습니다.");
 		message.setText("고랭GORANG 인증번호는 [" + authNo + "] 입니다.");
-		
 		// 받는 사람
 		message.setTo(id);
-		
 		// 보내는 사람
 	    message.setFrom(adminEmail);
 				
-		sender.send(message);
-		
 		String str = "";
-		
 		try {
 			sender.send(message);
 			str = "success";
 		} catch (Exception exception) {
 			 str = "fail";
 		} 
-		
 		return str;
 	}
 		
@@ -156,7 +150,7 @@ public class MemberController {
 	@RequestMapping("authPhone.me")
 	public String authorizationPhone(String authNo, String phone) {
 		DefaultMessageService messageService = NurigoApp.INSTANCE.initialize(apiKey, apiSecret, "https://api.coolsms.co.kr");
-		// Message 패키지가 중복될 경우 net.nurigo.sdk.message.model.Message로 치환하여 주세요
+		// Message 패키지가 중복될 경우 net.nurigo.sdk.message.model.Message로 치환
 		Message message = new Message();
 		message.setFrom(adminPhone); //계정에서 등록한 발신번호 입력
 		message.setTo(phone);
@@ -166,7 +160,7 @@ public class MemberController {
 			messageService.send(message);
 			str = "success";
 		} catch (NurigoMessageNotReceivedException exception) {
-			  // 발송에 실패한 메시지 목록을 확인할 수 있습니다!
+			  // 발송에 실패한 메시지 목록을 확인 가능
 			  System.out.println(exception.getFailedMessageList());
 			  System.out.println(exception.getMessage());
 			  str = "fail";

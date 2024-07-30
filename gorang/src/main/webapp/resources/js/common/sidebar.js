@@ -1,13 +1,3 @@
-// 현재 페이지의 유형을 확인하는 함수
-// function getPageType() {
-//     const pathname = window.location.pathname;
-//     if (pathname.includes('.re')) {
-//         return 'recipe';
-//     } else if (pathname.includes('.po')) {
-//         return 'product';
-//     }
-//     return null;
-// }
 
 function getPageType() {
     const pathname = window.location.pathname;
@@ -27,15 +17,6 @@ function getPageType() {
     return null;
 }
 
-
-// 페이지 유형에 따라 사이드바 제목을 설정하는 함수
-// function setSidebarTitle(pageType) {
-//     if (pageType === 'recipe') {
-//         document.querySelector("#recently-seen-container > span").innerHTML = "최근 본 레시피";
-//     } else if (pageType === 'product') {
-//         document.querySelector("#recently-seen-container > span").innerHTML = "최근 본 상품";
-//     }
-// }
 
 function setSidebarTitle(pageType) {
     if (pageType === 'recipe' || pageType === 'main_recipe' || pageType === 'list_recipe') {
@@ -94,24 +75,6 @@ function loadSideBar() {
         }
     }
 
-    // // 상품 또는 레시피의 id값 가져오기
-    // let { num: itemId, isRecipe, thumbnailUrl } = getParameter(pageType);
-    
-    // // detail 페이지 이외의 페이지일 경우 itemId가 없기 때문에 이를 위한 예외처리 실시
-    // if (itemId === null) {
-    //     // localStorage에서 최근 본 목록을 가져옴
-    //     let watched = getRecentlyWatched(isRecipe);
-
-    //     // 디버깅을 위해 콘솔에 최근 본 목록 출력
-    //     console.log("최근 본 객체 목록:", watched);
-
-    //     // 최근 본 목록을 화면에 표시
-    //     displayRecentlyWatchedItems(watched, ctx, isRecipe);
-    // } else {
-    //     // 최근 본 목록 초기화
-    //     initRecentlyWatchedList(itemId,thumbnailUrl, ctx, isRecipe);
-    // }
-
     $(function(){
         $('#recently-seen-list').slick({
             vertical: true, // 세로 방향 슬라이드 옵션
@@ -149,7 +112,6 @@ function getParameter(pageType) {
 function clearOldItems(watched) {
     let now = new Date().getTime();
     const oneDay = 24 * 60 * 60 * 1000;
-
     return watched.filter(item => (now - item.timestamp) < oneDay);
 }
 
@@ -167,7 +129,6 @@ function getFilteredWatched(key) {
     if (watched) {
         watched = JSON.parse(watched);
         watched = clearOldItems(watched);
-
         // localStorage.setItem(key, JSON.stringify(watched));
     } else {
         watched = [];
@@ -188,30 +149,19 @@ function initRecentlyWatchedList(itemId, thumbnailUrl, ctx, isRecipe) {
     let watched = getRecentlyWatched(isRecipe);
     // 레시피를 조회한 타임스탬프
     let now = new Date().getTime();
-
     // 현재 페이지의 아이템 ID가 최근 본 목록에 이미 있는지 확인
     let index = watched.findIndex(item => item.id === itemId);
-
     // 최근 본 목록에서 현재 페이지의 아이템 ID가 발견되지 않았을 경우에만 추가
     if (index === -1) {
-
         // 최근 본 목록에 아이템 ID 추가
-        // watched.push(itemId);
         watched.push({id: itemId, thumbnail: thumbnailUrl, timestamp: now});
-
         // 최근 본 목록이 최대 아이템 갯수보다 큰 경우, 가장 오래된 아이템 삭제
         if (watched.length > maxCount) {
             watched.shift(); // 배열의 첫 번째 요소 제거
         }
-
-        // 최근 본 목록을 localStorage에 다시 저장
-        // setRecentlyWatched(watched, isRecipe);
     }
+    // 최근 본 목록을 localStorage에 다시 저장
     setRecentlyWatched(watched, isRecipe);
-    
-    // 디버깅을 위해 콘솔에 최근 본 목록 출력
-    console.log("최근 본 객체 목록:", watched);
-
     // 최근 본 목록을 화면에 표시
     displayRecentlyWatchedItems(watched, ctx, isRecipe);
 }
@@ -234,13 +184,6 @@ function displayRecentlyWatchedItems(items, ctx, isRecipe) {
         // 예: item을 기반으로 AJAX 요청을 통해 상품 정보를 가져옴
         let listItem = document.createElement('div');
         let itemImg = document.createElement('img');
-        
-        // 레시피 관련 페이지 경우와 상품 관련 페이지일 경우 썸네일 위치 정보가 다르기 때문에
-        // if(isRecipe) { // 레시피일 경우
-        //     itemImg.src = ctx + "/resources/dummyImg/recipe/recipeMain/newRecipeThumbnail" + item + ".png"; // 실제 이미지 경로로 대체
-        // } else { // 상품일 경우
-        //     itemImg.src = ctx + "/resources/dummyImg/shopping/item" + item + ".png"; // 실제 이미지 경로로 대체
-        // }
 
         itemImg.src = item.thumbnail;
         itemImg.style.cursor = "pointer";

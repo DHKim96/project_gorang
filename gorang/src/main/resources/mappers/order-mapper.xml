@@ -133,9 +133,9 @@
   		p.shipment_time,
   		r.review_no
   	from order_pdopt op
-  		 join orders od on op.order_no = od.order_no
-  	left join option_name o on op.options_name_no = o.options_name_no
-  	left join product p on o.product_no = p.product_no
+  		 join orders od using (order_no)
+  		 join option_name o on op.options_name_no = o.options_name_no
+  		 join product p on o.product_no = p.product_no
   	left join review r on op.options_name_no = r.pdopt_no
   	where od.member_no = #{memberNo}
   	  and od.status = 'Y'

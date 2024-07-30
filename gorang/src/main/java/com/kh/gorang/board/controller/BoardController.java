@@ -152,20 +152,7 @@ public class BoardController {
 		}
 
 	}
-//	//댓글 쓰기
-//	@ResponseBody
-//	@RequestMapping("insert.co")
-//	public String insertComment(Comment comment,Model model){
-//	    int result = boardService.insertComment(comment);
-//	    if (result > 0) {
-//	        return "redirect:/detail.bo?boardNo=" + comment.getBoardNo();
-//	    } else {
-//	        model.addAttribute("errorMsg", "댓글 작성 실패");
-//	        return "redirect:/detail.bo?boardNo=" + comment.getBoardNo();
-//	    }
-//	    
-//	}
-	
+
 	@PostMapping("content.bo")
 	@ResponseBody
 	public String uploadDetailDesc(List<MultipartFile> fileList, HttpSession session) {

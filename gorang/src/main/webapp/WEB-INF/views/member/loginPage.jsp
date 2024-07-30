@@ -23,10 +23,9 @@
             <!-- Latest compiled JavaScript -->
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
-            <script src="${contextPath}/resources/js/member/loginPage.js"></script>
         </head>
 
-        <body>
+        <body data-context-path="${contextPath}">
             <c:if test="${not empty alertMsg}">
                 <script>
                     alert("${alertMsg}");
@@ -48,7 +47,7 @@
                 <h2>로그인</h2>
                 <form method="post" id="login-form" action="login.me">
                     <div class="login_input">
-                        <input type="email" name="memberEmail" id="memberEmail" placeholder="아이디" />
+                        <input type="email" name="memberEmail" id="memberEmail" placeholder="이메일" />
                         <input type="password" name="memberPwd" id="memberPwd" placeholder="비밀번호" />
                     </div>
                     <div class="checkbox-container">
@@ -58,12 +57,12 @@
                     <div class="submit_button">
                         <input type="submit" value="로그인" />
                     </div>
-                    <div class="find-IdPw-Regist">
-                        <button  name="findId" value="아이디 찾기">
-                        <button  name="findPw" value="비밀번호 찾기">
-                        <button  name="register" value="회원가입">
-                    </div>
                     </form>
+                    <div class="findInfo-regist">
+                        <span id="login-find-pw">비밀번호 재설정</span>
+                        <span>|</span>
+                        <span id="login-register">회원가입</span>
+                    </div>
                     <hr>
                     <div class="apiLogin">
                         <div class="snsSpan"><span>SNS 계정으로 간편 로그인</span></div>
@@ -84,6 +83,7 @@
                     </div>
                 
             </div>
+            <script src="${contextPath}/resources/js/member/loginPage.js"></script>
         </body>
 
         </html>

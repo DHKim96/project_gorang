@@ -1,3 +1,7 @@
+svg{
+    cursor: pointer;
+}
+
 .container {
     position: absolute;
     width: 420px;
@@ -33,7 +37,7 @@
     margin-top: 12px;
     width: 420px;
     height: 22px;
-    text-align: center;
+    align-items: center;
     display: flex;
 }
 
@@ -41,16 +45,19 @@
     width: 20px;
     height: 20px;
     background-color: #1E90FF;
+    cursor: pointer;
 }
 
 .checkbox-container label{
     margin-left: 10px;
     font-size: 14px;
     color: #999999;
+    cursor: pointer;
 }
   
 
 .submit_button input[type="submit"] {
+    cursor: pointer;
     margin-top: 28px;
     width: 420px;
     height: 58px;
@@ -60,27 +67,24 @@
     font-size: 16px;
 }
 
-.find-IdPw-Regist{
-    margin-top: 16px;
-    width: 420px;
-    height: 22px;
-    align-items: center;
-    text-align: center;
+.findInfo-regist{
+    height: fit-content;
+    margin-top: 30px;
     display: flex;
-    padding: 1px 92px 1px 92px;
-    font-size: 14px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
 }
 
-.find-IdPw-Regist button{
-    margin-top: 28px;
-    margin-right: 12.5px;
-    border-style: none;
-    background-color: white;
+.findInfo-regist span{
+    font-size: 14px;
     color: #999999;
+    cursor: pointer;
 }
 
 hr{
-    margin-top: 48px;
+    margin-top: 30px;
 }
 
 .apiLogin{
@@ -94,7 +98,7 @@ hr{
 }
 .snsSpan span{
     font-size: 16px;
-    color: #787878;
+    color: #999999;
 }
 
 .apiLogos{
