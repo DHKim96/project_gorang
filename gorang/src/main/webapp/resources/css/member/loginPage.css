@@ -2,12 +2,16 @@ svg{
     cursor: pointer;
 }
 
+.display-flex-column-center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
 .container {
-    position: absolute;
     width: 420px;
-    height: 553px;
-    text-align: center;
-    margin: 114px 750px 414px 750px;
+    margin-top: 50px;
   }
 
   #login-form {

@@ -20,7 +20,7 @@
 	<jsp:include page="../common/header.jsp" />
 	<!-- 헤더 끝-->
 
-	<div id="store-container">
+	<div id="store-container" class="scale-container">
 		<!-- 베너 시작-->
 		<div id="banner">
 			<img class="banner-image" src="${contextPath }/resources/dummyImg/shopping/dim.png" alt="배너">

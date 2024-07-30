@@ -18,7 +18,7 @@
 <body onload="loadSideBar()">
 	<jsp:include page="../common/header.jsp" />
 	
-	<main id="recipe-main">
+	<main id="recipe-main" class="scale-container">
 		<!-- 사이드바 -->
 		<jsp:include page="../common/sidebar.jsp" />
 		

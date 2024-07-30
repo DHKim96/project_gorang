@@ -19,7 +19,7 @@
     <jsp:include page="../common/header.jsp" />
     
     
-    <div id="main-container">
+    <div id="main-container" class="scale-container">
         <!-- 배너 -->
         <div id="main-banner-area">
             <div class="main-banner" data-type="recipe" data-no="3" onclick="moveDetailPage(this)">
