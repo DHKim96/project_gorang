@@ -19,17 +19,15 @@
 	<!-- 헤더 시작-->
 	<jsp:include page="../common/header.jsp" />
 	<!-- 헤더 끝-->
-
+	<!-- 사이드바 -->
+    <jsp:include page="../common/sidebar.jsp" />
 	<div id="store-container" class="scale-container">
 		<!-- 베너 시작-->
 		<div id="banner">
 			<img class="banner-image" src="${contextPath }/resources/dummyImg/shopping/dim.png" alt="배너">
 		</div>
 		<!-- 베너 끝-->
-
 		<div id="items">
-		<!-- 사이드바 -->
-		<jsp:include page="../common/sidebar.jsp" />
 		<!--카테고리 시작-->
 			<div id="store-category-area">
 				<div class="store-category" id="category-all">

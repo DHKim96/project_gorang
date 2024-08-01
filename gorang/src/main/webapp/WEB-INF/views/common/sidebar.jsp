@@ -16,7 +16,7 @@
 </head>
 <body>
 	<!-- 사이드 최근본 내역 -->
-        <div id="sidebar">
+        <div id="sidebar" class="scale-container">
 			<div id="recently-seen-div">
                 <div class="recently-seen-div-button-box slick-prev">
                     <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">

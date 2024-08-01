@@ -18,12 +18,9 @@
 
         <body onload="loadSideBar()">
             <jsp:include page="../common/header.jsp" />
-            
-            <main id="recipe-list">
-           
-               <!-- 사이드바 -->
-				<jsp:include page="../common/sidebar.jsp" />
-				
+            <!-- 사이드바 -->
+			<jsp:include page="../common/sidebar.jsp" />
+            <main id="recipe-list">		
                 <div id="recipeListContents">
                     <div id="BoardTagBox">
                         <div id="BoardTagBoxTop">

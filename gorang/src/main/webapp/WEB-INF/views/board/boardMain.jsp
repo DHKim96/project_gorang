@@ -25,7 +25,7 @@
                 <c:remove var="alertMsg" scope="session"/>
             </c:if>
 
-            <main id="board-main">
+            <main id="board-main" class="scale-container display-flex-column-center">
                 <div id="CommonBoardContents">
                     <div id="BoardTagBox">
                         <div id="BoardTagBoxTop">

@@ -25,7 +25,7 @@
                 <c:remove var="msg" scope="session"/>
             </c:if>
             
-            <main id="board-detail">
+            <main id="board-detail" class="scale-container display-flex-column-center">
                 <div id="boardDetailContents">
                     <div id="writerProfile">
                         <div id="profileImg"><img src="${contextPath}/resources/uploadfile/memberProfile/${board.memberThumbnail}"></div>

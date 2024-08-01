@@ -15,11 +15,9 @@
 
 <body onload="loadSideBar()">
 	<jsp:include page="../common/header.jsp" />
-	
+	<!-- 사이드바 -->
+	<jsp:include page="../common/sidebar.jsp" />
 	<main id="recipe-main" class="scale-container">
-		<!-- 사이드바 -->
-		<jsp:include page="../common/sidebar.jsp" />
-		
 		<div id="recipe-main-contents">
 			<div id="recommend-box">
 				<div class="recipe-main-box-title">

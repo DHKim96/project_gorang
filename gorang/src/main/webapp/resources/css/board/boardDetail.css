@@ -2,12 +2,15 @@ body {
     padding-top: 188px;
 }
 
-#board-detail {
-    height: 100%;
+.display-flex-column-center{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+#board-detail {
+    height: 100%;
     gap: 30px;
     margin-bottom: 30px;
 }
