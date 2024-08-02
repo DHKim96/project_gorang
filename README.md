@@ -11,10 +11,10 @@
 
 ### 배포
 1. **URL**
-https://www.gorang.store
+   - https://www.gorang.store
 
 2. **Jenkins 기반의 CI/CD Pipeline 구축**
-   git - jenkins - WAS(AWS EC2) - DB(AWS RDS) 의 연결을 통해 자동 빌드/배포 프로세스를 구축하였습니다.
+   - git - jenkins - WAS(AWS EC2) - DB(AWS RDS) 의 연결을 통해 자동 빌드/배포 프로세스를 구축하였습니다.
 
 
 ### 주요 기능
