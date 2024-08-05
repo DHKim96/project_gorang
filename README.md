@@ -3,7 +3,7 @@
 ![GORANG 로고](https://github.com/DHKim96/project_gorang/assets/156169335/706a5ed5-34d3-44cf-9cb0-9682ccc209bc)
 
 ## 프로젝트 정보
-- **프로젝트 기간:** 2024년 4월 29일 ~ 2024년 6월 24일
+- **프로젝트 기간:** 2024년 4월 29일 ~ 2024년 6월 24일 ~ 
 
 ### 프로젝트 소개
 고랭(GORANG)은 사용자가 자신의 냉장고를 효율적으로 관리할 수 있게 도와주는 서비스입니다. 
@@ -12,6 +12,9 @@
 ### 배포
 1. **URL**
    - https://www.gorang.store
+   - 테스트용 계정
+      - id: test@example.com
+      - pwd: 1234
 
 2. **Jenkins 기반의 CI/CD Pipeline 구축**
    - git - jenkins - WAS(nginx-tomcat-AWS EC2) - DB(AWS RDS) 의 연결을 통해 자동 빌드/배포 프로세스를 구축하였습니다.
