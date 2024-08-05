@@ -13,7 +13,7 @@
 1. **URL**
    - https://www.gorang.store
    - 테스트용 계정
-      - id: test@example.com
+      - id: "test@example.com"
       - pwd: 1234
 
 2. **Jenkins 기반의 CI/CD Pipeline 구축**
