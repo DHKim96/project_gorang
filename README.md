@@ -8,6 +8,12 @@
 ### 프로젝트 소개
 고랭(GORANG)은 사용자가 자신의 냉장고를 효율적으로 관리할 수 있게 도와주는 서비스입니다. 
 주요 기능으로는 식품 관리, 소비기한 알림, 요리 레시피 추천, 커뮤니티 기능 및 쇼핑 기능이 포함되어 있습니다.
+![image](https://github.com/user-attachments/assets/8b13440f-0185-459e-b642-14dad9fd8f70)
+
+### 기획의도
+![image](https://github.com/user-attachments/assets/7f39528c-c7a9-4102-9449-a7c0a70ce345)
+
+![image](https://github.com/user-attachments/assets/2917b9da-1666-4038-8cb4-8b24112490b7)
 
 ### 배포
 1. **URL**
