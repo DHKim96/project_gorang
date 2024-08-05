@@ -12,6 +12,9 @@
 ### 배포
 1. **URL**
    - https://www.gorang.store
+   - 테스트용 계정
+   - id: test@example.com
+   - pwd: 1234
 
 2. **Jenkins 기반의 CI/CD Pipeline 구축**
    - git - jenkins - WAS(nginx-tomcat-AWS EC2) - DB(AWS RDS) 의 연결을 통해 자동 빌드/배포 프로세스를 구축하였습니다.
