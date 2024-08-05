@@ -112,14 +112,20 @@ public class StoreController {
 	@RequestMapping("detail.po")
 	public String productDetailForm(@RequestParam String pno, HttpSession session, Model model) {
 	    int productNo = Integer.parseInt(pno); 
-	    int memberNo = ((Member)session.getAttribute("loginUser")).getMemberNo();
+	    
+	    // 로그인 유저 정보 확인
+	    Member loginUser = (Member) session.getAttribute("loginUser");
+	    if (loginUser != null) {
+	        int memberNo = loginUser.getMemberNo();
+	        ScrapBoardDTO scrapBoardDTO = new ScrapBoardDTO(productNo, memberNo);
+	        int existScrapProduct = productService.existScrapProduct(scrapBoardDTO);
+	        model.addAttribute("existScrapProduct", existScrapProduct);
+	    } else {
+	        // 비로그인 상태일 때 처리
+	        model.addAttribute("existScrapProduct", 0);
+	    }
 	    
 	    Product p = productService.selectProductByProductNo(productNo);
-	    
-	    ScrapBoardDTO scrapBoardDTO = new ScrapBoardDTO(productNo, memberNo);
-	    
-	    int existScrapProduct = productService.existScrapProduct(scrapBoardDTO);
-	    model.addAttribute("existScrapProduct",existScrapProduct);
 	    
 	    if (p == null) {
 	        model.addAttribute("alertMsg", "조회 실패");

@@ -7,7 +7,7 @@
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Document</title>
+                <title>푸드 커뮤니티 커머스, 고랭: 고수의 냉장고</title>
                 <!-- pretendard 폰트 -->
                 <link rel="stylesheet" as="style" crossorigin
                     href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />

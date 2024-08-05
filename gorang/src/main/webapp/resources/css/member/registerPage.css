@@ -4,11 +4,10 @@ input::placeholder {
 }
 
 .container {
-    position: absolute;
-    width: fit-content;
-    height: auto;
-    text-align: center;
-    margin: 50px 690px 188px 690px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
   
   #register-form {

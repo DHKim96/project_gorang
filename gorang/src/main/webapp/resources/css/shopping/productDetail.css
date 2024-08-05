@@ -168,6 +168,7 @@ table{
   display: none;
   width: 100%;
   height: fit-content;
+  padding-left: 0;
 }
 
 .active{
@@ -178,7 +179,11 @@ table{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+  height: 40px;
   padding: 0 10px;
+  border-bottom: 1px solid #EDEDED;
+  cursor: pointer;
 }
 
 #product_quantity_area {

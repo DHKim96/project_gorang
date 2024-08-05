@@ -372,6 +372,7 @@
 		left join product p on (o.product_no = p.product_no) 
 		where o.product_no = #{productNo} and
 			  o.status = 'Y'
+		order by o.options_normal_price asc
 	</select>
     
 	<select id="selectQnasCount" resultType="_int">

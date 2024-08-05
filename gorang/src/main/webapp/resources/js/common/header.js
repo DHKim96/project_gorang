@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
     })
     }
     
-//
     let searchInput = document.querySelector('#search-input');
     searchInput.addEventListener("keypress", function(event) {
         if(event.key === 'Enter') {

@@ -5,7 +5,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>푸드 커뮤니티 커머스, 고랭: 고수의 냉장고</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member/myRecipeBoard.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
 	<!-- js -->

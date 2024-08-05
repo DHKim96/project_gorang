@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>푸드 커뮤니티 커머스, 고랭: 고수의 냉장고</title>
     <!-- 기본 파비콘 설정 -->
     <link rel="icon" href="${pageContext.request.contextPath}/resources/static/favicon/favicon-16x16.png" sizes="16x16" type="image/png">
     <link rel="icon" href="${pageContext.request.contextPath}/resources/static/favicon/favicon-32x32.png" sizes="32x32" type="image/png">

@@ -30,8 +30,6 @@
 			<mapping path="/insertQna.po"/>
 			<mapping path="/cart.po"/>
 			<mapping path="/order.po"/>
-			<mapping path="/detail.po"/>
-			<mapping path="/detail.bo"/>
 			<mapping path="/write.re"/>
 			<mapping path="/write.bo"/>
 			<mapping path="/insert.re"/>

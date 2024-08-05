@@ -75,9 +75,14 @@ const pno = getParameterPno();
 }
 //찜버튼 눌렀을 때 발생하는 이벤트
 function clickZzim() {
+  const memberNo = document.querySelector('#member-no').value;
+
+  if(!memberNo){
+    return;
+  }
 
   const productNo = document.querySelector('#product-no').value;
-  const memberNo = document.querySelector('#member-no').value;
+  
   const zzim = document.querySelector("#zzim");
   zzim.addEventListener("click", function () {
 
@@ -259,8 +264,17 @@ function putProductOptsForOrder(opts){
     pdoptSelectOptNo.setAttribute("class", "product-opt-select-no")
     pdoptSelectOpt.appendChild(pdoptSelectOptNo);
     pdoptSelectOptNo.value = opt.detailOptionNo;
+
+    //클릭 시 배경색 변하는 이벤트 부여
+    pdoptSelectOpt.addEventListener('mouseenter', () => {
+      pdoptSelectOpt.style.backgroundColor = '#EDEDED';
+    })
+
+    pdoptSelectOpt.addEventListener('mouseleave', () => {
+      pdoptSelectOpt.style.backgroundColor = 'transparent';
+    })
   }
-  
+
   //드롭박스 구현
   $(".product-opt-select").on("click", function (e) {
     e.preventDefault();

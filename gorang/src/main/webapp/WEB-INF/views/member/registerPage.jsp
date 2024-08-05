@@ -4,7 +4,7 @@
         <html>
         <head>
             <meta charset="UTF-8">
-            <title>Insert title here</title>
+            <title>푸드 커뮤니티 커머스, 고랭: 고수의 냉장고</title>
             <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
 
              <!-- Latest compiled and minified CSS -->
@@ -28,7 +28,7 @@
         </head>
 
         <body>
-            <div class="container">
+            <div class="container scale-container">
                 <div id="gorang-logo">
                     <svg width="120" height="120" viewBox="0 0 78 80" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
