@@ -1,7 +1,8 @@
 
-window.onload = function(){
-    document.querySelector("#gorang-logo").addEventListener("click", function(){
-        location.href = (ctx);
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector("#gorang-logo").addEventListener("click", () => {
+        console.log('context path: ', ctx);
+        location.href = ctx;
     })
 
     document.querySelector("#login-register").addEventListener('click', () => {
@@ -23,8 +24,7 @@ window.onload = function(){
    kakaoLoginBtn.addEventListener("click", function(ev){
         kakaoLogin(ev);
    })
-
-}
+})
 
 const ctx = document.querySelector('body').getAttribute('data-context-path');
 

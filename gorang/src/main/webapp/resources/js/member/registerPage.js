@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     const ctx = sessionStorage.getItem("contextpath");
+    console.log("contextPath:", ctx)
 
     document.querySelector("#gorang-logo").addEventListener("click", () => location.href = ctx);
     document.querySelector("input[name='memberEmail']").addEventListener('blur', validateEmail);
