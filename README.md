@@ -8,17 +8,12 @@
 ### 프로젝트 소개
 고랭(GORANG)은 사용자가 자신의 냉장고를 효율적으로 관리할 수 있게 도와주는 서비스입니다. 
 주요 기능으로는 식품 관리, 소비기한 알림, 요리 레시피 추천, 커뮤니티 기능 및 쇼핑 기능이 포함되어 있습니다.
+![image](https://github.com/user-attachments/assets/8b13440f-0185-459e-b642-14dad9fd8f70)
 
-### 배포
-1. **URL**
-   - https://www.gorang.store
-   - 테스트용 계정
-      - id: test@example.com
-      - pwd: 1234
+### 기획의도
+![image](https://github.com/user-attachments/assets/7f39528c-c7a9-4102-9449-a7c0a70ce345)
 
-2. **Jenkins 기반의 CI/CD Pipeline 구축**
-   - git - jenkins - WAS(nginx-tomcat-AWS EC2) - DB(AWS RDS) 의 연결을 통해 자동 빌드/배포 프로세스를 구축하였습니다.
-
+![image](https://github.com/user-attachments/assets/2917b9da-1666-4038-8cb4-8b24112490b7)
 
 ### 주요 기능
 1. **나의 냉장고 기능**
@@ -34,6 +29,17 @@
    - 식품 항목에 대한 판매자와 소비자 중개 기능
    - 관리자 모드에서 상품 관리 가능
    - 사용자가 상품을 스크랩하고 장바구니에 담아 구매 가능
+
+### 배포
+1. **URL**
+   - https://www.gorang.store
+   - 테스트용 계정
+      - id: test@example.com
+      - pwd: 1234
+
+2. **Jenkins 기반의 CI/CD Pipeline 구축**
+   - git - jenkins - WAS(nginx-tomcat-AWS EC2) - DB(AWS RDS) 의 연결을 통해 자동 빌드/배포 프로세스를 구축하였습니다.
+
   
 ### 개발 환경
 
