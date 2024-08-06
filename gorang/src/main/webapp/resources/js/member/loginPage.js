@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('context path: ', ctx);
     document.querySelector("#gorang-logo").addEventListener("click", () => {
-        location.href = ctx;
+        location.href = ctx + "/";
     })
 
     document.querySelector("#login-register").addEventListener('click', () => {

@@ -52,7 +52,7 @@
                     <div id="header-bottom">
                         <div id="header-bottom-left">
                             <div id="header-bottom-left-logo"
-                                onclick="moveLocation('${pageContext.request.contextPath}')">
+                                onclick="moveLocation('${pageContext.request.contextPath}/')">
                                 <svg width="78" height="80" viewBox="0 0 78 80" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path

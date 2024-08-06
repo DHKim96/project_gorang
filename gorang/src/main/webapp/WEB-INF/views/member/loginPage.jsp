@@ -11,7 +11,6 @@
              <!-- pretendard 폰트 -->
             <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
             <!-- css -->
-            <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
             <link rel="stylesheet" href="${contextPath}/resources/css/default.css">
             <link rel="stylesheet" href="${contextPath }/resources/css/member/loginPage.css">
             <!--js-->
@@ -22,6 +21,8 @@
 
             <!-- Latest compiled JavaScript -->
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+            <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
 
         </head>
 
