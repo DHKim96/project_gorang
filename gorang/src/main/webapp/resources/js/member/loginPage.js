@@ -1,7 +1,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('context path: ', ctx);
     document.querySelector("#gorang-logo").addEventListener("click", () => {
-        console.log('context path: ', ctx);
         location.href = ctx;
     })
 

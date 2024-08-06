@@ -25,7 +25,7 @@ function moveLocation(path){
         localStorage.removeItem("uploadFile");
         localStorage.removeItem("tempBoardContent");
     }
-
+    console.log("contextpath:", path)
     window.location.href =(path)
 
     }
