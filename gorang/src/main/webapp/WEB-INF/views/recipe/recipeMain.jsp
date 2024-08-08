@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +12,8 @@
 	<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"> -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recipe/recipeMain.css">
+
+	<c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
 </head>
 
 <body onload="loadSideBar()">
@@ -49,12 +52,12 @@
 						</div>
 					</div>
 					<div class="recipe-main-listBox-grid" >
-						<div class="recipe-img-div" data-type="recipe" data-no="3" onclick="moveDetailPage(this)">
-							<img src="${pageContext.request.contextPath}/resources/uploadfile/recipe/recipemain/recipeBoardImg(3).jpg" alt="">
+						<div class="recipe-img-div" data-type="recipe" data-no="14" onclick="moveDetailPage(this)">
+							<img src="${contextPath}/resources/uploadfile/recipe/recipemain/2024071021254284728.png" alt="">
 						</div>
 						<div class="recipe-main-listBox-grid-textBox">
-							<span>밥도둑 생선 조림 레시피를 소개합니다.</span>
-							<span>창녕갈릭 삼치 조림</span>
+							<span>매생이의 매력에 푹 빠져볼까요?</span>
+							<span>바다의 맛 그대로! 매생이전</span>
 						</div>
 					</div>
 					<div class="recipe-main-listBox-grid" >

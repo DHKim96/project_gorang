@@ -90,12 +90,12 @@
                     </div>
 
                     <div class="weekly-recipe">
-                        <div class="weekly-item-img-container" data-type="recipe" data-no="" onclick="moveDetailPage(this)">
-                            <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/recipe/recipemain/recipeBoardImg(3).jpg" alt="">
+                        <div class="weekly-item-img-container" data-type="recipe" data-no="14" onclick="moveDetailPage(this)">
+                            <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/recipe/recipemain/2024071021254284728.png" alt="">
                         </div>
                         <div class="weekly-item-info-container">
-                            <div class="info_1">밥도둑 생선 조림 레시피를 소개합니다.</div>
-                            <div class="info_2">창녕갈릭 삼치 조림</div>
+                            <div class="info_1">매생이의 매력에 푹 빠져볼까요?</div>
+                            <div class="info_2">바다의 맛 그대로! 매생이전</div>
                         </div>
                     </div>
 
