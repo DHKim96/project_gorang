@@ -609,18 +609,26 @@ function putProductQnAList(pno, res){
   const memberNoInput = document.querySelector("#product-loginUser-no");
 
   let isAdmin = false;
+  let loginUser = false;
+  // 문의하기 버튼
+  const qnaModalBtn = document.querySelector("#qna_top > button");
 
   if(memberNoInput){
     const memberNo = document.querySelector("#product-loginUser-no").value;
     // 관리자 여부 확인
     isAdmin = ( parseInt(memberNo) === 1);
+    loginUser = true;
+    qnaModalBtn.setAttribute('data-toggle', "modal");
+    qnaModalBtn.setAttribute('data-target', "#qna_Modal");
   }
 
-  // 상품 문의 모달
-    // 문의하기 버튼
-    const qnaModalBtn = document.querySelector("#qna_top > button");
     // 문의하기 버튼 클릭 시 상품 문의 모달 내용 채우는 메소드 발동
-    qnaModalBtn.addEventListener("click", function(){
+    qnaModalBtn.addEventListener("click", function(ev){
+      if(!loginUser){
+        alert("로그인이 필요한 서비스입니다.");
+        ev.preventDefault(); // 기본 동작 방지
+        return false;
+      }
       ajaxGetProductOpts({pno},(opts)=>inquireQuestion(opts));
     })
 

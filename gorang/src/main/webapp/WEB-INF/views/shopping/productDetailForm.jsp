@@ -3,7 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
         <!DOCTYPE html>
         <html>
-
         <head>
             <meta charset="UTF-8">
             <title>푸드 커뮤니티 커머스, 고랭: 고수의 냉장고</title>
@@ -14,7 +13,6 @@
             <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
             <link rel="stylesheet" href="${contextPath }/resources/css/default.css">
             <link rel="stylesheet" href="${contextPath }/resources/css/shopping/productDetail.css">
-
         </head>
 
         <body onload="loadSideBar()">
@@ -24,9 +22,9 @@
              <!-- 사이드바 -->
              <jsp:include page="../common/sidebar.jsp" />
             <!-- 상품 상세페이지 -->
-            <div id="product-detail-container" class="scale-container">
+            <div id="product-detail-container">
                 <!-- 상품 간략 정보-->
-                <div id="productInfo-area">
+                <div id="productInfo-area" class="scale-container">
                     <c:if test="${!empty loginUser}">
                         <input type="hidden" id="product-loginUser-no" value="${loginUser.memberNo}">
                     </c:if>
@@ -134,7 +132,7 @@
                 </div>
 
                 <!-- 상품 정보-->
-                <div id="productContent_area">
+                <div id="productContent_area" class="scale-container">
                     <div id="area_left">
 
                         <!-- 상품네비 -->
@@ -169,8 +167,8 @@
                         <div id="product_qna_area">
                             <div id="qna_top">
                                 <div class="description_title">상품 문의</div>
-                                <button id="btn_qna" class="btn btn-primary product-qna-btn" style="width: 123px; height: 53px; font-size: 20px;"
-                                    data-toggle="modal" data-target="#qna_Modal">문의하기</button>
+                                <button id="btn_qna" class="btn btn-primary product-qna-btn" style="width: 123px; height: 53px; font-size: 20px;">
+                                    문의하기</button>
                             </div>
 
                             <table id="qna_content">

@@ -36,7 +36,7 @@
                 <!-- 사이드바 -->
                 <jsp:include page="../common/sidebar.jsp" />
 
-                <main class="scale-container display-flex-column-center">
+                <main class="display-flex-column-center">
                     <!--레시피 글 썸네일영역 -->
                     <div id="recipe-thumnail-area">
                         <div id="recipe-thumnail-food-img">
@@ -60,7 +60,7 @@
                     <input type="hidden" name="loginrecipeNo" value=${rcp.recipeNo}>
                     <input type="hidden" name="recipeMemberNo" value=${rcp.memberNo}>
                     <!-- 레시피 내용 전체 -->
-                    <div id="recipe-content-total-area">
+                    <div id="recipe-content-total-area" class="scale-container">
     
                         <!-- 레시피 제목,태그,내용, 정보 전체영역 -->
                         <div id="recipe-total-first-area">
