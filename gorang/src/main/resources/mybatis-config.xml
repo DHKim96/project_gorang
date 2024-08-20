@@ -7,7 +7,8 @@
 	<settings>
 		<!-- 만약 null로 데이터가 전달되었다면 빈칸이 아닌 null로 인식해라(무조건 대문자 NULL) -->
 		<setting name="jdbcTypeForNull" value="NULL" />
-		<setting name="logImpl" value="STDOUT_LOGGING"/>
+		<!-- logImpl에서 value: STDOUT_LOGGING 로 되어있다면 sqlsession을 여닫을때마다 로그 출력됨  -->
+		<setting name="logImpl" value="LOG4J"/>
 	</settings>
 
 	<!-- typeAlias: VO/DTO 클래스들의 풀클래스명을 단순한 클래스명(별칭)으로 사용하기 위한 별칭을 등록하는 영역 -->
@@ -61,8 +62,14 @@
  		<typeAlias type="com.kh.gorang.member.model.dto.MyPageReviewDTO" alias="MyPageReviewDTO" />
  		<typeAlias type="com.kh.gorang.recipe.model.dto.RecipeListDto" alias="RecipeListDto" />
  		<typeAlias type="com.kh.gorang.member.model.vo.RefrigeratorInsertDTO" alias="RefrigeratorInsertDTO"/>
- 		<typeAlias type="com.kh.gorang.member.model.dto.NotifyDto" alias="NotifyDto"/>
- 	
+ 		
+ 		<typeAlias type="com.kh.gorang.notification.model.vo.NotifyDto" alias="NotifyDto"/>
+ 		
+ 		<typeAlias type="com.kh.gorang.board.model.dto.CommentDtoForNotify" alias="CommentDtoForNotify"/>
+ 		<typeAlias type="com.kh.gorang.member.model.dto.LikeDtoForNotify" alias="LikeDtoForNotify"/>
+ 		<typeAlias type="com.kh.gorang.member.model.dto.QnaDtoForNotify" alias="QnaDtoForNotify"/>
+ 		<typeAlias type="com.kh.gorang.member.model.dto.ReviewDtoForNotify" alias="ReviewDtoForNotify"/>
+ 		<typeAlias type="com.kh.gorang.member.model.dto.RefrigeratorDtoForNotify" alias="RefrigeratorDtoForNotify"/>
 	</typeAliases>
 	
 	<!-- 
@@ -82,10 +89,8 @@
 		<mapper resource="/mappers/order-mapper.xml"/>
 		<mapper resource="/mappers/media-mapper.xml"/>
 		<mapper resource="/mappers/comment-mapper.xml"/>
-
 		<mapper resource="/mappers/search-mapper.xml"/>
-
 		<mapper resource="/mappers/odg-recipe-mapper.xml"/>
-
+		<mapper resource="/mappers/notify-mapper.xml"/>
 	</mappers>
 </configuration>  

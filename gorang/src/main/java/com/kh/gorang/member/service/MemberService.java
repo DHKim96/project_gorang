@@ -3,10 +3,9 @@ package com.kh.gorang.member.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.JsonElement;
-import com.kh.gorang.member.model.dto.NotifyDto;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.ProductCart;
+import com.kh.gorang.notification.model.vo.NotifyDto;
 
 public interface MemberService {
 	//로그인서비스
@@ -22,7 +21,7 @@ public interface MemberService {
 	int insertMember(Member m);
 
 	Member selectMemberByEmail(String email);
-	
+		
 	// 장바구니 저장
 	int insertProductCart(List<ProductCart> pdCarts);
 	
@@ -34,10 +33,8 @@ public interface MemberService {
 	
 	// 핸드폰 번호 중복 체크
 	int phoneCheck(String phone);
-
-	int insertNotification(NotifyDto notificationData);
-
-	ArrayList<NotifyDto> selectNotificationsByMemberNo(int memberNo);
-
 	
+	// 회원 번호를 통해 회원 정보 조회
+	Member getMemberByNo(int boardWriterNo);
+
 }

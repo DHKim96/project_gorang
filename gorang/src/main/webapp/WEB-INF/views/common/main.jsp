@@ -11,7 +11,6 @@
     <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
     <link rel="stylesheet" href="${contextPath }/resources/css/common/main.css">
-	<script src="${pageContext.request.contextPath}/resources/js/common/main.js"></script>
     
 </head>
 <body>
@@ -19,21 +18,21 @@
     <jsp:include page="../common/header.jsp" />
     
     
-    <div id="main-container" class="scale-container">
+    <div id="main-container" class="scale-container" data-contextPath="${contextPath}" data-loginUserNo="${loginUser.memberNo}">
         <!-- 배너 -->
         <div id="main-banner-area">
-            <div class="main-banner" data-type="recipe" data-no="3" onclick="moveDetailPage(this)">
-                <img class="main-banner-img" src="${contextPath}/resources/uploadfile/recipe/recipemain/recipeBoardImg(3).jpg" alt="">
+            <div class="main-banner" data-type="recipe" data-no="14" onclick="moveDetailPage(this)">
+                <img class="main-banner-img" src="${contextPath}/resources/uploadfile/recipe/recipemain/2024071021254284728.png" alt="">
                 <div class="main-banner-comment">
                     <div class="main-comment">
-                                    떠오르고 있는 <br>
-                                    신흥 밥도둑
+                                    바다의 맛을 그대로 담은 <br>
+                                    건강한 맛
                     </div>
-                    <div class="sub-comment">창녕갈릭 삼치 조림</div>
+                    <div class="sub-comment">매생이전</div>
                 </div>
             </div>
 
-            <div class="main-banner" data-type="recipe" data-no="16" onclick="moveDetailPage(this)">
+            <div class="main-banner" data-type="recipe" data-no="13" onclick="moveDetailPage(this)">
                 <img class="main-banner-img" src="${contextPath}/resources/uploadfile/recipe/recipemain/recipeBanner.png" alt="">
                 <div class="main-banner-comment">
                     <div class="main-comment">
@@ -121,7 +120,7 @@
                 <!-- 상품 리스트 -->
                 <div class="weekly-best-list">     
                     <div class="weekly-product">
-                        <div class="weekly-item-img-container" data-type="product" data-no="2" onclick="moveDetailPage(this)">
+                        <div class="weekly-item-img-container" data-type="product" data-no="1" onclick="moveDetailPage(this)">
                             <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/product/productimg/과일1.jpeg" alt="">
                         </div>
                         <div class="weekly-item-info-container">
@@ -140,7 +139,7 @@
                     </div>
 
                     <div class="weekly-product">
-                        <div class="weekly-item-img-container" data-type="product" data-no="48" onclick="moveDetailPage(this)">
+                        <div class="weekly-item-img-container" data-type="product" data-no="89" onclick="moveDetailPage(this)">
                             <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/product/productimg/육류11.jpeg" alt="">
                         </div>
                         <div class="weekly-item-info-container">
@@ -159,7 +158,7 @@
                     </div>
 
                     <div class="weekly-product">
-                        <div class="weekly-item-img-container" data-type="product" data-no="71" onclick="moveDetailPage(this)">
+                        <div class="weekly-item-img-container" data-type="product" data-no="93" onclick="moveDetailPage(this)">
                             <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/product/productimg/빵8.jpg" alt="">
                         </div>
                         <div class="weekly-item-info-container">
@@ -178,7 +177,7 @@
                     </div>
 
                     <div class="weekly-product">
-                        <div class="weekly-item-img-container" data-type="product" data-no="86" onclick="moveDetailPage(this)">
+                        <div class="weekly-item-img-container" data-type="product" data-no="83" onclick="moveDetailPage(this)">
                             <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/product/productimg/유제품4.jpg" alt="">
                         </div>
                         <div class="weekly-item-info-container">
@@ -208,7 +207,7 @@
                 <!-- 노하우 리스트 -->
                 <div class="weekly-best-list flex-gap-20 fl-jc-sb">
                     <div class="weekly-board flex-gap-16px">
-                        <div class="board-img-container" data-type="board" data-no="10" onclick="moveDetailPage(this)">
+                        <div class="board-img-container" data-type="board" data-no="9" onclick="moveDetailPage(this)">
                             <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/board/boardMainContentFile/boardThumbnail_10.jpg" alt="">
                         </div>
                         <div class="board-title-container">
@@ -217,7 +216,7 @@
                     </div>
 
                     <div class="weekly-board flex-gap-16px">
-                        <div class="board-img-container" data-type="board" data-no="9" onclick="moveDetailPage(this)">
+                        <div class="board-img-container" data-type="board" data-no="8" onclick="moveDetailPage(this)">
                             <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/board/boardMainContentFile/boardThumbnail_9.jpg" alt="">
                         </div>
                         <div class="board-title-container">
@@ -226,7 +225,7 @@
                     </div>
 
                     <div class="weekly-board flex-gap-16px">
-                        <div class="board-img-container" data-type="board" data-no="7" onclick="moveDetailPage(this)">
+                        <div class="board-img-container" data-type="board" data-no="6" onclick="moveDetailPage(this)">
                             <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/board/boardMainContentFile/boardThumbnail_7.jpg" alt="">
                         </div>
                         <div class="board-title-container">
@@ -258,6 +257,6 @@
     </div>
 
     <jsp:include page="../common/footer.jsp" />
-
+    <script src="${pageContext.request.contextPath}/resources/js/common/main.js"></script>
 </body>
 </html>

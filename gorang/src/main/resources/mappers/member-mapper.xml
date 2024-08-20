@@ -70,20 +70,37 @@
     <collection property="pdOptForCart" resultMap="productDetailOptionResult"/>
 </resultMap>
 
+<!-- 좋아요 알림 -->
+<resultMap type="LikeDtoForNotify" id="LikeDtoForNotifyResult">
+    <result column="member_nickname" property="memberName"/>
+    <result column="rcp_no" property="recipeNo"/>
+    <result column="board_no" property="boardNo"/>
+</resultMap>
 
-  <!-- 알림 -->
-  <resultMap type="NotifyDto" id="NotifyResult">
-  	<result column="notify_no" property="no"/>
-  	<result column="notify_isread" property="isRead"/>
-  	<result column="notify_type" property="notifyType"/>
-  	<result column="notify_content" property="content"/>
-  	<result column="notify_create_at" property="createAt"/>
-  	<result column="notify_member_no" property="refMemberNo"/>
-  	<result column="notify_url" property="notifyUrl"/>
-  </resultMap>
-  
-  
-  
+<!-- qna 알림 -->
+<resultMap type="QnaDtoForNotify" id="QnaDtoForNotifyResult">
+	<result column="qna_content" property="qnaContent"/>
+	<result column="qna_type" property="qnaType"/>
+	<result column="product_no" property="refProductNo"/>
+	<result column="product_name" property="productName"/>
+	<result column="rcp_no" property="refRecipeNo"/>
+	<result column="rcp_title" property="recipeTitle"/>
+	<result column="qna_answer_type" property="QuestionOrAnswer"/>
+	<result column="member_nickname" property="writerNickname"/>
+</resultMap>
+
+<!-- reiew 알림 -->
+<resultMap type="ReviewDtoForNotify" id="ReviewDtoForNotifyResult">
+	<result column="review_content" property="content"/>
+	<result column="review_type" property="type"/>
+	<result column="product_no" property="refProductNo"/>
+	<result column="product_name" property="productName"/>
+	<result column="rcp_no" property="refRecipeNo"/>
+	<result column="rcp_title" property="recipeTitle"/>
+	<result column="member_nickname" property="writerNickname"/>
+</resultMap>
+
+
   <!-- 로그인 쿼리문 -->
   <select id="loginMember" resultMap="memberResult">
     SELECT 
@@ -166,6 +183,29 @@
        AND MEMBER_STATUS = 'Y'
   </select>
   
+  <!-- 회원 번호로 회원 정보 가져오기 -->
+  <select id="getMemberByNo" resultMap="memberResult">
+    SELECT 
+    	  MEMBER_NO,
+    	   MEMBER_EMAIL,
+           MEMBER_PWD,
+           MEMBER_NICKNAME,
+           MEMBER_PHONE,
+           MEMBER_GENDER,
+           MEMBER_ADDRESS,
+           MEMBER_BIRTH,
+           MEMBER_PROFILE,
+           MEMBER_GRADE,
+           MEMBER_ENROLL_DATE,
+           MEMBER_MODIFY_DATE,
+           MEMBER_STATUS,
+           ALARM_STATUS,
+           LOGIN_SIGN_PATH
+      FROM MEMBER
+     WHERE MEMBER_NO = #{boardWriterNo}
+       AND MEMBER_STATUS = 'Y'
+  </select>
+  
   <select id="phoneCheck" resultType="_int">
   	select count(member_no)
   	from member
@@ -241,38 +281,107 @@
 	      </foreach>
 	</delete>
 	
-	  <!-- 알람 관련 매퍼 -->
-  <insert id="insertNotification">
-  	insert into notify
-  	(
-  		notify_type,
-  		notify_content,
-  		notify_url,
-  		notify_member_no
-  	)
-  	values
-  	(
-		#{notifyType},
-		#{content},
-		#{notifyUrl},
-		#{refMemberNo}
-  	)
-  </insert>
-  
-  <select id="selectNotificationsByMemberNo" resultMap="NotifyResult">
-   select
-   	   notify_no,
-	   notify_isread,
-	   notify_type,
-	   notify_content,
-	   notify_url,
-	   notify_create_at,
-	   notify_member_no
-	from notify
-	where notify_member_no = #{memberNo}
-	  and notify_isread = false
-	order by notify_create_at ASC
-  </select>
+	
+	<!-- ================================ 좋아요 관련 매퍼 =========================== -->
+	<select id="getLikeForNotify" resultMap="LikeDtoForNotifyResult">
+		select
+			member_nickname,
+			<if test="type == 1">
+			board_no
+			</if>
+			<if test="type == 2">
+			rcp_no
+			</if>
+		from
+			<if test="type == 1">
+			like_board l
+			</if>
+			<if test="type == 2">
+			like_recipe l
+			</if>
+		join member using (member_no)
+		where
+			l.member_no = #{memberNo} and
+			<if test="type == 1">
+			board_no
+			</if>
+			<if test="type == 2">
+			rcp_no
+			</if>
+			= #{writingNo}
+	</select>
+	
+	<!-- ====================== 질의응답 관련 매퍼 ===================== -->	
+	<select id="getQnaDtoForNotify" resultMap="QnaDtoForNotifyResult">
+		SELECT
+			qna_content,
+			<if test="qnaType == 1">
+			q.product_no,
+			p.product_name,
+			</if>
+			<if test="qnaType == 2">
+			q.rcp_no,
+			r.rcp_title,
+			</if>
+			qna_type,
+			qna_answer_type,
+			member_nickname
+		FROM QNA q
+		JOIN MEMBER USING (member_no)
+		<if test="qnaType == 1">
+		JOIN PRODUCT p USING (product_no)
+		</if>
+		<if test="qnaType == 2">
+		JOIN RECIPE r USING (rcp_no)
+		</if>
+		WHERE qna_no = #{qnaNo}
+	</select>
 
+	<!-- qnaNo로 회원 정보 가져오기 -->
+  <select id="getQnaWriter" resultMap="memberResult">
+    SELECT 
+    	  M.MEMBER_NO,
+    	   MEMBER_EMAIL,
+           MEMBER_PWD,
+           MEMBER_NICKNAME,
+           MEMBER_PHONE,
+           MEMBER_GENDER,
+           MEMBER_ADDRESS,
+           MEMBER_BIRTH,
+           MEMBER_PROFILE,
+           MEMBER_GRADE,
+           MEMBER_ENROLL_DATE,
+           MEMBER_MODIFY_DATE,
+           MEMBER_STATUS,
+           ALARM_STATUS,
+           LOGIN_SIGN_PATH
+      FROM MEMBER M
+      JOIN QNA USING (MEMBER_NO)
+     WHERE QNA_NO = #{refQnaNo}
+  </select>
   
+  <!-- =========================== 리뷰 알림 관련 매퍼 ============================== -->
+	<select id="getReviewDtoForNotify" resultMap="ReviewDtoForNotifyResult">
+		SELECT
+			review_content,
+			<if test="type == 1">
+			re.product_no,
+			p.product_name,
+			</if>
+			<if test="type == 2">
+			re.rcp_no,
+			r.rcp_title,
+			</if>
+			review_type,
+			member_nickname
+		FROM REVIEW RE
+		JOIN MEMBER USING (member_no)
+		<if test="type == 1">
+		JOIN PRODUCT p USING (product_no)
+		</if>
+		<if test="type == 2">
+		JOIN RECIPE r USING (rcp_no)
+		</if>
+		WHERE review_no = #{reviewNo}
+	</select>
 </mapper>

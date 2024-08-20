@@ -1,40 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
 
-	<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
-	<!-- Appenders -->
-	<appender name="console" class="org.apache.log4j.ConsoleAppender">
-		<param name="Target" value="System.out" />
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="[%-5p] %c - %m%n" />
-		</layout>
-	</appender>
-	
-	<appender name="fileAppender" class="org.apache.log4j.FileAppender">
-		<param name="file" value="C:/workspace/log/gorang.log" />
-		<param name="append" value="true" />
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="[%-5p] %d{yyyy-MM-dd HH:mm:ss} %c - %m%n" />
-		</layout>
-	</appender>
-	
-	<!-- Root Logger -->
-	<root>
-		<priority value="info" />
-		<appender-ref ref="console" />
-		<appender-ref ref="fileAppender" />
-	</root>
-	
-	 <!-- Root logger 설정 -->
-    <appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+    <!-- Appenders -->
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out" />
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"/>
+            <param name="ConversionPattern" value="[%-5p] %c - %m%n" />
         </layout>
     </appender>
+    
+    <appender name="fileAppender" class="org.apache.log4j.FileAppender">
+        <param name="file" value="C:/workspace/log/gorang.log" />
+        <param name="append" value="true" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%-5p] %d{yyyy-MM-dd HH:mm:ss} %c - %m%n" />
+        </layout>
+    </appender>
+    
+    <!-- Root Logger -->
     <root>
         <priority value="INFO" />
-        <appender-ref ref="stdout" />
+        <appender-ref ref="console" />
+        <appender-ref ref="fileAppender" />
     </root>
 
     <!-- MyBatis 로그 레벨 조정 -->
@@ -44,6 +33,19 @@
     <logger name="org.mybatis">
         <level value="ERROR"/>
     </logger>
+    <!-- MyBatis SQL 실행 로그 레벨 조정 -->
+	<logger name="org.apache.ibatis.executor">
+	    <level value="ERROR"/>
+	</logger>
+	<logger name="org.apache.ibatis.session">
+	    <level value="ERROR"/>
+	</logger>
+	<logger name="org.apache.ibatis.datasource">
+	    <level value="ERROR"/>
+	</logger>
+	<logger name="org.apache.ibatis.transaction">
+	    <level value="ERROR"/>
+	</logger>
 
     <!-- Spring JDBC 로그 레벨 조정 -->
     <logger name="org.springframework.jdbc">
@@ -52,10 +54,10 @@
     <logger name="org.springframework.transaction">
         <level value="ERROR"/>
     </logger>
-	
-	
-	
+    
+    <!-- PostgreSQL JDBC 드라이버 로그 레벨 조정 -->
+	<logger name="org.postgresql">
+	    <level value="ERROR"/>
+	</logger>
+
 </log4j:configuration>
-
-
-

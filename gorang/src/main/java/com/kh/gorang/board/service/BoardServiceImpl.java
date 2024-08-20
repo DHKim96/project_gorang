@@ -4,17 +4,23 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.gorang.board.model.dao.BoardDao;
 import com.kh.gorang.board.model.dto.BoardListDTO;
+import com.kh.gorang.board.model.dto.CommentDtoForNotify;
 import com.kh.gorang.board.model.dto.CommentListDTO;
 import com.kh.gorang.board.model.dto.InsertCommentDTO;
 import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.board.model.vo.Comment;
 import com.kh.gorang.board.model.vo.Report;
+import com.kh.gorang.common.event.CommentCreatedEvent;
+import com.kh.gorang.common.event.LikeCreatedEvent;
 import com.kh.gorang.common.model.vo.PageInfo;
+import com.kh.gorang.member.model.dao.MemberDao;
+import com.kh.gorang.member.model.dto.LikeDtoForNotify;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +32,8 @@ public class BoardServiceImpl implements BoardService {
 
     private final SqlSessionTemplate sqlSession;
     private final BoardDao boardDao;
+    private final MemberDao memberDao;
+    private final ApplicationEventPublisher eventPublisher; // 이벤트 발행을 위한 객체
 
     @Override
     public int selectListCount() {
@@ -87,7 +95,13 @@ public class BoardServiceImpl implements BoardService {
     		result = boardDao.insertComment(sqlSession, insertCommentDTO);
     	} else { // 대댓글 insert 전용
     		result = boardDao.insertReReply(sqlSession, insertCommentDTO);
-    	} 
+    	}
+    	if (result > 0) {
+    		// 댓글 작성 이벤트 발행
+    		CommentDtoForNotify comment = boardDao.selelctComment(sqlSession, insertCommentDTO.getCommentNo());
+    		int boardWriterNo = boardDao.selectBoardWriterNo(sqlSession, insertCommentDTO.getBoardNo());
+    		eventPublisher.publishEvent(new CommentCreatedEvent(comment, boardWriterNo));
+    	}
     	return result;
     }
 
@@ -127,8 +141,9 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.deleteBoard(sqlSession, boardNo);
 	}
 
+	@Transactional(rollbackFor = {Exception.class})
 	@Override
-	public int insertLikeBoard(Map<String, Object> map) {
+	public int insertLikeBoard(Map<String, Integer> map) {
 
 		//like_board에 memberNo와 boardNo를 갖고 있는 컬럼이 있는지 확인 후
 		// 없다면 Insert, 있다면 삭제해주자.;
@@ -142,6 +157,18 @@ public class BoardServiceImpl implements BoardService {
 			int insertLikeBoard = boardDao.insertLikeBoard(sqlSession, map);
 			
 			if(insertLikeBoard > 0) {
+				// 댓글 작성 이벤트 발행
+				int memberNo = map.get("memberNo");
+				int boardNo = map.get("boardNo");
+						
+				LikeDtoForNotify like = memberDao.getLikeForNotify(sqlSession, memberNo, boardNo, 1);
+	    		int boardWriterNo = boardDao.selectBoardWriterNo(sqlSession, boardNo);
+	    		eventPublisher.publishEvent(LikeCreatedEvent.builder()
+	    									.like(like)
+	    									.boardWriterNo(boardWriterNo)
+	    									.likeType(1)
+	    									.build()
+	    									);
 				return 2;
 			}
 		} else {

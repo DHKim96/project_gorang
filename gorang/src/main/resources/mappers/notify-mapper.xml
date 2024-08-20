@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="notifyMapper">
+  
+  <!-- 알림 객체 -->
+  <resultMap type="NotifyDto" id="NotifyResult">
+  	<result column="notify_no" property="no"/>
+  	<result column="notify_isread" property="isRead"/>
+  	<result column="notify_type" property="notifyType"/>
+  	<result column="notify_content" property="content"/>
+  	<result column="notify_create_at" property="createAt"/>
+  	<result column="notify_member_no" property="refMemberNo"/>
+  	<result column="notify_url" property="notifyUrl"/>
+  </resultMap>
+  
+  <!-- 멤버 객체 -->
+   <resultMap type="Member" id="memberResult">
+    <result column="MEMBER_NO" property="memberNo"/>
+    <result column="MEMBER_EMAIL" property="memberEmail"/>
+    <result column="MEMBER_PWD" property="memberPwd"/>
+    <result column="MEMBER_NICKNAME" property="nickname"/>
+    <result column="MEMBER_PHONE" property="memberPhone"/>
+    <result column="MEMBER_GENDER" property="gender"/>
+    <result column="MEMBER_ADDRESS" property="memberAddress"/>
+    <result column="MEMBER_BIRTH" property="birth"/>
+    <result column="MEMBER_PROFILE" property="profile"/>
+    <result column="MEMBER_GRADE" property="grade"/>
+    <result column="MEMBER_ENROLL_DATE" property="memberEnrollDate"/>
+    <result column="MEMBER_MODIFY_DATE" property="memberModifyDate"/>
+    <result column="MEMBER_STATUS" property="memberStatus"/>
+    <result column="ALARM_STATUS" property="alarm"/>
+    <result column="LOGIN_SIGN_PATH" property="loginPath"/>
+  </resultMap>
+  
+  <!-- ================== sql ================================ -->
+  
+  <!-- 알람 관련 매퍼 -->
+  <insert id="insertNotification">
+  	insert into notify
+  	(
+  		notify_type,
+  		notify_content,
+  		notify_url,
+  		notify_member_no
+  	)
+  	values
+  	(
+		#{notifyType},
+		#{content},
+		#{notifyUrl},
+		#{refMemberNo}
+  	)
+  </insert>
+  
+  <select id="selectNotificationsByMemberNo" resultMap="NotifyResult">
+   select
+   	   notify_no,
+	   notify_isread,
+	   notify_type,
+	   notify_content,
+	   notify_url,
+	   notify_create_at,
+	   notify_member_no
+	from notify
+	where notify_member_no = #{memberNo}
+	  and notify_isread = false
+	order by notify_create_at ASC
+  </select>
+  
+  <delete id="deleteNotificationByNotifyNo">
+  	delete
+  	from notify
+  	where notify_no = #{notifyNo}
+  </delete>
+  
+</mapper>
+  
+ 

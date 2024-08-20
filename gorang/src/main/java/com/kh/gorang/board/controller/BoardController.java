@@ -260,7 +260,7 @@ public class BoardController {
 		
 		int memberNo = ((Member)session.getAttribute("loginUser")).getMemberNo();
 		
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Integer> map = new HashMap<>();
 		map.put("memberNo", memberNo);
 		map.put("boardNo", boardNo);
 		

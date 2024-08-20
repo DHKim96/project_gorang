@@ -26,10 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
    })
 })
 
+// ====================================== 전역 변수 ===========================
 const ctx = document.querySelector('body').getAttribute('data-context-path');
 
 const state = Math.random().toString(36).substring(2);
 
+// ====================================== 소셜 로그인 api =======================
 function naverLogin(ev){
     const naverClientId = "6D1ucwJgv10DLouX8avE";
     //리다이렉트 URI를 utf-8로 인코딩해서 저장
@@ -64,4 +66,3 @@ function kakaoLogin(ev){
 /**아이디 찾기 */
 
 /**비밀번호 찾기 */
-

@@ -242,6 +242,14 @@
 		<result column="REF_CONTENT_NO" property="refContentNo"/>
 		<result column="CONTENT_IMG" property="contentImg"/>
 	</resultMap>
+	
+	<!-- 냉장고 식재료 알림용 dto -->
+	<resultMap type="RefrigeratorDtoForNotify" id="RefrigeratorDtoForNotifyResult">
+		<result column="ref_no" property="refriNo"/>
+		<result column="member_no" property="refMemberNo"/>
+		<result column="ref_name" property="name"/>
+		<result column="ref_consumption_date" property="refConsumptionDate"/>
+	</resultMap>
 
 <!-- ===================================== 쿼리문 =============================== -->
 	<!-- 팔로잉 수 조회 -->
@@ -929,6 +937,17 @@
 			#{ingre.refNo}			
 		</foreach>
 	</delete>
+	
+	<!-- 비교연산자 CDATA 사용. 부등호를 xml의 특수 문자로 인식하여 에러가 발생하기 때문 -->
+	<select id="findExpiringRefriIngre" resultMap="RefrigeratorDtoForNotifyResult">
+		SELECT
+			ref_no,
+			member_no,
+			ref_name,
+			ref_consumption_date
+		FROM refrigerator
+		WHERE ref_consumption_date <![CDATA[ <= ]]> #{alertDate}
+	</select>
 	
 	<select id="selectRecipeListByRecipeNo" resultMap="recipeListDtoResult">
 		select 

@@ -27,8 +27,17 @@
   	<result column="REF_COMMENT_NO" property="refCommentNo"/>
   </resultMap>
   
+  <!-- 알림용 댓글 dto -->
+  <resultMap type="CommentDtoForNotify" id="CommentDtoForNotifyRes">
+  	<result column="COMMENT_NO" property="commentNo"/>
+  	<result column="COMMENT_CONTENT" property="content"/>
+  	<result column="COMMENT_DATE" property="commentDate"/>
+  	<result column="BOARD_NO" property="boardNo"/>
+  </resultMap>
+  
   <!-- 댓글 삽입 DTO -->
   <resultMap type="InsertCommentDTO" id="insertCommentDTOResult">
+  	<result column="COMMENT_NO" property="commentNo" />
   	<result column="MEMBER_NO" property="memberNo"/>
   	<result column="BOARD_NO" property="boardNo"/>
   	<result column="COMMENT_CONTENT" property="commentContent"/>
@@ -54,8 +63,21 @@
 		ORDER BY COMMENT_DATE DESC, COMMENT_NO DESC
 </select>
 
+<!-- 댓긓 하나 조회 -->
+<select id="selectComment" resultMap="CommentDtoForNotifyRes">
+	SELECT 
+		COMMENT_NO,
+		COMMENT_CONTENT,
+		TO_CHAR(COMMENT_DATE, 'YYYY-MM-DD') AS COMMENT_DATE,
+		BOARD_NO
+	FROM COMMENTS C
+	WHERE STATUS = 'Y'
+		AND COMMENT_NO = #{commentNo}
+</select>
+
   <!-- 게시글 댓글 추가 -->
- <insert id="insertComment">
+  <!-- seGeneratedKeys를 통해 키 값을 반환 받을 수 있음 -->
+ <insert id="insertComment" useGeneratedKeys="true" keyProperty="commentNo">
     INSERT INTO COMMENTS (
         BOARD_NO,
         COMMENT_CONTENT,

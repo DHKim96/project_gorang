@@ -261,11 +261,11 @@
                         </div>
                     </div>
                 </div>
-                <script src="${pageContext.request.contextPath}/resources/js/common/header.js"></script>
-
                 <script type="text/javascript" charset="utf-8">
                     sessionStorage.setItem("contextpath", "${pageContext.request.contextPath}");
                 </script>
+                
+                <script src="${pageContext.request.contextPath}/resources/js/common/header.js"></script>
             </body>
 
             </html>

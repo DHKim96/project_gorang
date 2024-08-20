@@ -7,12 +7,12 @@
         <head>
             <meta charset="UTF-8">
             <title>푸드 커뮤니티 커머스, 고랭: 고수의 냉장고</title>
-
+            <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
              <!-- pretendard 폰트 -->
             <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
             <!-- css -->
             <link rel="stylesheet" href="${contextPath}/resources/css/default.css">
-            <link rel="stylesheet" href="${contextPath }/resources/css/member/loginPage.css">
+            <link rel="stylesheet" href="${contextPath}/resources/css/member/loginPage.css">
             <!--js-->
             <!-- jQuery library -->
             <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
@@ -21,8 +21,6 @@
 
             <!-- Latest compiled JavaScript -->
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-
-            <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
 
         </head>
 
@@ -57,7 +55,7 @@
                             <label for="rememberMe">로그인 상태 유지</label>
                         </div>
                         <div class="submit_button">
-                            <input type="submit" value="로그인" />
+                            <input type="submit" value="로그인"/>
                         </div>
                         </form>
                         <div class="findInfo-regist">

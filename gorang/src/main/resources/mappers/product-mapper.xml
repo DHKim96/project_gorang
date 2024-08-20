@@ -254,7 +254,7 @@
     		R.status = 'Y'
     </select>
     
-    <insert id="insertProductReview">
+    <insert id="insertProductReview" useGeneratedKeys="true" keyProperty="reviewNo">
     insert into review
     (
 	    member_no,
@@ -286,7 +286,7 @@
     
     <!-- ===================================== 문의 ======================= -->
     <!-- 상품 문의 등록 -->
-    <insert id="insertProductQna">
+    <insert id="insertProductQna" useGeneratedKeys="true" keyProperty="qnaNo">
     insert into QNA
     (
      qna_content,

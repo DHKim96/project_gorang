@@ -683,9 +683,9 @@ function sendQnaByAjax() {
     cache: false,
     success: function(res) {
       alert('문의가 성공적으로 제출되었습니다.');
-      if(res > 1) {
-        sendNotifyByAjax(res);
-      }
+      // if(res > 1) {
+      //   sendNotifyByAjax(res);
+      // }
       location.reload();
     },
     error: function(res) {
@@ -798,21 +798,21 @@ function scrollToDiv(div) {
 
 
 // ======================== 알림 관련 메소드 ===================================
-function sendNotifyByAjax(memberNo){
-  let notify = {refMemberNo: memberNo,
-                notifyType: 3,
-                content: "문의글에 답변이 달렸습니다.",
-                notifyUrl: "detail.po?pno=" + pno
-                }
-  $.ajax({
-    url: "insertNotifyByAjax.me",
-    data: notify,
-    type: 'post',
-    success: function(res){
-      console.log("송신성공", res);
-    },
-    error: function(){
-      console.log("송신실패");
-    }
-  })
-}
+// function sendNotifyByAjax(memberNo){
+//   let notify = {refMemberNo: memberNo,
+//                 notifyType: 3,
+//                 content: "문의글에 답변이 달렸습니다.",
+//                 notifyUrl: "detail.po?pno=" + pno
+//                 }
+//   $.ajax({
+//     url: "insertNotifyByAjax.me",
+//     data: notify,
+//     type: 'post',
+//     success: function(res){
+//       console.log("송신성공", res);
+//     },
+//     error: function(){
+//       console.log("송신실패");
+//     }
+//   })
+// }

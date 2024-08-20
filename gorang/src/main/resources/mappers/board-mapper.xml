@@ -103,6 +103,12 @@
 		<!-- WHERE STATUS = 'Y' -->
 		AND BOARD_NO = #{boardNo}
 	</select>
+	
+	<select id="selectBoardWriterNo" resultType="_int">
+		select member_no
+		from board
+		where board_no = #{boardNo}
+	</select>
 
 	<!-- 게시판 게시글 추가 -->
 	<insert id="insertBoard" parameterType="Board">

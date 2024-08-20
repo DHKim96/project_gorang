@@ -1,5 +1,8 @@
 package com.kh.gorang.member.service;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -7,6 +10,7 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +19,7 @@ import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.common.model.vo.PageInfo;
 import com.kh.gorang.member.model.dao.MyPageDao;
 import com.kh.gorang.member.model.dto.MyPageReviewDTO;
+import com.kh.gorang.member.model.dto.RefrigeratorDtoForNotify;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.MyPageBoardCommentDTO;
 import com.kh.gorang.member.model.vo.MyPageBoardDTO;
@@ -27,12 +32,17 @@ import com.kh.gorang.member.model.vo.MyPageScrapRecipeDTO;
 import com.kh.gorang.member.model.vo.ProductQnaDTO;
 import com.kh.gorang.member.model.vo.RecipeQnaDTO;
 import com.kh.gorang.member.model.vo.RefrigeratorInsertDTO;
+import com.kh.gorang.notification.model.vo.NotifyDto;
+import com.kh.gorang.notification.repository.NotificationRepository;
+import com.kh.gorang.notification.service.NotificationService;
 import com.kh.gorang.recipe.model.dto.RecipeListDto;
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.shopping.model.vo.Product;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class MyPageServiceImpl implements MyPageService{
@@ -45,6 +55,15 @@ public class MyPageServiceImpl implements MyPageService{
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+	
+	@Autowired
+	private NotificationService notificationService;
+	
+	@Autowired
+	private MemberService memberService;
+	
+	@Autowired
+	private NotificationRepository notificationRepository;
 	
 	// 팔로잉 수 구하기
 	@Override
@@ -417,6 +436,52 @@ public class MyPageServiceImpl implements MyPageService{
 		return myPageDao.deleteRefrigerator(sqlSession, refriListforDelete);
 	}
 	
+	// 소비기한 3일 이내인 냉장고 식재료 찾는 메소드
+	@Override
+	public List<RefrigeratorDtoForNotify> findExpiringRefriIngre(LocalDate alertDate) {
+		return myPageDao.findExpiringRefriIngre(sqlSession, alertDate);
+	}
+	
+	// 소비기한 임박한 식재료 알림 생성하는 메소드
+	@Override
+	@Transactional(rollbackFor = {Exception.class})
+	@Scheduled(cron = "0 0 0 * * *") // 매일 자정에 실행
+	public void checkExpiringRefriIngre() {
+		log.info("checkExpiringRefriIngre 메소드 실행됨");
+		LocalDate today = LocalDate.now();
+		LocalDate alertDate = today.plusDays(3); // 3일 후의 날짜 설정(소비기한 3일 전 알림 위해)
+		
+		List<RefrigeratorDtoForNotify> expiringIngredients = findExpiringRefriIngre(alertDate);
+		
+		// 소비기한 임박한 냉장고 식재료들을 전송하기
+		for(RefrigeratorDtoForNotify expiringIngredient : expiringIngredients) {
+			int memberNo = expiringIngredient.getRefMemberNo();
+			// 회원 탈퇴 등에 대한 예외 처리
+			if (memberNo == 0) continue;
+			// 소비기한
+			Date sqlDate = expiringIngredient.getRefConsumptionDate();
+			// java.time.LocalDate로 변환
+			LocalDate consumptionDate = sqlDate.toLocalDate();
+			// 남은 일수 계산
+			long daysRemaining = ChronoUnit.DAYS.between(today, consumptionDate);
+			// 알림 내용 작성(ChronoUnit.DAYS.between은 앞의 것이 더 클 경우 음수 발생 즉, 소비기한이 이미 지났다면  지난 일 수 만큼 음수 반환)
+			String content = (daysRemaining > 0) 
+		            ? String.format("%s의 소비기한이 %d일 남았습니다.", expiringIngredient.getName(), daysRemaining)
+		            : String.format("%s의 소비기한이 %d일 지났습니다.", expiringIngredient.getName(), Math.abs(daysRemaining));
+			
+		    // 알림 전송 
+		    // NotifyDto 객체 생성
+		    NotifyDto notification = NotifyDto.builder()
+		    									.refMemberNo(memberNo)
+		    									.notifyType(5)
+		    									.content(content)
+		    									.notifyUrl("/myRefrigerator.me")
+		    									.isRead(false)
+		    									.build();
+		    notificationRepository.insertNotification(notification);
+		}
+	}
+	
 	@Transactional(readOnly = true)
 	@Override
 	public ArrayList<RecipeListDto> selectRecipeListByRecipeNo(String recipeNums) {
@@ -455,7 +520,6 @@ public class MyPageServiceImpl implements MyPageService{
 		
 		return result;
 	}
-
 
 	
 }

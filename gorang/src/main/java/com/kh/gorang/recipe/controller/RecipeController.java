@@ -52,8 +52,6 @@ public class RecipeController {
 	public String recipDetailPage(@RequestParam("recipeNo") int recipeNo,
 			@RequestParam(value = "cpage", defaultValue = "1") int cp, Model model, HttpSession session) {
 
-		System.out.println("도착" + recipeNo);
-
 		// 레시피
 		Member m = recipeService.selectRecipeMember(recipeNo);
 		Recipe rcp = recipeService.selectRecipe(recipeNo);
@@ -69,7 +67,6 @@ public class RecipeController {
 			
 			recipeInsertDTO.setProductList(recipeService.selectProductList(divList, recipeNo));
 			List<Product> pList = recipeService.selectProductList(divList, recipeNo);
-			System.out.println("pList" + pList);
 			
 			// 질의응답 및 페이징바
 			int qnaCount = recipeService.selectRecipeQnaCount(recipeNo);
@@ -123,7 +120,6 @@ public class RecipeController {
 
 	}
 	
-	
 
 	@RequestMapping("write.re")
 	public String recipWritePage(){
@@ -140,7 +136,6 @@ public class RecipeController {
 
 		//비디오 주소 처리
 		if(rcp.getRecipeVideo() != null) {
-			System.out.println("영상 테스트:"+extractYouTubeId(rcp.getRecipeVideo()));
 			rcp.setRecipeVideo(extractYouTubeId(rcp.getRecipeVideo()));
 		}
 		int result = recipeService.insertRecipeInsertDTO(rcp, recipeInsertDTO, session);
@@ -177,9 +172,7 @@ public class RecipeController {
 	//레시피 수정
 	@RequestMapping("update.re")
 	public String updateRecipe(Recipe rcp, RecipeInsertDTO recipeInsertDTO ,HttpSession session, Model model){
-		System.out.println(recipeInsertDTO);
 		int deleteAllResult =recipeService.deleteAllRecipe(rcp,session);
-		System.out.println("deleteAllResult:"+deleteAllResult);
 		
 		//비디오 주소 처리
 		if(rcp.getRecipeVideo() != null) {
@@ -201,7 +194,6 @@ public class RecipeController {
 	@PostMapping("deleteDivision.re")
 	@ResponseBody
 	public int deleteDivision(Division division, HttpSession session) {
-		System.out.println(division);
 			int result =recipeService.deleteDivision(division);
 			return result;
 	}
@@ -210,10 +202,7 @@ public class RecipeController {
 	@PostMapping("deleteIngre.re")
 	@ResponseBody
 	public int deleteIngre(IngredientsInfo ingredientsInfo, HttpSession session) {
-		System.out.println(ingredientsInfo);
-			
 		int result =recipeService.deleteIngre(ingredientsInfo);			
-		System.out.println("result:"+result);
 		return result;
 		
 	}
@@ -223,7 +212,6 @@ public class RecipeController {
 	@PostMapping("deleteCookOrder.re")
 	@ResponseBody
 	public int deleteCookOrder(CookOrder cookOrder, HttpSession session) {
-		System.out.println(cookOrder);
 		if(!cookOrder.getCookOrdContent().equals("")) {
 			int result =recipeService.deleteCookOrder(cookOrder);
 			return result;
@@ -236,7 +224,6 @@ public class RecipeController {
 	@PostMapping("deleteCookTip.re")
 	@ResponseBody
 	public int deleteCookTip(CookTip cookTip, HttpSession session) {
-		System.out.println(cookTip);
 		if(!cookTip.getCookTipContent().equals("")) {
 			int result =recipeService.deleteCookTip(cookTip);
 			return result;
@@ -249,7 +236,6 @@ public class RecipeController {
 	@PostMapping("deleteCompletePhoto.re")
 	@ResponseBody
 	public int deleteCompletePhoto(Media media, HttpSession session) {
-		System.out.println(media);
 		if(!media.getOriginName().equals("")) {
 			int result =recipeService.deleteCompletePhoto(media);
 			return result;
@@ -262,7 +248,6 @@ public class RecipeController {
 	@PostMapping("upload")
 	@ResponseBody
 	public String upload(MultipartFile recipeMainPhoto, HttpSession session) {
-		System.out.println("recipeMainPhoto: "+recipeMainPhoto.getOriginalFilename());
 		String changeName = SaveFileController.saveFile(recipeMainPhoto, session,"/recipe/recipemain/");		
 		return new Gson().toJson(changeName);
 	}
@@ -270,7 +255,6 @@ public class RecipeController {
 	@PostMapping("upload2")
 	@ResponseBody
 	public String upload2(MultipartFile cookOrdPhoto, HttpSession session) {
-		System.out.println("cookOrdPhoto: "+cookOrdPhoto.getOriginalFilename());
 		String changeName = SaveFileController.saveFile(cookOrdPhoto, session,"/recipe/recipeorder/");
 		return new Gson().toJson(changeName);
 	}	
@@ -278,7 +262,6 @@ public class RecipeController {
 	@PostMapping("upload3")
 	@ResponseBody
 	public String upload3(MultipartFile completeFoodPhoto, HttpSession session) {
-		System.out.println("completeFoodPhoto: "+completeFoodPhoto.getOriginalFilename());
 		String changeName = SaveFileController.saveFile(completeFoodPhoto, session,"/recipe/recipefinal/");
 		return new Gson().toJson(changeName);
 	}
@@ -290,7 +273,6 @@ public class RecipeController {
 	@ResponseBody
 	public Map<String,Object> ajaxRecipeReview(@RequestParam("recipeNo") String recipeNo ,
 			@RequestParam(value="cpage", defaultValue= "1") String cpage,HttpSession session) {
-		System.out.println("들어옴");
 		int cp = Integer.parseInt(cpage);
 		
 		int rcpNo = Integer.parseInt(recipeNo);
@@ -298,7 +280,6 @@ public class RecipeController {
 		int reviewsCount = recipeService.selectRecipeReviewCount(rcpNo);
 		PageInfo pi = Pagination.getPageInfo(reviewsCount, cp, 10, 10);
 		ArrayList<Review> reviewList = (ArrayList<Review>) recipeService.selectRecipeReviewList(rcpNo);
-		System.out.println(reviewList);
 		Map<String, Object> result = new HashMap<>();
 		result.put("reviews", reviewList);
 		result.put("pi", pi);
@@ -310,27 +291,19 @@ public class RecipeController {
 		@ResponseBody
 		public Map<String,Object> ajaxQnA(@RequestParam("recipeNo") String recipeNo ,
 				@RequestParam(value="cpage", defaultValue= "1") String cpage,HttpSession session) {
-			System.out.println("들어옴 문의");
 			int cp = Integer.parseInt(cpage);
 			
 			int rcpNo = Integer.parseInt(recipeNo);
 
 
 			int qnaCount = recipeService.selectRecipeQnaCount(rcpNo);
-			System.out.println("질의 응답 수 :"+qnaCount);
 			PageInfo pi = Pagination.getPageInfo(qnaCount, cp, 10, 10);
 			ArrayList<QnA> qnaList = (ArrayList<QnA>) recipeService.selectRecipeQnaList(rcpNo);
-			System.out.println(qnaList);
 			Map<String, Object> result = new HashMap<>();
 			result.put("qnaList", qnaList);
 			result.put("pi", pi);
-			System.out.println("result"+result);
 			return result;
 		}
-	
-	
-	
-	
 	
 
 	//레시피 후기 작성
@@ -351,11 +324,8 @@ public class RecipeController {
 		review.setRefRecipeNo(refRecipeNo);
 		review.setRating(rating);
 		review.setReviewContent(reviewContent);
-		System.out.println("reviewPhoto:"+reviewPhoto);
-		System.out.println("review: "+review);
 		return recipeService.insertReview(review) > 0 ? review : null;
 	}
-	
 	
 	//레시피 후기 작성
 	@PostMapping("insertQnA.re")
@@ -374,7 +344,6 @@ public class RecipeController {
 			qna.setRefQnaNo(refQnaNo);
 		} 
 		
-		System.out.println("qnaPhoto:"+qnaPhoto);
 		if(qnaPhoto!=null) {
 			String changeName = SaveFileController.saveFile(qnaPhoto, session, "/recipe/recipeQna/");
 			qna.setQnaPhoto(changeName);
@@ -420,9 +389,9 @@ public class RecipeController {
 	public int addRecipeLike(@RequestParam("memberNo") int memberNo,
 						            @RequestParam("recipeNo") int recipeNo,						        
 						            HttpSession session) {
-		 Map<String, Object> map = new HashMap<String, Object>();
+		 Map<String, Integer> map = new HashMap<>();
 		 map.put("memberNo", memberNo);
-			map.put("recipeNo", recipeNo);
+		map.put("recipeNo", recipeNo);
 		int result =recipeService.addRecipeLike(map);
 		
 		int like= recipeService.selectRecipeLike(recipeNo ,memberNo);
@@ -441,7 +410,6 @@ public class RecipeController {
 		int result =recipeService.deleteRecipeLike(map);
 		
 		int like= recipeService.selectRecipeLike(recipeNo ,memberNo);
-		System.out.println("lIke : " + like);
 		return like> 0 ? like : 0;
 	}
 	

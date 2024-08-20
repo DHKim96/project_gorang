@@ -12,6 +12,7 @@ import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.recipe.model.vo.RecipeInsertDTO;
 import com.kh.gorang.shopping.model.vo.Product;
 import com.kh.gorang.common.model.vo.Media;
+import com.kh.gorang.member.model.dto.QnaDtoForNotify;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.QnA;
 import com.kh.gorang.member.model.vo.Review;
@@ -78,7 +79,7 @@ public interface RecipeService {
 
 	int deleteRecipeScrap(Map<String, Object> map);
 
-	int addRecipeLike(Map<String, Object> map);
+	int addRecipeLike(Map<String, Integer> map);
 
 	int deleteRecipeLike(Map<String, Object> map);
 
@@ -91,8 +92,4 @@ public interface RecipeService {
 //	int findCtLen(RecipeInsertDTO recipeInsertDTO, HttpSession session);
 //
 //	int findCpLen(RecipeInsertDTO recipeInsertDTO, HttpSession session);
-
-
-
-
 }

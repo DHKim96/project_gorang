@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.gorang.member.model.dao.MemberDao;
-import com.kh.gorang.member.model.dto.NotifyDto;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.ProductCart;
+import com.kh.gorang.notification.model.vo.NotifyDto;
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -95,20 +95,11 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.phoneCheck(sqlSession, phone);
 	}
 	
-	// 알림 객체 저장하는 메소드
-	@Transactional(rollbackFor = {Exception.class})
-	@Override
-	public int insertNotification(NotifyDto notificationData) {
-		return memberDao.insertNotification(sqlSession, notificationData);
-	}
-	
-	// 알림 객체 리스트 반환하는 메소드
+	// 회원 정보 조회
 	@Transactional(readOnly = true)
 	@Override
-	public ArrayList<NotifyDto> selectNotificationsByMemberNo(int memberNo) {
-		return memberDao.selectNotificationsByMemberNo(sqlSession, memberNo);
+	public Member getMemberByNo(int boardWriterNo) {
+		return memberDao.getMemberByNo(sqlSession, boardWriterNo);
 	}
-	
 
-	
 }

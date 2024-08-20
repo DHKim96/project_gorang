@@ -7,9 +7,11 @@
 			/WEB-INF/spring/spring-security.xml
 		</param-value>
   </context-param>
+  
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
+  
   <servlet>
     <servlet-name>appServlet</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -18,14 +20,19 @@
       <param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
+    <!-- ASYNC 지원 활성화 -->
+    <async-supported>true</async-supported>
   </servlet>
+  
   <servlet-mapping>
     <servlet-name>appServlet</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
+  
   <filter>
     <filter-name>encodingFilter</filter-name>
     <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <async-supported>true</async-supported>     <!-- ASYNC 지원 활성화-->
     <init-param>
       <param-name>encoding</param-name>
       <param-value>UTF-8</param-value>
@@ -38,7 +45,13 @@
   <filter-mapping>
     <filter-name>encodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher> <!-- 모든 유형의 요청에 필터 보장 -->
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher> <!-- ASYNC 지원 활성화 -->
   </filter-mapping>
+  
   <servlet>
     <description></description>
     <display-name>LoginController</display-name>
@@ -49,4 +62,5 @@
     <servlet-name>LoginController</servlet-name>
     <url-pattern>/LoginController</url-pattern>
   </servlet-mapping>
+  
 </web-app>

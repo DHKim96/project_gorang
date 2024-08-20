@@ -1,13 +1,14 @@
 package com.kh.gorang.member.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.JsonElement;
 import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.common.model.vo.PageInfo;
 import com.kh.gorang.member.model.dto.MyPageReviewDTO;
+import com.kh.gorang.member.model.dto.RefrigeratorDtoForNotify;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.MyPageBoardCommentDTO;
 import com.kh.gorang.member.model.vo.MyPageBoardDTO;
@@ -18,10 +19,8 @@ import com.kh.gorang.member.model.vo.MyPageScrapBoardDTO;
 import com.kh.gorang.member.model.vo.MyPageScrapProductDTO;
 import com.kh.gorang.member.model.vo.MyPageScrapRecipeDTO;
 import com.kh.gorang.member.model.vo.ProductQnaDTO;
-import com.kh.gorang.member.model.vo.QnA;
 import com.kh.gorang.member.model.vo.RecipeQnaDTO;
 import com.kh.gorang.member.model.vo.RefrigeratorInsertDTO;
-import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.recipe.model.dto.RecipeListDto;
 import com.kh.gorang.recipe.model.vo.Recipe;
 
@@ -148,6 +147,12 @@ public interface MyPageService {
 	
 	// 냉장고 식재료 삭제
 	int deleteRefrigerator(int memberNo, String refriNums);
+	
+	// 스케쥴러 통해 소비기한 임박한 식재료 알림 전송
+	void checkExpiringRefriIngre();
+	
+	// 소비기한 3일 이내의 냉장고 식재료들을 찾는 메소드
+	List<RefrigeratorDtoForNotify> findExpiringRefriIngre(LocalDate alertDate);
 	
 	// 레시피 리스트 조회
 	ArrayList<RecipeListDto> selectRecipeListByRecipeNo(String recipeNums);

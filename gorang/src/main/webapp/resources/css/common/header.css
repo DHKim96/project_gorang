@@ -164,63 +164,84 @@
                 }
 
                 .dropdown-menu{
-                    width: 250px;
+                    width: 300px;
                     padding: 10px;
-                    transform: translate3d(-250px, 30px, 0px) !important;
+                    transform: translate3d(-300px, 30px, 0px) !important;
                 }
 
                 .dropdown-menu-ul{
                     margin: 0px;
                     padding: 0px;
+                    height: 300px;
+                    overflow: auto;
+                    scrollbar-width: thin;
+                    z-index: 10; /* 메인 화면보다 높게 설정 */
                 }
 
                 .dropdown-menu-ul-li{
                     font-size: 13px;
+                    font-weight: normal;
+                    color: black;
+                    border-bottom: 1px solid #EDEDED;
+                    cursor: pointer;
+                    padding: 5px 20px 0 0;
+                    display: flex;
+                    position: relative;
                 }
 
-                    .headerProfileImg{
-                        width: 40px;
-                        height: 40px;
-                        border-radius: 50%;
-                        
-                    }
-                    .writeDropdown {
-                        position: relative;
-                        display: inline-block;
-                    }
+                .dropdown-menu-ul-li-deleteDiv{
+                    position: absolute;
+                    right: 0;
+                    width: 20px;
+                    text-align: center;
+                }
 
 
-                    .writeDropdown > span {
-                        cursor: pointer;
-                        border: none;
-                        border-radius: 4px;
-                    }
+.headerProfileImg{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    
+}
 
 
-                    .writeDropdown-content {
-                        display: none;
-                        position: absolute;
-                        background-color: #fff;
-                        min-width: 160px;
-                        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-                        z-index: 1;
-                    }
+.writeDropdown {
+    position: relative;
+    display: inline-block;
+}
 
 
-                    .writeDropdown-content span {
-                        color: black;
-                        padding: 12px 16px;
-                        text-decoration: none;
-                        display: block;
-                    }
+.writeDropdown > span {
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+}
 
 
-                    .writeDropdown-content span:hover {
-                        color: #1E90FF;
-                        background-color: #f1f1f1;
-                    }
+.writeDropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
 
 
-                    .writeDropdown:hover .writeDropdown-content {
-                        display: block;
-                    }
+.writeDropdown-content span {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+
+.writeDropdown-content span:hover {
+    color: #1E90FF;
+    background-color: #f1f1f1;
+}
+
+
+.writeDropdown:hover .writeDropdown-content {
+    display: block;
+}

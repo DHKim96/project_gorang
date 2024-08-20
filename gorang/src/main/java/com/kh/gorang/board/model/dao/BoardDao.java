@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.gorang.board.model.dto.BoardListDTO;
+import com.kh.gorang.board.model.dto.CommentDtoForNotify;
 import com.kh.gorang.board.model.dto.CommentListDTO;
 import com.kh.gorang.board.model.dto.InsertCommentDTO;
 import com.kh.gorang.board.model.vo.Board;
@@ -51,6 +52,10 @@ public class BoardDao{
     public Board selectBoard(SqlSessionTemplate sqlSession, int boardNo) {
 	    return sqlSession.selectOne("boardMapper.selectBoard", boardNo);
 	}
+    
+    public int selectBoardWriterNo(SqlSessionTemplate sqlSession, int boardNo) {
+	    return sqlSession.selectOne("boardMapper.selectBoardWriterNo", boardNo);
+	}
 
 	public int insertBoard(SqlSessionTemplate sqlSession, Board board) {
 		return sqlSession.insert("boardMapper.insertBoard",board);
@@ -63,11 +68,17 @@ public class BoardDao{
 		return sqlSession.selectOne("boardMapper.getMemberNickname", memberNo);
 	}
 	
+	// =============================================== 댓글 관련 ================================
+	
 	public ArrayList<Comment> selectCommentList(SqlSessionTemplate sqlSession, int boardNo, PageInfo pi) {
         int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
         RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
         return (ArrayList) sqlSession.selectList("commentMapper.selectCommentList", boardNo, rowBounds);
     }
+	
+	public CommentDtoForNotify selelctComment(SqlSessionTemplate sqlSession, int commentNo) {
+		 return sqlSession.selectOne("commentMapper.selectComment", commentNo);
+	}
 
     public int insertComment(SqlSessionTemplate sqlSession, InsertCommentDTO InsertCommentDTO) {
         return sqlSession.insert("commentMapper.insertComment", InsertCommentDTO);
@@ -118,7 +129,7 @@ public class BoardDao{
 		return sqlSession.selectOne("boardMapper.selectLikeBoard", map);
 	}
 
-	public int insertLikeBoard(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+	public int insertLikeBoard(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
 		return sqlSession.insert("boardMapper.insertLikeBoard", map);
 	}
 
@@ -150,11 +161,11 @@ public class BoardDao{
 		return sqlSession.selectOne("boardMapper.getScrapBoardCount", boardNo);
 	}
 
-	public int existLikeBoard(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+	public int existLikeBoard(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
 		return sqlSession.selectOne("boardMapper.existLikeBoard",map);
 	}
 
-	public int deleteLikeBoard(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+	public int deleteLikeBoard(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
 		return sqlSession.delete("boardMapper.deleteLikeBoard", map);
 	}
 

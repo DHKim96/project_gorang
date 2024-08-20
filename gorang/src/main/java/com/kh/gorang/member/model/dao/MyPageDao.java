@@ -1,5 +1,6 @@
 package com.kh.gorang.member.model.dao;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.common.model.vo.PageInfo;
 import com.kh.gorang.member.model.dto.MyPageReviewDTO;
+import com.kh.gorang.member.model.dto.RefrigeratorDtoForNotify;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.MyPageBoardCommentDTO;
 import com.kh.gorang.member.model.vo.MyPageLikeBoardDTO;
@@ -330,6 +332,10 @@ public class MyPageDao {
 
 	public int deleteQna(SqlSessionTemplate sqlSession, Integer qnaNo) {
 		return sqlSession.delete("myPageMapper.deleteQna", qnaNo);
+	}
+
+	public List<RefrigeratorDtoForNotify> findExpiringRefriIngre(SqlSessionTemplate sqlSession, LocalDate alertDate) {
+		return sqlSession.selectList("myPageMapper.findExpiringRefriIngre", alertDate);
 	}
 
 }

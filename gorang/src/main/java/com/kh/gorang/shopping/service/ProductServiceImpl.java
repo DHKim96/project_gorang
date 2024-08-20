@@ -1,5 +1,6 @@
 package com.kh.gorang.shopping.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,10 +9,16 @@ import java.util.Map;
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.gorang.common.eventPublisher.QnaEventPublisher;
 import com.kh.gorang.common.model.vo.PageInfo;
+import com.kh.gorang.member.model.dao.MemberDao;
+import com.kh.gorang.member.model.dto.QnaDtoForNotify;
+import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.QnA;
 import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.shopping.model.dao.ProductDao;
@@ -34,6 +41,14 @@ public class ProductServiceImpl implements ProductService{
 	@Autowired
 	ProductDao productDao;
 	
+	@Autowired
+	private MemberDao memberDao;
+	
+	@Autowired
+	private QnaEventPublisher qnaEventPublisher; // qna 이벤트 발행 위한 객체(상품에서도 사용되기에 따로 분리)
+	
+	
+	@Transactional(rollbackFor = {Exception.class})
 	@Override
 	public int insertProduct(ProductInsertDTO product) {
 
@@ -54,28 +69,32 @@ public class ProductServiceImpl implements ProductService{
 		return productDao.insertOptions(sqlSession, map);
 	}
 
-
+	
+	@Transactional(readOnly = true)
 	@Override
 	public ArrayList<Product> selectBestSellerList() {
 		return productDao.selectBestSellerList(sqlSession);
 	}
-
+	
+	@Transactional(readOnly = true)
 	@Override
 	public ArrayList<Product> selectRecentProductList() {
 		return productDao.selectRecentProductList(sqlSession);
 	}
 
-
+	@Transactional(readOnly = true)
 	@Override
 	public int selectProductCount(Map<String, String> map) {
 		return productDao.selectProductCount(sqlSession, map);
 	}
-
+	
+	@Transactional(readOnly = true)
 	@Override
 	public ArrayList<Product> selectResultProductList(PageInfo pi, Map<String, String> map) {
 		return productDao.selectResultProductList(sqlSession, pi, map);
 	}
-
+	
+	@Transactional(readOnly = true)
 	@Override
 	public Product selectProductByProductNo(int productNo) {
 		
@@ -88,22 +107,25 @@ public class ProductServiceImpl implements ProductService{
 		
 		return product;
 	}
-
+	
+	@Transactional(readOnly = true)
 	@Override
 	public ArrayList<QnA> selectProductQnAsByPno(int productNo, PageInfo pi) {
 		return productDao.selectProductQnAsByPno(sqlSession, productNo, pi);
 	}
-
-
+	
+	@Transactional(readOnly = true)
 	public int selectAllProductQuantity() {
 		return productDao.selectAllProductQuanity(sqlSession);
 	}
-
+	
+	@Transactional(readOnly = true)
 	@Override
 	public ArrayList<ProductDetailOption> selectProductOptsByPno(int productNo) {
         return productDao.selectProductOptsByPno(sqlSession, productNo);
     }
-
+	
+	@Transactional(readOnly = true)
 	@Override
 	public int selectSaleProductQuantity() {
 		return 0;
@@ -113,15 +135,21 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public int insertProductQna(QnA q) {
 		int result = productDao.insertProductQna(sqlSession, q);
-		int memberNo = 1;
-		if(result > 0 && q.getRefQnaNo() != 0) {
+		if(result > 0) {
 			// 답글 달린 문의글 번호로 해당 문의글 작성자 번호 조회
-			memberNo = productDao.selectMemberNoByRefQnaNo(sqlSession, q.getRefQnaNo());
+			QnaDtoForNotify qnaDto = memberDao.getQnaDtoForNotify(sqlSession, q.getQnaNo(), 1);
+			// 현재 상품글 작성자는 무조건 admin이기 때문에
+			Member productWriter = memberDao.getMemberByNo(sqlSession, 1);
+			// 답변글이 작성되면 질문글 작성자에게 알림을 전송해야하므로 질문글 작성자의 정보 전달
+			// refQnaNo가 있을 경우에는 답변글을 의미
+			Member questionWriter = q.getRefQnaNo() == 0 ? null : memberDao.getQnaWriter(sqlSession, q.getRefQnaNo());
+			// 이벤트 발행 메소드 실행
+	        qnaEventPublisher.publishQnaEvent(qnaDto, productWriter, questionWriter);
 		}
-		return result * memberNo;
+		return result;
 	}
 
-
+	@Transactional(rollbackFor = {Exception.class})
 	@Override
 	public int insertProductReview(Review re) {
 		return productDao.insertProductReview(sqlSession, re);
@@ -145,7 +173,7 @@ public class ProductServiceImpl implements ProductService{
 		return productDao.selectQnasCount(sqlSession, productNo);
 	}
 
-
+	@Transactional(rollbackFor = {Exception.class})
 	@Override
 	public int insertScrapProduct(ScrapBoardDTO scrapBoardDTO) {
 		
@@ -189,6 +217,4 @@ public class ProductServiceImpl implements ProductService{
 	public int existScrapProduct(ScrapBoardDTO scrapBoardDTO) {
 		return productDao.existScrapProduct(sqlSession, scrapBoardDTO);
 	}
-
-
 }

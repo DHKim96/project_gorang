@@ -8,9 +8,13 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.kh.gorang.member.model.dto.NotifyDto;
+import com.kh.gorang.member.model.dto.LikeDtoForNotify;
+import com.kh.gorang.member.model.dto.QnaDtoForNotify;
+import com.kh.gorang.member.model.dto.ReviewDtoForNotify;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.ProductCart;
+import com.kh.gorang.member.model.vo.QnA;
+import com.kh.gorang.notification.model.vo.NotifyDto;
 
 @Repository
 public class MemberDao {
@@ -69,11 +73,38 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.phoneCheck", phone);
 	}
 
-	public int insertNotification(SqlSessionTemplate sqlSession, NotifyDto notificationData) {
-		return sqlSession.insert("memberMapper.insertNotification", notificationData);
+	public Member getMemberByNo(SqlSessionTemplate sqlSession, int boardWriterNo) {
+		return sqlSession.selectOne("memberMapper.getMemberByNo", boardWriterNo);
+	}
+	
+	// ======================================== 알림 관련 코드 ===================================
+
+	public LikeDtoForNotify getLikeForNotify(SqlSessionTemplate sqlSession, int memberNo, int writingNo, int type) {
+		Map<String, Integer> params = new HashMap<>();
+		params.put("type", type);
+		params.put("memberNo", memberNo);
+		params.put("writingNo", writingNo);
+		// 타입이 1이면 게시글 좋아요 반환, 타입이 2이면 레시피 좋아요 반환
+		return sqlSession.selectOne("memberMapper.getLikeForNotify", params);
 	}
 
-	public ArrayList<NotifyDto> selectNotificationsByMemberNo(SqlSessionTemplate sqlSession, int memberNo) {
-		return (ArrayList)sqlSession.selectList("memberMapper.selectNotificationsByMemberNo", memberNo);
+	public QnaDtoForNotify getQnaDtoForNotify(SqlSessionTemplate sqlSession, int qnaNo, int qnaType) {
+		Map<String, Integer> params = new HashMap<String, Integer>();
+		params.put("qnaNo", qnaNo);
+		params.put("qnaType", qnaType);
+		return sqlSession.selectOne("memberMapper.getQnaDtoForNotify", params);
 	}
+
+	public Member getQnaWriter(SqlSessionTemplate sqlSession, int refQnaNo) {
+		return sqlSession.selectOne("memberMapper.getQnaWriter", refQnaNo);
+	}
+
+	public ReviewDtoForNotify getReviewDtoForNotify(SqlSessionTemplate sqlSession, int reviewNo, int type) {
+		Map<String, Integer> params = new HashMap<String, Integer>();
+		params.put("reviewNo", reviewNo);
+		params.put("type", type);
+		
+		return sqlSession.selectOne("memberMapper.getReviewDtoForNotify", params);
+	}
+
 }
