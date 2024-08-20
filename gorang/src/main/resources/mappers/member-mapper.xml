@@ -84,7 +84,7 @@
 	<result column="product_no" property="refProductNo"/>
 	<result column="product_name" property="productName"/>
 	<result column="rcp_no" property="refRecipeNo"/>
-	<result column="rcp_title" property="recipeTitle"/>
+	<result column="rcp_title" property="recipeTitle" javaType="String" jdbcType="VARCHAR"/>
 	<result column="qna_answer_type" property="QuestionOrAnswer"/>
 	<result column="member_nickname" property="writerNickname"/>
 </resultMap>

@@ -24,7 +24,9 @@ function moveDetailPage(element) {
   }
 }
 // ========================= 전역 변수 ======================================
+
 const ctx = document.querySelector("#main-container").getAttribute('data-contextPath');
+
 
 // ======================== SSE 알림 =======================================
 function setEventSource(loginUser){
@@ -87,5 +89,3 @@ function setEventSource(loginUser){
       }
   };
 }
-
-

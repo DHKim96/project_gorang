@@ -106,7 +106,7 @@ function setNotificationDropDownLi(dropDownUl, notify){
     setNotificationDeleteDiv(dropDownLi);
 
     dropDownLi.addEventListener('click', () => {
-        location.href = headerContextPath + notify.notifyUrl;
+        updateNotificationIsReadTrueByAjax(notify);
     })
 
     //클릭 시 배경색 변하는 이벤트 부여
@@ -155,15 +155,20 @@ function setNotificationDeleteDiv(dropDownLi){
 
     // div 클릭 시 삭제
     deleteDiv.addEventListener('click', (ev) => {
-        ev.stopPropagation();
-        let loginUserMemberNo = parseInt(document.querySelector("#header-profile-img").getAttribute('data-value'));
-        const notificationNo = dropDownLi.getAttribute('data-notificationNo');
-        data = {
-                notifyNo : parseInt(notificationNo),
-                memberNo : loginUserMemberNo
-            };
-        deleteNotificationByAjax(data, (res) => setNotifyDropdown(res));
+        handleClickDeleteDiv(ev, dropDownLi);
     })
+}
+
+/** DIV 클릭 시 삭제하는 메소드 */
+function handleClickDeleteDiv(ev, dropDownLi){
+    ev.stopPropagation();
+    let loginUserMemberNo = parseInt(document.querySelector("#header-profile-img").getAttribute('data-value'));
+    const notificationNo = dropDownLi.getAttribute('data-notificationNo');
+    data = {
+            notifyNo : parseInt(notificationNo),
+            memberNo : loginUserMemberNo
+        };
+    deleteNotificationByAjax(data, (res) => setNotifyDropdown(res));
 }
 
 /** 알림 삭제 요청 ajax */
@@ -174,6 +179,22 @@ function deleteNotificationByAjax(data, callback){
         success: (res) => {
             console.log("삭제 성공");
             callback(res);
+        },
+        error: () => {
+            console.log("통신 실패");
+        }
+    })
+}
+
+/** 알림 내용 클릭 시 notify.isRead = true 로 update 하는 메소드 */
+function updateNotificationIsReadTrueByAjax(notify){
+    $.ajax({
+        url:"notifications/updateNotificationIsReadTrueByAjax",
+        data: {notifyNo : notify.no},
+        success: (res) => {
+            if ( res === 0 ) return;
+            console.log("읽음 표시 성공");
+            location.href = headerContextPath + notify.notifyUrl;
         },
         error: () => {
             console.log("통신 실패");

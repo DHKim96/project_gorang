@@ -9,6 +9,7 @@
 		<setting name="jdbcTypeForNull" value="NULL" />
 		<!-- logImpl에서 value: STDOUT_LOGGING 로 되어있다면 sqlsession을 여닫을때마다 로그 출력됨  -->
 		<setting name="logImpl" value="LOG4J"/>
+		<!-- <setting name="logImpl" value="STDOUT_LOGGING"/> -->
 	</settings>
 
 	<!-- typeAlias: VO/DTO 클래스들의 풀클래스명을 단순한 클래스명(별칭)으로 사용하기 위한 별칭을 등록하는 영역 -->

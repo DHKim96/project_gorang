@@ -76,6 +76,12 @@
   	where notify_no = #{notifyNo}
   </delete>
   
+  <update id="updateNotificationIsReadTrueByNotifyNo">
+  	update notify
+  	set notify_isread = 'true'
+  	where notify_no = #{notifyNo}
+  </update>
+  
 </mapper>
   
  

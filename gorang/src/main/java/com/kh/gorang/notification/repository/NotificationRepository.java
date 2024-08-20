@@ -10,4 +10,6 @@ public interface NotificationRepository {
 	ArrayList<NotifyDto> selectNotificationsByMemberNo(int memberNo);
 
 	int deleteNotificationByNotifyNo(int notifyNo);
+
+	int updateNotificationIsReadTrueByNotifyNo(int notifyNo);
 }

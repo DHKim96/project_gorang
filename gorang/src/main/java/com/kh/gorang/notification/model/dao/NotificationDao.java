@@ -20,4 +20,8 @@ public class NotificationDao {
 	public int deleteNotificationByNotifyNo(SqlSessionTemplate sqlSession, int notifyNo) {
 		return sqlSession.delete("notifyMapper.deleteNotificationByNotifyNo", notifyNo);
 	}
+
+	public int updateNotificationIsReadTrueByNotifyNo(SqlSessionTemplate sqlSession, int notifyNo) {
+		return sqlSession.update("notifyMapper.updateNotificationIsReadTrueByNotifyNo", notifyNo);
+	}
 }

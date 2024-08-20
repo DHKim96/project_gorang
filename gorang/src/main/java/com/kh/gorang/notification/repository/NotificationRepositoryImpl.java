@@ -38,4 +38,11 @@ public class NotificationRepositoryImpl implements NotificationRepository{
 	public int deleteNotificationByNotifyNo(int notifyNo) {
 		return notificationDao.deleteNotificationByNotifyNo(sqlSession, notifyNo);
 	}
+	
+	// 알림 isRead = true 로 수정하는 메소드
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public int updateNotificationIsReadTrueByNotifyNo(int notifyNo) {
+		return notificationDao.updateNotificationIsReadTrueByNotifyNo(sqlSession, notifyNo);
+	}
 }
