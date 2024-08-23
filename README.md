@@ -81,11 +81,13 @@
 ### 로그인 및 회원가입
 **로그인**
 ![로그인](https://github.com/user-attachments/assets/c6a848a4-217b-49c1-ba90-c449bb1c061e)
--구현 기능
-   -로그인 버튼 클릭 시 API 요청 통해 이메일 등록 여부, 비밀번호 일치 여부를 확인합니다.
-   -비밀번호는 BCryptPasswordEncoder 클래스를 통해 암호화되어 저장되기에 BCryptPasswordEncoder.matches 메소드를 통해 일치 여부 판단 후 최종적으로 로그인됩니다.
--추후 구현 예정
-   -로그인 상태 유지, 비밀번호 재설정 기능은 추후 구현 예정
+*구현 기능
+   *로그인 버튼 클릭 시 API 요청 통해 이메일 등록 여부, 비밀번호 일치 여부를 확인합니다.
+   *비밀번호는 BCryptPasswordEncoder 클래스를 통해 암호화되어 저장되기에 BCryptPasswordEncoder.matches 메소드를 통해 일치 여부 판단 후 최종적으로 로그인됩니다.
+
+
+*추후 구현 예정
+   *로그인 상태 유지, 비밀번호 재설정 기능은 추후 구현 예정
 
 
 **소셜 로그인(EX.구글)**
