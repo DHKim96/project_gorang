@@ -87,44 +87,44 @@
 - **로그인**
    ![로그인](https://github.com/user-attachments/assets/c6a848a4-217b-49c1-ba90-c449bb1c061e)
 
-   - *구현 기능*
-   - 로그인 버튼 클릭 시 API 요청 통해 이메일 등록 여부, 비밀번호 일치 여부 확인
-   - 비밀번호는 BCryptPasswordEncoder 클래스를 통해 암호화되어 저장되기에 BCryptPasswordEncoder.matches 메소드를 통해 일치 여부 판단 후 최종적으로 로그인됩니다.
+   - 구현 기능
+      - 로그인 버튼 클릭 시 API 요청 통해 이메일 등록 여부, 비밀번호 일치 여부 확인
+      - 비밀번호는 BCryptPasswordEncoder 클래스를 통해 암호화되어 저장되기에 BCryptPasswordEncoder.matches 메소드를 통해 일치 여부 판단 후 최종적으로 로그인됩니다.
 
-   - *추후 구현 예정*
-   - 로그인 상태 유지, 비밀번호 재설정 기능은 추후 구현 예정
+   - 추후 구현 예정
+      - 로그인 상태 유지, 비밀번호 재설정 기능은 추후 구현 예정
 
 - **소셜 로그인(EX.구글)**
    ![구글 로그인](https://github.com/user-attachments/assets/cfb47ae3-9d57-4bd2-bf22-84362add708f)
-   - *구현 기능*
-   - 구글, 네이버, 카카오 API를 활용하여 OAuth2.0 방식의 소셜 로그인 기능
-   - url 요청 시 CSRF 공격 방지 목적의 state 변수 추가하여 보안성을 확보하였습니다.
+   - 구현 기능
+      - 구글, 네이버, 카카오 API를 활용하여 OAuth2.0 방식의 소셜 로그인 기능
+      - url 요청 시 CSRF 공격 방지 목적의 state 변수 추가하여 보안성을 확보하였습니다.
 
 - **회원가입**
    ![회원가입](https://github.com/DHKim96/project_gorang/assets/156169335/588647c1-929b-48a7-b956-0e3b90c46db4)
-   - *구현 기능*
-   - JavaMailSender 기반의 이메일 인증
-      - 이메일란의 본인인증 버튼 클릭 시 API 요청 통해 이메일 중복 여부를 체크하고
-      - SimpleMailMessage, JavaMailSender를 통해 6자리 난수 전송하여 인증 과정을 수행합니다.
-      - 이때 클라이언트에서는 ASNCY과 AWAIT, PROMISE를 통해 과정의 순차성을 확보하였습니다.
-   - coolSMS API 기반의 핸드폰 번호 인증
-      - 전화번호란의 본인인증 버튼 클릭 시 API 요청 통해 전화번호 중복 여부를 체크하고
-      - SDK 방식의 coolSMS 외부 API 활용하여 6자리 난수 전송하여 인증 과정을 수행합니다.
-      - 이때 클라이언트에서는 ASNCY과 AWAIT, PROMISE를 통해 과정의 순차성을 확보하였습니다.
-   - 다음카카오 주소 API 기반의 우편번호 및 주소 입력
+   - 구현 기능
+      - JavaMailSender 기반의 이메일 인증
+         - 이메일란의 본인인증 버튼 클릭 시 API 요청 통해 이메일 중복 여부를 체크하고
+         - SimpleMailMessage, JavaMailSender를 통해 6자리 난수 전송하여 인증 과정을 수행합니다.
+         - 이때 클라이언트에서는 ASNCY과 AWAIT, PROMISE를 통해 과정의 순차성을 확보하였습니다.
+      - coolSMS API 기반의 핸드폰 번호 인증
+         - 전화번호란의 본인인증 버튼 클릭 시 API 요청 통해 전화번호 중복 여부를 체크하고
+         - SDK 방식의 coolSMS 외부 API 활용하여 6자리 난수 전송하여 인증 과정을 수행합니다.
+         - 이때 클라이언트에서는 ASNCY과 AWAIT, PROMISE를 통해 과정의 순차성을 확보하였습니다.
+      - 다음카카오 주소 API 기반의 우편번호 및 주소 입력
 
 ### 메인UI
    ![고랭 메인페이지](https://github.com/DHKim96/project_gorang/assets/156169335/15a215c9-9d5e-4f19-8d72-56937f344145)
-   - *구현 기능*
-   - SSE(Server Sent Event) 방식의 실시간 알림
-      - 사용자의 작성글에 댓글/문의/리뷰가 달리거나 문의글에 답변이 달리는 등 이벤트가 발생할 시 서버에서 사용자에게 즉각적으로 알려주고자 SSE 방식의 실시간 알림 기능을 구현하였습니다. 해당 기능의 동작 과정은 아래와 같습니다.
-      - 먼저 메인페이지의 클라이언트에서 EventSource를 통해 서버에 SSE 연결을 요청하도록 하였습니다.
-      - 이후 상기한 이벤트(insert)가 발생할 경우 스프링 프레임워크의 ApplicationEventPublisher를 알림 객체 및 SseEmitter를 생성하는 이벤트를 발행하고 마찬가지로 서버의 @EventListener를 통해 해당 이벤트 내용을 전송하도록 하였습니다.
-      - 이때 INSERT 관련 트랜잭션이 커밋된 후 이벤트 리스너가 실행되는 것을 보장하고자 @TransactionalEventListener을 사용하였습니다.
-      - 추가적으로 NGINX를 사용하고 있는 배포 환경에서 SSE 방식의 실시간성을 위해서는 proxy buffering 설정을 OFF해야하지만, 타 API의 응답에 대해서도 버퍼링을 하지 않을 수 있음을 고려하여 nginx의 X-accel 기능을 활용, SSE의 응답 헤더에만 X-Accel-Buffering을 NO로 설정하여 선택적으로 proxy buffering을 동작하게 하여 효율성을 높였습니다.
+   - 구현 기능
+      - SSE(Server Sent Event) 방식의 실시간 알림
+         - 사용자의 작성글에 댓글/문의/리뷰가 달리거나 문의글에 답변이 달리는 등 이벤트가 발생할 시 서버에서 사용자에게 즉각적으로 알려주고자 SSE 방식의 실시간 알림 기능을 구현하였습니다. 해당 기능의 동작 과정은 아래와 같습니다.
+         - 먼저 메인페이지의 클라이언트에서 EventSource를 통해 서버에 SSE 연결을 요청하도록 하였습니다.
+         - 이후 상기한 이벤트(insert)가 발생할 경우 스프링 프레임워크의 ApplicationEventPublisher를 알림 객체 및 SseEmitter를 생성하는 이벤트를 발행하고 마찬가지로 서버의 @EventListener를 통해 해당 이벤트 내용을 전송하도록 하였습니다.
+         - 이때 INSERT 관련 트랜잭션이 커밋된 후 이벤트 리스너가 실행되는 것을 보장하고자 @TransactionalEventListener을 사용하였습니다.
+         - 추가적으로 NGINX를 사용하고 있는 배포 환경에서 SSE 방식의 실시간성을 위해서는 proxy buffering 설정을 OFF해야하지만, 타 API의 응답에 대해서도 버퍼링을 하지 않을 수 있음을 고려하여 nginx의 X-accel 기능을 활용, SSE의 응답 헤더에만 X-Accel-Buffering을 NO로 설정하여 선택적으로 proxy buffering을 동작하게 하여 효율성을 높였습니다.
 
-   - *추후 구현 예정*
-   - SSE 실시간 알림 작동 시 헤더의 알림 버튼에 특정한 표시가 나타나게 하여 사용성을 높이고자 합니다.
+   - 추후 구현 예정
+      - SSE 실시간 알림 작동 시 헤더의 알림 버튼에 특정한 표시가 나타나게 하여 사용성을 높이고자 합니다.
 
 ### 커뮤니티
 - **커뮤니티 메인**
