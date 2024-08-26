@@ -3,12 +3,22 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log("contextPath:", ctx)
 
     document.querySelector("#gorang-logo").addEventListener("click", () => location.href = ctx);
-    document.querySelector("input[name='memberEmail']").addEventListener('blur', validateEmail);
-    document.querySelector("input[name='memberPwd']").addEventListener('blur', validatePwd);
-    document.querySelector("#register-pwd-confirm").addEventListener('blur', validatePwdConfirm);
-    document.querySelector("input[name='nickname']").addEventListener('blur', validateNickname);
-    document.querySelector("input[name='memberPhone']").addEventListener('blur', validatePhoneNumber);
-    document.querySelector("input[name='birth']").addEventListener('blur', validateBirthdate);
+    
+    document.addEventListener('blur', function (event) {
+        if (event.target.matches("input[name='memberEmail']")) {
+            validateEmail();
+        } else if (event.target.matches("input[name='memberPwd']")) {
+            validatePwd();
+        } else if (event.target.matches("#register-pwd-confirm")) {
+            validatePwdConfirm();
+        } else if (event.target.matches("input[name='nickname']")) {
+            validateNickname();
+        } else if (event.target.matches("input[name='memberPhone']")) {
+            validatePhoneNumber();
+        } else if (event.target.matches("input[name='birth']")) {
+            validateBirthdate();
+        }
+    }, true);
 
     document.querySelector("#addressSearch > button").addEventListener('click', setAddress);
 
@@ -88,6 +98,7 @@ function sendEmailAuthNoAjax(data, callback){
 class EmailAuthentication{
 
     constructor(){
+        this.isSending = false; // 중복 요청 방지 플래그
         this.isSend = false; // 인증번호 전송 여부
         this.authNo = ''; // 인증번호
         this.timerId = null; //타이머
@@ -108,6 +119,9 @@ class EmailAuthentication{
     }
 
     sendAuthNum = async () => {
+        if (this.isSending) return; // 이미 요청 중이면 중단
+        this.isSending = true;
+
         const email = $("input[name='memberEmail']").val();
         
         // 이메일 본인인증 클릭 시 db 에서 체크하도록
@@ -150,6 +164,7 @@ class EmailAuthentication{
             }
         });
 
+        this.isSending = false; // 요청 완료 후 플래그 해제
     };
 
     checkAuthNum = () => {
@@ -320,6 +335,7 @@ function checkNickname(idCheckBtn, nicknameNotice, nickname) {
 class PhoneAuthentication{
 
     constructor(){
+        this.isSending = false; // 중복 요청 방지 플래그
         this.isSend = false; // 인증번호 전송 여부
         this.authNo = ''; // 인증번호
         this.timerId = null; //타이머
@@ -345,6 +361,9 @@ class PhoneAuthentication{
     }
 
     sendAuthNum = async function(){
+        if (this.isSending) return; // 이미 요청 중이면 중단
+        this.isSending = true;
+
         const phone = $("input[name='memberPhone']").val();
         // 핸드폰 번호 본인인증 클릭 시 db 에서 체크하도록
         const isPhoneRegistered = await new Promise((resolve) => {
@@ -385,6 +404,7 @@ class PhoneAuthentication{
             }
         });
 
+        this.isSending = false; // 요청 완료 후 플래그 해제
     };
 
     
