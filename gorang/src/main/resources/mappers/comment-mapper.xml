@@ -96,7 +96,7 @@
     WHERE COMMENT_NO = #{commentNo} OR REF_COMMENT_NO = #{commentNo}
 </update>
 
-<insert id="insertReReply" parameterType="InsertCommentDTO">
+<insert id="insertReReply" useGeneratedKeys="true" keyProperty="commentNo">
 	INSERT INTO COMMENTS (
 		MEMBER_NO,
 		BOARD_NO,
